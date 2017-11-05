@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15099021046931" configfile="/onlineshop-war/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="1138" id="pf15099021242052" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15099021242053 pf15099021242054 pf15099021242055 pf15099021242056 pf15099021242057 pf150990544752613" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.jsf" x="338" y="178" id="pf15099021242068" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15099021242053" path="index.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="register.jsf" x="338" y="562" id="pf15099021242069" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf15099021242054" path="register.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="signin.jsf" x="338" y="946" id="pf150990212420610" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf15099021242055" path="signin.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="sell.jsf" x="338" y="1330" id="pf150990212420611" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf15099021242056" path="sell.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="search.jsf" x="338" y="1714" id="pf150990212420612" referenceLink="//@navigationRule.0/@navigationCase.5/@toViewId|" inlinks="pf15099021242057" path="search.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="product.jsf" x="338" y="2098" id="pf150990544752614" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf150990544752613" path="product.jsf"/>
+  <links id="pf15099021242053" target="pf15099021242068" source="pf15099021242052" outcome="index" redirect="true"/>
+  <links id="pf15099021242054" target="pf15099021242069" source="pf15099021242052" outcome="register" redirect="true"/>
+  <links id="pf15099021242055" target="pf150990212420610" source="pf15099021242052" outcome="signin" redirect="true"/>
+  <links id="pf15099021242056" target="pf150990212420611" source="pf15099021242052" outcome="sell" redirect="true"/>
+  <links id="pf15099021242057" target="pf150990212420612" source="pf15099021242052" outcome="search" redirect="true"/>
+  <links id="pf150990544752613" target="pf150990544752614" source="pf15099021242052" outcome="product" redirect="true"/>
+</pageflow:Pageflow>

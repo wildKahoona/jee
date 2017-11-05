@@ -1,0 +1,61 @@
+package ffhs.onlineshop.repository;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.TypedQuery;
+import javax.transaction.UserTransaction;
+
+import ffhs.onlineshop.model.Customer;
+
+public class UserDAO implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
+	@PersistenceUnit
+	private EntityManagerFactory emf;
+	
+	@Resource
+	private UserTransaction ut;
+	
+    /**
+     * get customer by email
+     * 
+     * @param email
+     * @return
+     * @throws SQLException
+     */
+    public String getCustomerByLogin(String email) {
+    	EntityManager em = emf.createEntityManager();
+		TypedQuery<Customer> query = em.createQuery(
+			"SELECT c FROM Customer c WHERE c.email= :email ", Customer.class);
+		query.setParameter("email", email);
+		List<Customer> list = query.getResultList();
+		if(list != null && list.size() > 0) {
+			String password = list.get(0).getPassword();
+            return password;
+		}
+		
+		return null;
+    }
+
+    public Customer findUser(String email) {
+    	EntityManager em = emf.createEntityManager();
+		TypedQuery<Customer> query = em.createQuery(
+			"SELECT c FROM Customer c WHERE c.email= :email ", Customer.class);
+		query.setParameter("email", email);
+		List<Customer> list = query.getResultList();
+		if(list != null && list.size() > 0) {
+            return list.get(0);
+		}
+		
+		return null;
+    }
+    
+    
+}
+
