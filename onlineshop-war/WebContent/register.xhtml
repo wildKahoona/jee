@@ -1,25 +1,62 @@
 <ui:composition template="/template.xhtml"
 				xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core">
+			  	xmlns:ui="http://java.sun.com/jsf/facelets"
+			  	xmlns:h="http://xmlns.jcp.org/jsf/html"
+			  	xmlns:f="http://java.sun.com/jsf/core"
+			  	xmlns:c="http://java.sun.com/jsp/jstl/core"
+			  	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <ui:define name="content">
-<h:outputLabel value="#{signinController.email}"/>
-	<h:form id="registerForm" prependId="false">
-		<h:message for="registerForm" showSummary="true"/>
-		<h:panelGrid columns="3">
-			<f:facet name="header">
-				<h:outputText value="#{msg['register']}"/>
-			</f:facet>
-			<h:outputLabel value="#{msg['email']}:"/>
-			<h:inputText id="email" value="#{registerController.customer.email}"/>
-			<h:message for="email"/>
-			<h:outputLabel value="#{msg['password']}:"/>
-			<h:inputSecret id="password" value="#{registerController.customer.password}"/>
-			<h:message for="password"/>
-			<h:commandButton id="register" value="#{msg['register']}" action="#{registerController.persist}"/>
-			<h:message for="register"/>		
-		</h:panelGrid>
-	</h:form>
+
+	<div class="row">
+		<div class="col-md-6">
+	  
+			<div class="panel panel-primary" style="margin:20px;">
+				<div class="panel-heading">
+					<h3 class="panel-title">Registration Form</h3>
+				</div>
+				<div class="panel-body">
+			
+					<h:outputLabel value="#{signinController.email}"/>
+					
+					<h:form id="registerForm" prependId="false">
+						<h:message for="registerForm" showSummary="true" styleClass="text-success"/>
+						
+						<div class="form-group"> 
+							<h:outputLabel for="email" value="#{msg['email']}:"/>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<h:inputText type="email" class="form-control" id="email" value="#{registerController.customer.email}" p:placeholder="Enter your email" name="email" required="true"/>
+								</div>
+							</div>
+						 </div>
+						 		
+						 <div class="form-group">
+						 	<h:outputLabel for="password" value="#{msg['password']}:"/>
+						 	<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+						 			<h:inputSecret type="password" class="form-control" id="password" value="#{registerController.customer.password}" p:placeholder="Enter new email" name="password"/>
+						 		</div>
+						 	</div>
+						 </div>
+						 
+						 <div class="form-group">
+						 	<div class="text-right">
+
+						 		<h:commandLink id="register" class="btn btn-primary btn-block pull-right" action="#{registerController.persist}">
+						 			<span class="glyphicon glyphicon-log-out"></span>#{msg['register']}
+						 		</h:commandLink>
+						 	</div>
+						 </div>
+						 
+						 <h:message for="register" styleClass="text-success"/>
+					</h:form>	
+				
+				</div>
+			</div>
+		
+		</div>
+	</div>
 </ui:define>
 </ui:composition>
