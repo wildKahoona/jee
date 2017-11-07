@@ -10,15 +10,14 @@
 		<div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
-                    <!-- <ui:include src="leftMenu.xhtml" /> -->
                     <h:form>
-                    <f:ajax render=":content">
-                    <ul class="nav nav-sidebar">
-			            <li class="active"><a href="#">Overview</a></li>     
-			            <li><h:commandLink value="Kategorien" action="#{navigationController.setPage('test1.xhtml')}" /></li>            
-		                <li><h:commandLink value="Optionen" action="#{navigationController.setPage('test2.xhtml')}" /></li>
-			        </ul>
-			        </f:ajax>
+	                    <f:ajax render=":content">
+		                    <ul class="nav nav-sidebar">
+					            <li class="active"><a href="#">Overview</a></li>     
+					            <li><h:commandLink value="Kategorien" action="#{navigationController.setPage('test1.xhtml')}" /></li>            
+				                <li><h:commandLink value="Optionen" action="#{navigationController.setPage('test2.xhtml')}" /></li>
+					        </ul>
+				        </f:ajax>
 			        </h:form>
                 </div>
                 
@@ -27,8 +26,7 @@
                 		<ui:include src="#{navigationController.page}" />   
                 	</h:panelGroup>
                 </div>
-                
-                
+                     
             </div>
         </div>
         

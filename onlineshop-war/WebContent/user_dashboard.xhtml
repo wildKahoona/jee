@@ -10,17 +10,16 @@
 		<div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
-                    <!-- <ui:include src="leftMenu.xhtml" /> -->
                     <h:form>
-                    <f:ajax render=":content">
-                    <ul class="nav nav-sidebar">
-			            <li class="active"><a href="#">Overview</a></li>
-			            <li><h:commandLink value="Meine Adresse" action="#{navigationController.setPage('test1.xhtml')}" /></li>   
-			            <li><h:commandLink value="Meine Einkäufe" action="#{navigationController.setPage('test2.xhtml')}" /></li>         
-		                <li><h:commandLink value="Meine Angebote" action="#{navigationController.setPage('test2.xhtml')}" /></li>
-			            <li><h:commandLink value="Neues Angebot" action="#{navigationController.setPage('test2.xhtml')}" /></li>
-			        </ul>
-			        </f:ajax>
+	                    <f:ajax render=":content">
+		                    <ul class="nav nav-sidebar">
+					            <li class="active"><a href="#">Overview</a></li>
+					            <li><h:commandLink value="Meine Adresse" action="#{navigationController.setPage('test1.xhtml')}" /></li>   
+					            <li><h:commandLink value="Meine Einkäufe" action="#{navigationController.setPage('test2.xhtml')}" /></li>         
+				                <li><h:commandLink value="Meine Angebote" action="#{navigationController.setPage('test2.xhtml')}" /></li>
+					            <li><h:commandLink value="Neues Angebot" action="#{navigationController.setPage('test2.xhtml')}" /></li>
+					        </ul>
+				        </f:ajax>
 			        </h:form>
                 </div>
                 
@@ -29,7 +28,6 @@
                 		<ui:include src="#{navigationController.page}" />   
                 	</h:panelGroup>
                 </div>
-                
                 
             </div>
         </div>
