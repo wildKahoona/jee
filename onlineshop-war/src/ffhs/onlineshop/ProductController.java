@@ -3,6 +3,7 @@ package ffhs.onlineshop;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
@@ -30,6 +31,7 @@ public class ProductController implements Serializable {
 	@Resource
 	private UserTransaction ut;			
 	private List<Item> items;	
+	private Item selectedItem;
 
 	public List<Item> getItems() {
 		items = findAll();
@@ -50,4 +52,19 @@ public class ProductController implements Serializable {
 		}
 		return new ArrayList<Item>();
 	}
+	
+	public void showItemDetail(Long itemID){	
+		Optional<Item> item = items.stream().filter(x -> x.getId() == itemID).findFirst();
+		if (item.isPresent())
+			setSelectedItem(item.get());
+	}
+
+	public Item getSelectedItem() {
+		return selectedItem;
+	}
+
+	public void setSelectedItem(Item selectedItem) {
+		this.selectedItem = selectedItem;
+	}
+	
 }

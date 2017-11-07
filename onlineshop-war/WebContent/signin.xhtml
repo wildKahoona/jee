@@ -1,0 +1,63 @@
+<ui:composition template="/template.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+			  	xmlns:ui="http://java.sun.com/jsf/facelets"
+			  	xmlns:h="http://xmlns.jcp.org/jsf/html"
+			  	xmlns:f="http://java.sun.com/jsf/core"
+			  	xmlns:c="http://java.sun.com/jsp/jstl/core"
+			  	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="content">
+	
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+		  
+				<div class="panel panel-primary" style="margin:20px;">
+					<div class="panel-heading">
+						<h3 class="panel-title">SignIn Form</h3>
+					</div>
+					<div class="panel-body">
+				
+						<h:outputLabel value="#{signinController.email}" styleClass="text-success"/>
+						
+						<h:form id="signinForm" prependId="false">
+							<h:message for="signinForm" showSummary="true" styleClass="text-success"/>
+							
+							<div class="form-group"> 
+								<h:outputLabel for="email" value="#{msg['email']}:"/>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+										<h:inputText type="email" class="form-control" id="email" value="#{signinController.email}" p:placeholder="Enter your email" name="email" required="true"/>
+									</div>
+								</div>
+							 </div>
+							 		
+							 <div class="form-group">
+							 	<h:outputLabel for="password" value="#{msg['password']}:"/>
+							 	<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+							 			<h:inputSecret type="password" class="form-control" id="password" value="#{signinController.password}" p:placeholder="Enter new email" name="password"/>
+							 		</div>
+							 	</div>
+							 </div>
+							 
+							<hr/>
+							<div class="row">
+								<div class="col-xs-12 col-md-6"></div>
+								<div class="col-xs-6 col-md-6">
+									<h:commandLink id="register" class="btn btn-primary btn-block pull-right" action="#{signinController.find}">
+							 			<span class="glyphicon glyphicon-log-in"></span> #{msg['signin']}
+							 		</h:commandLink>
+								</div>
+							</div>
+	
+							 <!-- <h:message for="register" styleClass="text-success"/> -->
+						</h:form>	
+					
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
