@@ -3,7 +3,6 @@ package ffhs.onlineshop;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.enterprise.context.RequestScoped;
@@ -11,9 +10,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
-import javax.transaction.UserTransaction;
 
 import ffhs.onlineshop.model.Customer;
 import ffhs.onlineshop.repository.UserDAO;
@@ -61,12 +57,8 @@ public class AddressController implements Serializable {
 	
 	public String persist() {
 		try {
-			System.out.println("Vor Gespeichert: " + customer.getFirstname() + "..." + customer.getCountry());
-			
 			userDAO.updateCustomer(customer);
-			
-			System.out.println("Nach Gespeichert: " + customer.getCountry());
-			
+
 			FacesMessage message = 
 				new FacesMessage(
 					"Succesfully saved!",
