@@ -61,7 +61,7 @@ public class AddressController implements Serializable {
 	
 	public String persist() {
 		try {
-			System.out.println("Vor Gespeichert: " + customer.getCountry());
+			System.out.println("Vor Gespeichert: " + customer.getFirstname() + "..." + customer.getCountry());
 			
 			userDAO.updateCustomer(customer);
 			
@@ -77,16 +77,16 @@ public class AddressController implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error: " + e.getMessage());
-			FacesMessage m = 
+			FacesMessage message = 
 				new FacesMessage(
 					FacesMessage.SEVERITY_WARN,
 					e.getMessage(), // ACHTUNG: nur im Entwicklerstadium anzeigen !!!
 					e.getCause().getMessage());
 			FacesContext
 				.getCurrentInstance()
-				.addMessage("registerForm",m);
+				.addMessage("addressForm",message);
 		}
-		return "/register.jsf";
+		return "/user_dashboard.jsf";
 	}
 	
 	public Customer getCustomer() {
