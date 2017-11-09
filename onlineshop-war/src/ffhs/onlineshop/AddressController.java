@@ -7,15 +7,16 @@ import javax.annotation.Resource;
 import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.transaction.UserTransaction;
 
 import ffhs.onlineshop.model.Customer;
+import ffhs.onlineshop.repository.UserDAO;
 
 @Named
 @RequestScoped
@@ -25,11 +26,8 @@ public class AddressController implements Serializable {
 	@Inject
 	private Customer customer;
 
-	@PersistenceUnit
-	private EntityManagerFactory emf;
-	
-	@Resource
-	private UserTransaction ut;
+	@Inject
+	private UserDAO userDAO;
 	
 	@PostConstruct
     public void init() {
@@ -61,6 +59,35 @@ public class AddressController implements Serializable {
 			}
 	}
 	
+	public String persist() {
+		try {
+			System.out.println("Vor Gespeichert: " + customer.getCountry());
+			
+			userDAO.updateCustomer(customer);
+			
+			System.out.println("Nach Gespeichert: " + customer.getCountry());
+			
+			FacesMessage message = 
+				new FacesMessage(
+					"Succesfully saved!",
+					"Your address was saved under id " + customer.getId());
+			FacesContext
+				.getCurrentInstance()
+				.addMessage("addressForm", message);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error: " + e.getMessage());
+			FacesMessage m = 
+				new FacesMessage(
+					FacesMessage.SEVERITY_WARN,
+					e.getMessage(), // ACHTUNG: nur im Entwicklerstadium anzeigen !!!
+					e.getCause().getMessage());
+			FacesContext
+				.getCurrentInstance()
+				.addMessage("registerForm",m);
+		}
+		return "/register.jsf";
+	}
 	
 	public Customer getCustomer() {
 		return customer;
