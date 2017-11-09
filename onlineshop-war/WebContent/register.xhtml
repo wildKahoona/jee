@@ -21,12 +21,28 @@
 						<h:form id="registerForm" prependId="false">
 							<h:message for="registerForm" showSummary="true" styleClass="text-success"/>
 							
+							<!-- <div class="row"> -->
+								<div class="col-sm-6 form-group">
+									<h:outputLabel value="#{msg['firstname']}:"/>
+									<h:inputText class="form-control" value="#{registerController.customer.firstname}" p:placeholder="#{msg['firstname.placeholder']}" required="true"/>
+								</div>
+								<!-- <div class="col-sm-6 form-group">
+									<h:outputLabel value="#{msg['address.lastname']}:"/>
+									<h:inputText class="form-control" value="#{registerController.customer.lastname}" p:placeholder="#{msg['address.lastname.placeholder']}" required="true"/>
+								</div> -->
+							<!-- </div>			 -->				
+							
+							<div class="col-sm-6 form-group">
+									<h:outputLabel value="#{msg['lastname']}:"/>
+									<h:inputText class="form-control" value="#{registerController.customer.lastname}" p:placeholder="#{msg['lastname.placeholder']}" required="true"/>
+								</div>
+								
 							<div class="form-group"> 
 								<h:outputLabel for="email" value="#{msg['email']}:"/>
 								<div class="cols-sm-10">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-										<h:inputText type="email" class="form-control" id="email" value="#{registerController.customer.email}" p:placeholder="Enter your email" name="email" required="true"/>
+										<h:inputText type="email" class="form-control" value="#{registerController.customer.email}" p:placeholder="#{msg['email.placeholder']}" required="true"/>
 									</div>
 								</div>
 							 </div>

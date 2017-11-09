@@ -82,7 +82,7 @@ public class SigninController implements Serializable {
 	public String find() {
 		try {
 			loggedIn = false;
-			
+			System.out.println("find");
 			String pwd = userDao.getCustomerByLogin(email);
 			
 			EntityManager em = emf.createEntityManager();
@@ -96,6 +96,7 @@ public class SigninController implements Serializable {
 			List<Customer> list = query.getResultList();
 			if(list != null && list.size() > 0) {
 				customer = list.get(0);
+				System.out.println("customer YES");
 				HttpSession session = SessionUtils.getSession();
 				session.setAttribute("username", customer.getEmail());
 				loggedIn = true;

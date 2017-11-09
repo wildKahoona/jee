@@ -27,6 +27,21 @@ public class ItemDAO implements Serializable{
 	@Inject
 	private UserDAO userDao;
 	
+	
+	public void updateItem(Item item){
+		try {
+        	ut.begin();
+        	EntityManager em = emf.createEntityManager();
+        	em.merge(item);
+            em.flush();
+            ut.commit();	
+        } catch (Exception e) {
+			e.printStackTrace();
+        } finally {
+//            em.close();
+        }
+	}
+	
     /**
      * get purchase by email from customer
      * 

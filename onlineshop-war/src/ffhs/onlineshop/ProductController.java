@@ -54,6 +54,7 @@ public class ProductController implements Serializable {
 	}
 	
 	public void showItemDetail(Long itemID){	
+		System.out.println("showItemDetail: " + itemID);
 		Optional<Item> item = items.stream().filter(x -> x.getId() == itemID).findFirst();
 		if (item.isPresent())
 			setSelectedItem(item.get());
