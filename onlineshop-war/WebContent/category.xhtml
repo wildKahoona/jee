@@ -31,11 +31,17 @@
 										</div>
 									</div>
 								 </div>
+								 
+								 <h:commandButton value="#{msg['add']}" action="#{categoryController.add}" class="btn btn-success btnSpace">
+								 	<f:ajax execute="categoryForm" render="categoryForm:categoryTable" />
+								 </h:commandButton>
+        
 						 	</div>
 						 </div>
 							
 						<div class="row">
-							<h:dataTable value="#{categoryController.categoryList}" var="category" 
+							<h:dataTable id="categoryTable"
+										 value="#{categoryController.categoryList}" var="category" 
 										 class="table table-responsive table-bordered table-striped"                                                  > 
 							    <h:column>
 							        <f:facet name="header">#{msg.category}</f:facet>
