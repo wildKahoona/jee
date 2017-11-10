@@ -53,11 +53,11 @@
 .rate-ex2-cnt .rate-btn{
 	width: 30px; height:30px;
 	float: left;
-	background: url(../img/rate-btn2.png) no-repeat;
+	background: url(../img/rate.png) no-repeat;
 	cursor: pointer;
 }
 .rate-ex2-cnt .rate-btn:hover, .rate-ex2-cnt  .rate-btn-hover, .rate-ex2-cnt  .rate-btn-active{
-	background: url(../img/rate-btn2-hover.png) no-repeat;
+	background: url(../img/ratehover.png) no-repeat;
 }
 /* End second Example with big stars */
 
