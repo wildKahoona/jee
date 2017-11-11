@@ -52,7 +52,7 @@
 	background: #FFCC33;
 	padding:10px;
     display:inline-block;
-	margin: 0px 10px 10px 10px;
+	margin: 0px 0px 0px 0px;
 }
 
 .cat-col1-width{
@@ -67,6 +67,14 @@
 	width: 50px;
 }
 
+
+.con-col1-width {
+   width: 150px;
+}
+
+.con-col2-width {
+   width: 50px;
+}
 
 /*  Second Example with big stars */
 .rate-ex2-cnt{

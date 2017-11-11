@@ -77,27 +77,27 @@ public class ItemDAO implements Serializable{
     }
     
     /**
-     * get sells by email from customer
+     * get offers by email from customer
      * 
      * @param email from customer
      * @return
      * @throws SQLException
      */
-    public List<Item> getSellsByCustomer(String email) {
+    public List<Item> getOffersByCustomer(String email) {
     	Customer customer = userDao.findUser(email);
     	if(customer != null)
-    		return getSellsByCustomer(customer);
+    		return getOffersByCustomer(customer);
 		return null;
     }    
  
     /**
-     * get sells by customer
+     * get offers by customer
      * 
      * @param Customer
      * @return
      * @throws SQLException
      */
-    public List<Item> getSellsByCustomer(Customer customer) {
+    public List<Item> getOffersByCustomer(Customer customer) {
     	if(customer != null)
     	{
     		EntityManager em = emf.createEntityManager();

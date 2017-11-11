@@ -35,7 +35,6 @@ public class PurchaseController implements Serializable {
 	
     @PostConstruct
     public void init() {
-    	System.out.println("!!! INIT !!!");
     	//this.username = SecurityContextHolder.getContext().getAuthentication().getName();
     	
 //    	Customer customer = signinController.getCustomer();

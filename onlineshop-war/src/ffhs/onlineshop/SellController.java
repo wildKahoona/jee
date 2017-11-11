@@ -189,6 +189,8 @@ public class SellController implements Serializable {
     }
 	
 	public String persist(SigninController signinController) {
+		System.out.println("!!! Persist !!!");
+		
 		try {
 			ut.begin();
 			EntityManager em = emf.createEntityManager();
@@ -199,6 +201,8 @@ public class SellController implements Serializable {
 //				output.write(buffer, 0, length);
 //			}
 //			item.setFoto(scale(output.toByteArray()));
+			
+			System.out.println("Item: " + item.getTitle());
 			
 			Optional<Category> category = categories.stream().filter(x -> x.getId() == selectedCategory).findFirst();
 			if(category.isPresent())
@@ -224,6 +228,8 @@ public class SellController implements Serializable {
 			em.persist(item);
 			ut.commit();
 
+			System.out.println("Item gespeichert: " + item.getTitle());
+			
 			log.info("Offered item: " + item);
 
 			FacesMessage m = 

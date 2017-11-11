@@ -5,86 +5,65 @@
 			 xmlns:c="http://java.sun.com/jsp/jstl/core"
 			 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	
-		<div class="row">
-			<!-- <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3"> -->
-		  
-				<div class="panel panel-primary" style="margin:20px;">
+		<div class="container" style="margin: 0px;">
+
+				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">Verkaufen</h3>
 					</div>
 					<div class="panel-body">
 					
-						<h:form id="sellForm" prependId="false">
-						
-							<!-- <div class="form-group">					      
-								<h:outputLabel for="title" class="control-label" value="#{msg['item.title']}:"/>
-								<div class="controls">
-									<h:inputText class="form-control" id="title" value="#{sellController.item.title}" p:placeholder="Enter Procuct Title" required="true"/>
-							    </div>
-							</div>
- 
- 							<div class="form-group">						      
-								<h:outputLabel for="price" class="control-label" value="#{msg['item.price']}:"/>
-								<div class="controls">
-									<h:inputText class="form-control" id="price" value="#{sellController.item.price}" p:placeholder="Enter Procuct Title" required="true"/>
-							    </div>
-							</div> -->
+						<h:form id="sellForm" enctype="multipart/form-data" prependId="false">
+												
+							<div class="col-sm-12">
 							
-					<div class="col-sm-12">
-					
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>First Name</label>
-								<input type="text" placeholder="Enter First Name Here.." class="form-control"/>
-							</div>
-							<div class="col-sm-6 form-group">
-								<label>Last Name</label>
-								<input type="text" placeholder="Enter Last Name Here.." class="form-control"/>
-							</div>
-						</div>	
-										
-						<div class="form-group">
-							<label>Address</label>
-							<textarea placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
-						</div>	
-						
-						<div class="row">
-							<div class="col-sm-4 form-group">
-								<label>City</label>
-								<input type="text" placeholder="Enter City Name Here.." class="form-control"/>
-							</div>	
-							<div class="col-sm-4 form-group">
-								<label>State</label>
-								<input type="text" placeholder="Enter State Name Here.." class="form-control"/>
-							</div>	
-							<div class="col-sm-4 form-group">
-								<label>Zip</label>
-								<input type="text" placeholder="Enter Zip Code Here.." class="form-control"/>
-							</div>		
-						</div>
-						
-						<div class="form-group">
-							<label>Phone Number</label>
-							<input type="text" placeholder="Enter Phone Number Here.." class="form-control"/>
-						</div>		
-						<div class="form-group">
-							<label>Email Address</label>
-							<input type="text" placeholder="Enter Email Address Here.." class="form-control"/>
-						</div>	
-						
-						<button type="button" class="btn btn-lg btn-info">Submit</button>					
-					</div>							
-							
-							
-							
-	
-							 <!-- <h:message for="register" styleClass="text-success"/> -->
-						</h:form>	
-					
+								<div class="row">
+									<div class="col-sm-4 form-group">
+										<h:outputLabel for="cat" value="Category:"/>
+										  <h:selectOneMenu id="cat" value="#{sellController.selectedCategory}">
+											<f:selectItem itemValue="-1" itemLabel="-- Bitte wählen --"/>
+											<f:selectItems value="#{sellController.categories}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
+										</h:selectOneMenu>
+									</div>
+									<div class="col-sm-4 form-group">
+										<h:outputLabel for="con" value="Zustand: " />
+										<h:selectOneMenu id="con" value="#{sellController.selectedCondition}" >
+								            <f:selectItem itemValue="-1" itemLabel="-- Bitte wählen --"/>
+								            <f:selectItems value="#{sellController.conditions}" var="condition" itemValue="#{condition.id}" itemLabel="#{condition.description}"/>
+										</h:selectOneMenu>
+									</div>
+								</div>	
+												
+								<div class="row">
+									<div class="col-sm-8 form-group">
+										<h:outputLabel value="#{msg['item.title']}:"/>
+										<input type="text" placeholder="Enter City Name Here.." class="form-control"/>
+									</div>	
+									<div class="col-sm-4 form-group">
+										<h:outputLabel value="#{msg['item.price']}:"/>
+										<input type="text" placeholder="Enter State Name Here.." class="form-control"/>
+									</div>		
+								</div>
+																
+								<div class="form-group">
+									<h:outputLabel value="#{msg['item.description']}:"/>
+									<textarea placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
+								</div>
+																
+								<div class="form-group">
+									<h:outputLabel value="#{msg['item.foto']}:"/>
+									<h:inputFile value="#{sellController.part}"/>
+								</div>		
+
+								<h:commandButton value="#{msg['sell']}"
+												 class="btn btn-primary"
+												 action="#{sellController.persist(signinController)}"/>					
+							</div>							
+
+						</h:form>				
 					</div>
 				</div>
 			
-			<!-- </div> -->
 		</div>
 
 </ui:fragment>
