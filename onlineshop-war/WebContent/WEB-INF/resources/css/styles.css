@@ -43,7 +43,30 @@
   background-color: #428bca;
 }
 
-.column1 { width: 60px; }
+.cat-table{   
+	border-collapse:collapse;
+	padding: 10px;
+}
+
+.cat-panel{
+	background: #FFCC33;
+	padding:10px;
+    display:inline-block;
+	margin: 0px 10px 10px 10px;
+}
+
+.cat-col1-width{
+	width: 100px;
+}
+
+.cat-col2-width{
+	width: 100px;
+}
+
+.cat-col3-width{
+	width: 50px;
+}
+
 
 /*  Second Example with big stars */
 .rate-ex2-cnt{

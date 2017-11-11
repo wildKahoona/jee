@@ -13,7 +13,7 @@ public class NavigationController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String page="address.xhtml";
-	private String adminPage="test1.xhtml";
+	private String adminPage="category.xhtml";
 	
 	public String getPage() {
 		return page;

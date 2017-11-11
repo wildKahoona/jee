@@ -12,18 +12,18 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import ffhs.onlineshop.model.Category;
-import ffhs.onlineshop.repository.CategoryDAO;
+import ffhs.onlineshop.model.Condition;
+import ffhs.onlineshop.repository.ConditionDAO;
 
 @Named
 @ViewScoped
-public class CategoryController implements Serializable {
+public class ConditionController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private CategoryDAO categoryDAO;
+	private ConditionDAO conditionDAO;
 	
-	private List<Category> categoryList;
+	private List<Condition> conditionList;
 	
     private String description;
     
@@ -31,67 +31,67 @@ public class CategoryController implements Serializable {
    
     @PostConstruct
     public void init() {
-    	categoryList = categoryDAO.findAll();
-    	System.out.println(" Category INIT !!!!!!!");
+    	conditionList = conditionDAO.findAll();
+    	System.out.println("Condition INIT !!!!!!!");
     }
 
     // #### Actions manipulating the list ####
     public void add(){
-    	Category newCategory = new Category();
-    	newCategory.setDescription(description);
-    	categoryDAO.addCategory(newCategory);
-    	categoryList.add(newCategory);
+    	Condition newCondition = new Condition();
+    	newCondition.setDescription(description);
+    	conditionDAO.addCondition(newCondition);
+    	conditionList.add(newCondition);
     	setDescription("");
     }
 
-    public String update(Category category){
+    public String update(Condition condition){
 		try {
-			if(category != null)
-	    		System.out.println("Speichern Category: " + category.getDescription());
+			if(condition != null)
+	    		System.out.println("Speichern Condition: " + condition.getDescription());
 			
-			categoryDAO.updateCategory(category);
-	        cancelEdit(category);
+			conditionDAO.updateCondition(condition);
+	        cancelEdit(condition);
 	        
-	        FacesMessage m = new FacesMessage("Succesfully saved!","id " + category.getId());
-			FacesContext.getCurrentInstance().addMessage("categoryForm", m);
+	        FacesMessage m = new FacesMessage("Succesfully saved!","id " + condition.getId());
+			FacesContext.getCurrentInstance().addMessage("conditionForm", m);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage fm = new FacesMessage(
 				FacesMessage.SEVERITY_WARN, 
 				e.getMessage(),
 				e.getCause().getMessage());
-			FacesContext.getCurrentInstance().addMessage("categoryForm", fm);
+			FacesContext.getCurrentInstance().addMessage("conditionForm", fm);
 		}
         return null;
     }
 
-    public String edit(Category category){
+    public String edit(Condition condition){
 		try {
 	    	System.out.println("edit");
-	    	for (Category existing : getCategoryList()){
+	    	for (Condition existing : getConditionList()){
 	            existing.setEditable(false);
 	        }
-	        category.setEditable(true);
+	    	condition.setEditable(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage fm = new FacesMessage(
 				FacesMessage.SEVERITY_WARN, 
 				e.getMessage(),
 				e.getCause().getMessage());
-			FacesContext.getCurrentInstance().addMessage("categoryForm", fm);
+			FacesContext.getCurrentInstance().addMessage("conditionForm", fm);
 		}
         return null;
     }
 
-    public void cancelEdit(Category category){
+    public void cancelEdit(Condition condition){
     	System.out.println("cancelEdit");
-    	category.setEditable(false);
+    	condition.setEditable(false);
     }
 
-    public void remove(Category category){
+    public void remove(Condition condition){
     	System.out.println("remove");
-    	categoryDAO.deleteCategory(category);
-    	categoryList.remove(category);
+    	conditionDAO.deleteCondition(condition);
+    	conditionList.remove(condition);
     }
 
 	//sort by order no
@@ -100,9 +100,9 @@ public class CategoryController implements Serializable {
 	   if(sortAscending){
 
 		//ascending order
-		Collections.sort(categoryList, new Comparator<Category>() {
+		Collections.sort(conditionList, new Comparator<Condition>() {
 			@Override
-			public int compare(Category c1, Category c2) {
+			public int compare(Condition c1, Condition c2) {
 				return c1.getDescription().compareTo(c2.getDescription());
 			}
 		});
@@ -110,9 +110,9 @@ public class CategoryController implements Serializable {
 	   }else{
 
 		//descending order
-		Collections.sort(categoryList, new Comparator<Category>() {
+		Collections.sort(conditionList, new Comparator<Condition>() {
 			@Override
-			public int compare(Category c1, Category c2) {
+			public int compare(Condition c1, Condition c2) {
 				return c2.getDescription().compareTo(c1.getDescription());
 			}
 		});
@@ -122,12 +122,12 @@ public class CategoryController implements Serializable {
 	}
 	
     // #### getters and setters ####
-    public List<Category> getCategoryList() {
-        return categoryList;
+    public List<Condition> getConditionList() {
+        return conditionList;
     }
 
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
+    public void setConditionList(List<Condition> conditionList) {
+        this.conditionList = conditionList;
     }
 
     public String getDescription() {

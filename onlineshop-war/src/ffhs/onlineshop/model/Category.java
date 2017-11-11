@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 /**
  * 
  * @author Birgit Sturzenegger
@@ -61,6 +62,7 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 
+	@Size(min=3, max=10, message="Min 3 and max 10 characters")
 	public String getDescription() {
 		return this.description;
 	}

@@ -10,7 +10,6 @@ import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 
 import ffhs.onlineshop.model.Category;
-import ffhs.onlineshop.model.Customer;
 
 public class CategoryDAO implements Serializable{
 
@@ -34,6 +33,7 @@ public class CategoryDAO implements Serializable{
 	}
 	
 	public void addCategory(Category category) {
+		if(category == null) return;
 		try {
 			ut.begin();
 			emf.createEntityManager().persist(category);
@@ -44,18 +44,13 @@ public class CategoryDAO implements Serializable{
 	}
 
 	public void updateCategory(Category category) {
+		if(category == null) return;
         try {
-        	System.out.println("DAO Speichern");
-        	if(category != null)
-        		System.out.println("Category: " + category.getDescription());
-        	ut.begin();
+    		ut.begin();
         	EntityManager em = emf.createEntityManager();
         	em.merge(category);
             em.flush();
             ut.commit();
-            System.out.println("DAO Gespeichert");
-        	if(category != null)
-        		System.out.println("Category: " + category.getDescription());
         } catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ERROR Speichere Category: " + e.getMessage());
@@ -65,8 +60,8 @@ public class CategoryDAO implements Serializable{
 	}
 	
 	public void deleteCategory(Category category)
-	{
-		
+	{		
+		if(category == null) return;
         try {
         	ut.begin();
         	EntityManager em = emf.createEntityManager();

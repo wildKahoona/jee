@@ -40,6 +40,7 @@ public class Condition implements Serializable {
 	private Long id;
 	
 	private String description;
+	private transient boolean editable;
 
 	//bi-directional many-to-one association to Item
 	@OneToMany(mappedBy="condition")
@@ -63,7 +64,15 @@ public class Condition implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+    
 	public Set<Item> getItems() {
 		return this.items;
 	}
