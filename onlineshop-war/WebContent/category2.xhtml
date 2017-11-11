@@ -15,8 +15,12 @@
 						
 				<h:form id="categoryForm">
 					<h:message for="categoryForm" showSummary="true" styleClass="text-success"/>
- 
- 						<div class="row">
+						
+					<h2>#{msg.categoryAddTitle}</h2>
+					
+					<div class="col-sm-12">
+
+						<div class="row">
 							<div class="col-sm-6 form-group">
 								<div class="form-group"> 
 									<h:outputLabel value="#{msg['description']}:"/>
@@ -31,46 +35,46 @@
 								 <h:commandButton value="#{msg['add']}" action="#{categoryController.add}" class="btn btn-success btnSpace">
 								 	<f:ajax execute="categoryForm" render="categoryForm:categoryTable" />
 								 </h:commandButton>
-						  
+        
 						 	</div>
 						 </div>
-						 
+							
 						<div class="row">
 							<h:dataTable id="categoryTable" columnClasses="column1"
-										 value="#{categoryController.categoryList}" var="cat" 
+										 value="#{categoryController.categoryList}" var="category" 
 										 class="table table-responsive table-bordered table-striped "                                                  > 
 							    <h:column>
 							        <f:facet name="header">#{msg.category}</f:facet>
-							        <h:inputText value="#{cat.description}" rendered="#{cat.editable}" />
-                					<h:outputText value="#{cat.description}" rendered="#{not cat.editable}" />
+							        <h:inputText value="#{category.description}" rendered="#{category.editable}" />
+                					<h:outputText value="#{category.description}" rendered="#{not category.editable}" />
 							    </h:column>
 							    
 							    
 							    <h:column>
-					                <h:commandLink action="#{categoryController.edit(cat)}" 
+					                <h:commandLink action="#{categoryController.edit(category)}" 
 					                			   class="btn btn-primary btn-sm"
-					                			   rendered="#{not cat.editable}">
+					                			   rendered="#{not category.editable}">
 					                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
-										<f:ajax render="@form" />
+					                     <!-- <f:ajax render="@form" /> -->
 					                </h:commandLink>
 					                
-					                <h:commandLink action="#{categoryController.update(cat)}" 
+					                <h:commandLink action="#{categoryController.update(category)}" 
 					                			   class="btn btn-success btn-sm"
-					                			   rendered="#{cat.editable}">
+					                			   rendered="#{category.editable}">
 					                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
-					                    <f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable" /> 
+					                     <!-- <f:ajax execute="@form" render="@form" / -->>
 					                </h:commandLink>
 					            </h:column> 
 				                <h:column>
-					                <h:commandLink value="#{msg['cancel']}" action="#{categoryController.cancelEdit(cat)}" 
-					                			   rendered="#{cat.editable}" >
+					                <h:commandLink value="#{msg['cancel']}" action="#{categoryController.cancelEdit(category)}" 
+					                			   rendered="#{category.editable}" >
 					                    <f:ajax render="@form" />
 					                </h:commandLink>
 					            </h:column>
 					            <h:column>
 					                <h:commandLink id="remove"
 					                			   class="btn btn-danger btn-sm"
-					                			   action="#{categoryController.remove(cat)}"
+					                			   action="#{categoryController.remove(category)}"
 					                               onclick="return confirm('#{msg['deleteQuestion']}')">
 					                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
 					                    <f:ajax render="@form" />
@@ -80,17 +84,13 @@
 					            
 					            
 							</h:dataTable>
-						</div> 
-						
-						
-						
-						 								
-				</h:form>
-									
-			</div>
+						</div> 					
+					</div>
 					
-				
+				</h:form>
+			</div>
 		</div>
+	
 	</div>
 
 </ui:fragment>

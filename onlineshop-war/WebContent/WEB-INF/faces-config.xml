@@ -13,32 +13,32 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>register</from-outcome>
-			<to-view-id>register.jsf</to-view-id>
+			<to-view-id>/register.jsf</to-view-id>
 			<redirect/>
 		</navigation-case>	
 		<navigation-case>
 			<from-outcome>product</from-outcome>
-			<to-view-id>product.jsf</to-view-id>
+			<to-view-id>/product.jsf</to-view-id>
 			<redirect/>
 		</navigation-case>			
 		<navigation-case>
 			<from-outcome>register</from-outcome>
-			<to-view-id>register.jsf</to-view-id>
+			<to-view-id>/register.jsf</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>signin</from-outcome>
-			<to-view-id>signin.jsf</to-view-id>
+			<to-view-id>/signin.jsf</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>sell</from-outcome>
-			<to-view-id>sell.jsf</to-view-id>
+			<to-view-id>/sell.jsf</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>search</from-outcome>
-			<to-view-id>search.jsf</to-view-id>
+			<to-view-id>/search.jsf</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>

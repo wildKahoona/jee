@@ -1,0 +1,57 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+			 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+			 xmlns:h="http://xmlns.jcp.org/jsf/html"
+			 xmlns:f="http://xmlns.jcp.org/jsf/core"
+			 xmlns:c="http://java.sun.com/jsp/jstl/core"
+			 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <!--
+    using h:head will auto include your javascript resources
+    <h:outputScript library="javax.faces" name="jsf.js" target="body" />
+    -->
+</h:head>
+<h:body>	
+    <h1>JSF 2.x table ajax example</h1>
+
+    <h:form id="todoForm">
+        <h:dataTable id="todoTable" value="#{todoController.todoList}" var="todo">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Todo"/>
+                </f:facet>
+                <h:inputText value="#{todo.description}" rendered="#{todo.editable}" />
+                <h:outputText value="#{todo.description}" rendered="#{not todo.editable}" />
+            </h:column>
+            <h:column>
+                <h:commandLink value="Edit" action="#{todoController.edit(todo)}" rendered="#{not todo.editable}" >
+                    <f:ajax render="@form" />
+                </h:commandLink>
+                <h:commandLink value="Save" action="#{todoController.save(todo)}" rendered="#{todo.editable}" >
+                    <f:ajax execute="@form" render="todoForm:todoTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="Cancel" action="#{todoController.cancelEdit(todo)}" rendered="#{todo.editable}" >
+                    <f:ajax render="todoForm:todoTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink id="remove" value="delete" action="#{todoController.remove(todo)}"
+                               onclick="return confirm('Are you sure?')">
+                    <f:ajax render="todoForm:todoTable" />
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
+
+        <h2>Add todo to table</h2>
+        <h:outputLabel value="Todo: ">
+            <h:inputText id="todo" value="#{todoController.description}" />
+        </h:outputLabel>
+
+        <h:commandButton value="Add record" action="#{todoController.add}">
+            <f:ajax execute="todoForm" render="todoForm:todoTable" />
+        </h:commandButton>
+
+    </h:form>	
+    </h:body>
+</ui:fragment>
