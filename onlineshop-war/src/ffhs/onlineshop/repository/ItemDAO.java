@@ -27,7 +27,6 @@ public class ItemDAO implements Serializable{
 	@Inject
 	private UserDAO userDao;
 	
-	
 	public void updateItem(Item item){
 		try {
         	ut.begin();
@@ -109,4 +108,22 @@ public class ItemDAO implements Serializable{
     	}
 		return null;
     } 
+    
+	public void deleteItem(Item item)
+	{		
+		if(item == null) return;
+        try {
+        	ut.begin();
+        	EntityManager em = emf.createEntityManager();
+        	Item deleteItem = em.find(Item.class, item.getId());
+        	if (deleteItem != null){
+        		em.remove(deleteItem);
+                em.flush();
+                ut.commit();
+        	}
+        } catch (Exception e) {
+			e.printStackTrace();
+        } finally {
+        }
+	}
 }

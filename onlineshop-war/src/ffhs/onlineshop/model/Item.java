@@ -74,6 +74,8 @@ public class Item implements Serializable {
 	@ManyToOne
 	private Customer buyer;
 
+	private transient boolean editable;
+	
 	public Item() {
 	}
 
@@ -157,6 +159,14 @@ public class Item implements Serializable {
 		this.category = category;
 	}
 	
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+    
 //	public Long getBuyer_id() {
 //		return buyer_id;
 //	}

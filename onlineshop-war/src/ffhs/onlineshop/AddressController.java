@@ -28,28 +28,12 @@ public class AddressController implements Serializable {
 	@PostConstruct
     public void init() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-			ELContext elc = ctx.getELContext();
-			ELResolver elr = ctx.getApplication().getELResolver();
-			SigninController signinController = (SigninController) elr.getValue(elc, null, "signinController");
+		ELContext elc = ctx.getELContext();
+		ELResolver elr = ctx.getApplication().getELResolver();
+		SigninController signinController = (SigninController) elr.getValue(elc, null, "signinController");
 			
-			Customer customer = signinController.getCustomer();
-			if(customer == null)
-				System.out.println("Customer NULL");
-			else
-				System.out.println("Customer : " + customer.getFirstname());
-			setCustomer(customer);
-			
-			try {
-//				ut.begin();
-//				EntityManager em = emf.createEntityManager();
-//				Item item = em.find(Item.class, id);
-//				item.setBuyer(customer);
-//				item.setSold(new Date());
-//				em.merge(item);
-//				ut.commit();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		Customer customer = signinController.getCustomer();
+		setCustomer(customer);
 	}
 
     public String edit(){
@@ -80,7 +64,7 @@ public class AddressController implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("addressForm", message);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error: " + e.getMessage());
+			System.out.println(" error @{0}" + e);
 			FacesMessage message = 
 				new FacesMessage(
 					FacesMessage.SEVERITY_WARN,

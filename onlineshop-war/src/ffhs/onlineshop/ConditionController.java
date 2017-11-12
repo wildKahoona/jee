@@ -35,7 +35,6 @@ public class ConditionController implements Serializable {
     	System.out.println("INIT Condition !!!!!!!");
     }
 
-    // #### Actions manipulating the list ####
     public String add(){
     	Condition newCondition = new Condition();
     	newCondition.setDescription(description);
@@ -53,7 +52,6 @@ public class ConditionController implements Serializable {
 			
 			conditionDAO.updateCondition(condition);
 	        cancelEdit(condition);
-	        //conditionList.add(condition);
 	        
 	        FacesMessage m = new FacesMessage("Succesfully saved!","id " + condition.getId());
 			FacesContext.getCurrentInstance().addMessage("conditionForm", m);
@@ -97,7 +95,6 @@ public class ConditionController implements Serializable {
     	conditionList.remove(condition);
     }
 
-	//sort by order no
 	public String sortByDescription() {
 		
 	   if(sortAscending){

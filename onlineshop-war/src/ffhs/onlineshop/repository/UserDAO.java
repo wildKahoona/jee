@@ -22,6 +22,11 @@ public class UserDAO implements Serializable{
 	@Resource
 	private UserTransaction ut;
 	
+	public Customer getCustomerById(long customerId){
+		EntityManager em = emf.createEntityManager();
+		return em.find(Customer.class,customerId);
+	}
+	
     /**
      * get customer by email
      * 
@@ -38,8 +43,7 @@ public class UserDAO implements Serializable{
 		if(list != null && list.size() > 0) {
 			String password = list.get(0).getPassword();
             return password;
-		}
-		
+		}		
 		return null;
     }
 
@@ -51,8 +55,7 @@ public class UserDAO implements Serializable{
 		List<Customer> list = query.getResultList();
 		if(list != null && list.size() > 0) {
             return list.get(0);
-		}
-		
+		}		
 		return null;
     }
     

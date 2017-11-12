@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -35,11 +34,6 @@ public class CategoryController implements Serializable {
     	categoryList = categoryDAO.findAll();
     	System.out.println("INIT Category !!!!!!!");
     }
-
-    @PreDestroy
-    void destroy() {
-        System.out.println("Destroying Category Bean.");
-    }
     
     public String add(){
     	Category newCategory = new Category();
@@ -58,7 +52,6 @@ public class CategoryController implements Serializable {
 			
 			categoryDAO.updateCategory(category);
 	        cancelEdit(category);
-	        //categoryList.add(category);
 	        
 	        FacesMessage m = new FacesMessage("Succesfully saved!","id " + category.getId());
 			FacesContext.getCurrentInstance().addMessage("categoryForm", m);
@@ -100,11 +93,8 @@ public class CategoryController implements Serializable {
     	System.out.println("remove");
     	categoryList.remove(category);
     	categoryDAO.deleteCategory(category);
-    	//FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("CategoryController");
-    	
     }
 
-	//sort by order no
 	public String sortByDescription() {
 		
 	   if(sortAscending){

@@ -44,14 +44,13 @@
 										 columnClasses="column1,column2,column3">                                                > 
 							    <h:column sortingExpression="#{cat.description}">
 							        <f:facet name="header">
-					    			   <h:commandLink value="#{msg['category']}"  action="#{categoryController.sortByDescription}">
+					    			   <h:commandLink value="#{msg['category']}" action="#{categoryController.sortByDescription}">
 					    			   		<f:ajax render="@form" />
 					    			   </h:commandLink>
 					    			</f:facet>	   			
 							        <h:inputText value="#{cat.description}" rendered="#{cat.editable}" required="true" requiredMessage="description is required"/>
 	               					<h:outputText value="#{cat.description}" rendered="#{not cat.editable}" />
 							    </h:column>
-							    
 							    
 							    <h:column>
 					                <h:commandLink action="#{categoryController.edit(cat)}" 
@@ -74,9 +73,6 @@
 					                			   rendered="#{cat.editable}" >
 					                    <f:ajax render="@form" />
 					                </h:commandLink>
-					                
-					                <f:attribute value="center" name="align" />
-									<f:attribute value="middle" name="valign" />
 					            </h:column>
 					            			               
 					            <h:column>

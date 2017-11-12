@@ -1,15 +1,11 @@
-<ui:composition template="/template.xhtml"
-				xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-	<ui:define name="content">
-	
-		<div class="row">
-
-			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+			 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+			 xmlns:h="http://xmlns.jcp.org/jsf/html"
+			 xmlns:f="http://xmlns.jcp.org/jsf/core"
+			 xmlns:c="http://java.sun.com/jsp/jstl/core"
+			 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+			 
+		<div class="container" style="margin: 0px;">
 
 				<div class="panel panel-primary">
 					<div class="panel-heading">
@@ -17,7 +13,7 @@
 					</div>
 					<div class="panel-body">
 					
-						<h:form id="sellForm" enctype="multipart/form-data">
+						<h:form id="sellForm" enctype="multipart/form-data" prependId="false">
 						
 							<h:message for="sellForm" showSummary="true" styleClass="text-success"/>
 												
@@ -25,15 +21,18 @@
 							
 								<div class="row">
 									<div class="col-sm-4 form-group">
-										<h:outputLabel value="#{msg['item_category']}:"/>
-										<h:selectOneMenu value="#{sellController.selectedCategory}">
-											<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
-											<f:selectItems value="#{sellController.categories}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
-										</h:selectOneMenu>
+										<h:outputLabel for="cat" value="#{msg['item_category']}:"/>
+										
+										<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
+											<br/>
+											<h:outputText value="#{addressController.customer.firstname}"/>
+										</h:panelGroup>
+										
+										  
 									</div>
 									<div class="col-sm-4 form-group">
-										<h:outputLabel value="#{msg['item_condition']}:"/>
-										<h:selectOneMenu value="#{sellController.selectedCondition}" >
+										<h:outputLabel for="con" value="#{msg['item_condition']}:"/>
+										<h:selectOneMenu id="con" value="#{sellController.selectedCondition}" >
 								            <f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
 								            <f:selectItems value="#{sellController.conditions}" var="condition" itemValue="#{condition.id}" itemLabel="#{condition.description}"/>
 										</h:selectOneMenu>
@@ -56,6 +55,11 @@
 									<h:inputTextarea value="#{sellController.item.description}" rows="3" class="form-control"/>
 								</div>
 																
+								<!-- <div class="form-group">
+									<h:outputLabel value="#{msg['item_foto']}:"/>
+									<h:inputFile value="#{sellController.part}"/>
+								</div>	 -->	
+								
 								<div class="form-group">
 									<h:outputLabel value="#{msg['item_foto']}:"/>
 									<h:inputFile id="file" value="#{sellController.file}">
@@ -64,18 +68,15 @@
 					                 <h:message for="file"/>
 								</div>
 
-								<h:commandLink class="btn btn-success" action="#{sellController.persist()}">
-						 			<span class="glyphicon glyphicon-save"></span> #{msg['sell']}
-						 		</h:commandLink>
-						 		
-		
-										
+								<h:commandButton value="#{msg['sell']}"
+												 class="btn btn-primary"
+												 action="#{sellController.persist()}"/>					
 							</div>							
 
 						</h:form>				
 					</div>
-				</div>			
-			</div>
+				</div>
+			
 		</div>
-	</ui:define>
-</ui:composition>
+
+</ui:fragment>

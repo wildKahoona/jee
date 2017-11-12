@@ -42,14 +42,7 @@ public class PurchaseController implements Serializable {
 		
     	setUsername("aaa@gmx.ch");
     	setPurchaseList(itemDAO.getPurchasesByCustomer(username));
-    	
-    	
     }
- 
-//    public void rateSeller(Item purchase){
-//    	System.out.println("RATE: " + purchase.getId());
-//    	setSelectedPurchase(purchase);
-//    }
     
     public void rateSeller(Long purchaseId){
     	conversation.begin();

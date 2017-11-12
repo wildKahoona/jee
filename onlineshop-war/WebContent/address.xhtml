@@ -87,11 +87,7 @@
 													 rendered="#{addressController.customer.editable}" required="true"/>
 									</div>									
 								</div>
-								
-								<!-- <div class="form-group">
-									<h:outputLabel value="#{msg['address.phonenumber']}:"/>
-									<h:inputText type="text" placeholder="Enter Phone Number Here.." class="form-control"/>
-								</div> -->		
+	
 								<div class="form-group">
 									<h:outputLabel value="#{msg['email']}:"/>
 									<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
@@ -118,7 +114,7 @@
 									 		</h:commandLink>
 								 		</h:panelGroup>
 								 		<h:panelGroup layout="block" rendered="#{addressController.customer.editable}">
-											<h:commandLink id="register" class="btn btn-success" action="#{addressController.persist}">
+											<h:commandLink class="btn btn-success" action="#{addressController.persist}">
 									 			<span class="glyphicon glyphicon-save"></span> #{msg['save']}
 									 		</h:commandLink>	
 									 		<h:commandLink class="btn btn-default btn-sm button-space" action="#{addressController.cancelEdit}">

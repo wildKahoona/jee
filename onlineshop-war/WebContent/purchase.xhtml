@@ -7,48 +7,49 @@
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
 	
-		<div class="container" style="margin: 0px;">
-		
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Meine Einkäufe</h3>
-				</div>
-				<div class="panel-body">
-				
-					<h:form id="purchaseForm" prependId="false">
-		
-						<h:dataTable value="#{purchaseController.purchaseList}" var="purchase" 
-									 class="table table-responsive table-bordered table-striped">                                                  > 
-						    <h:column>
-						        <f:facet name="header">#{msg.item_title}</f:facet>#{purchase.title}
-						    </h:column>
-						    <h:column>
-						    	<f:facet name="header">#{msg.item_category}</f:facet>#{purchase.category.description}
-						    </h:column> 
-						    <h:column style="width: 50px;">
-						        <f:facet name="header">#{msg.item_price}</f:facet>
-						        <h:outputText value="#{purchase.price}" >
-									<f:convertNumber pattern="#0.00" />
-								</h:outputText>
-						    </h:column>
-						    <h:column>
-						    	<f:facet name="header">#{msg.item_condition}</f:facet>#{purchase.condition.description}
-						    </h:column> 
-						    <h:column>
-							    <h:commandLink class="btn btn-primary" onclick="$('#product_view').modal('show');"
-							    			   action="#{purchaseController.rateSeller(purchase.id)}">Rate
-		                   				  	   <f:ajax render=":dialog-myprofile-form" />
-			                   </h:commandLink>
-						    	
-						    </h:column>
-							
-						</h:dataTable>
-		                                     					
-					</h:form>	
-				
-				</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Meine Einkäufe</h3>
+					</div>
+					<div class="panel-body">
+					
+						<h:form id="purchaseForm" prependId="false">
+			
+							<h:dataTable value="#{purchaseController.purchaseList}" var="purchase" 
+										 class="table table-responsive table-bordered table-striped"
+										 columnClasses="column1,column2,column3,column4,column5">                                                  > 
+							    <h:column>
+							        <f:facet name="header">#{msg.item_title}</f:facet>#{purchase.title}
+							    </h:column>
+							    <h:column>
+							    	<f:facet name="header">#{msg.item_category}</f:facet>#{purchase.category.description}
+							    </h:column> 
+							    <h:column style="width: 50px;">
+							        <f:facet name="header">#{msg.item_price}</f:facet>
+							        <h:outputText value="#{purchase.price}" >
+										<f:convertNumber pattern="#0.00" />
+									</h:outputText>
+							    </h:column>
+							    <h:column>
+							    	<f:facet name="header">#{msg.item_condition}</f:facet>#{purchase.condition.description}
+							    </h:column> 
+							    <h:column>
+								    <h:commandLink class="btn btn-primary" onclick="$('#product_view').modal('show');"
+								    			   action="#{purchaseController.rateSeller(purchase.id)}">Rate
+			                   				  	   <f:ajax render=":dialog-myprofile-form" />
+				                   </h:commandLink>
+							    	
+							    </h:column>
+								
+							</h:dataTable>
+			                                     					
+						</h:form>	
+					
+					</div>
+				</div>				
 			</div>
-				
 		</div>
 		
 		<div class="modal fade product_view" id="product_view">
