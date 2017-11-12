@@ -7,78 +7,134 @@
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
 	
-		<div class="container" style="margin: 0px;">
-	
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Meine Adresse</h3>
-				</div>
-				<div class="panel-body">
-				
-					<h:form id="addressForm" prependId="false">
-					
-						<h:message for="addressForm" showSummary="true" styleClass="text-success"/>
-						
-						<div class="col-sm-12">
-						
-							<div class="row">
-								<div class="col-sm-6 form-group">
-									<h:outputLabel value="#{msg['firstname']}:"/>
-									<h:inputText class="form-control" value="#{addressController.customer.firstname}" p:placeholder="#{msg['firstname.placeholder']}" required="true"/>
-								</div>
-								<div class="col-sm-6 form-group">
-									<h:outputLabel value="#{msg['lastname']}:"/>
-									<h:inputText value="#{addressController.customer.lastname}" p:placeholder="#{msg['lastname.placeholder']}" class="form-control" required="true"/>
-								</div>
-							</div>	
-											
-							<div class="form-group">
-								<h:outputLabel value="#{msg['street']}:"/>
-								<!-- <textarea  rows="3" class="form-control"></textarea> -->
-								
-								<h:inputTextarea value="#{addressController.customer.street}" rows="3" p:placeholder="#{msg['street.placeholder']}" class="form-control" required="true"/>
-							</div>	
-							
-							<div class="row">
-								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['zip']}:"/>
-									<h:inputText value="#{addressController.customer.zip}" placeholder="#{msg['zip.placeholder']}" class="form-control" required="true"/>
-								</div>	
-								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['city']}:"/>
-									<h:inputText value="#{addressController.customer.city}" placeholder="#{msg['city.placeholder']}" class="form-control" required="true"/>
-								</div>	
-								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['country']}:"/>
-									<h:inputText value="#{addressController.customer.country}" placeholder="#{msg['country.placeholder']}" class="form-control" required="true"/>
-								</div>									
-							</div>
-							
-							<div class="form-group">
-								<h:outputLabel value="#{msg['address.phonenumber']}:"/>
-								<h:inputText type="text" placeholder="Enter Phone Number Here.." class="form-control"/>
-							</div>		
-							<div class="form-group">
-								<label>Email Address</label>
-								<h:outputLabel value="#{msg['email']}:"/>
-								<div class="cols-sm-10">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-										<h:inputText type="email" class="form-control" value="#{addressController.customer.email}" p:placeholder="#{msg['email.placeholder']}" required="true"/>
-									</div>
-								</div>
-							</div>	
-							
-							<h:commandLink id="register" class="btn btn-success btn-block pull-right" action="#{addressController.persist}">
-					 			<span class="glyphicon glyphicon-save"></span> #{msg['save']}
-					 		</h:commandLink>					
-						</div>							
+		<div class="row">
 
-					</h:form>	
-				
+			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
+	
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Meine Adresse</h3>
+					</div>
+					<div class="panel-body">
+					
+						<h:form id="addressForm" prependId="false">
+						
+							<h:message for="addressForm" showSummary="true" styleClass="text-success"/>
+							
+							<div class="col-sm-12">
+							
+								<div class="row">
+									<div class="col-sm-6 form-group">
+										<h:outputLabel value="#{msg['firstname']}:"/>
+										<h:inputText class="form-control" value="#{addressController.customer.firstname}" p:placeholder="#{msg['firstname.placeholder']}" rendered="#{addressController.customer.editable}" required="true"/>
+										<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
+											<br/>
+											<h:outputText value="#{addressController.customer.firstname}"/>
+										</h:panelGroup>
+									</div>
+									<div class="col-sm-6 form-group">
+										<h:outputLabel value="#{msg['lastname']}:"/>
+										<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
+											<br/>
+											<h:outputText value="#{addressController.customer.lastname}"/>
+										</h:panelGroup>
+										<h:inputText class="form-control" value="#{addressController.customer.lastname}" 
+													 p:placeholder="#{msg['lastname.placeholder']}" 
+													 rendered="#{addressController.customer.editable}" required="true"/>
+									</div>
+								</div>	
+												
+								<div class="form-group">
+									<h:outputLabel value="#{msg['street']}:"/>
+									<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
+										<br/>
+										<h:outputText value="#{addressController.customer.street}"/>
+									</h:panelGroup>
+									<h:inputTextarea class="form-control" value="#{addressController.customer.street}" rows="3" 
+													 p:placeholder="#{msg['street.placeholder']}"
+													 rendered="#{addressController.customer.editable}" required="true"/>
+								</div>	
+								
+								<div class="row">
+									<div class="col-sm-4 form-group">
+										<h:outputLabel value="#{msg['zip']}:"/>
+										<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
+											<br/>
+											<h:outputText value="#{addressController.customer.zip}"/>
+										</h:panelGroup>
+										<h:inputText class="form-control"  value="#{addressController.customer.zip}" 
+													 p:placeholder="#{msg['zip.placeholder']}"
+													 rendered="#{addressController.customer.editable}" required="true"/>
+									</div>	
+									<div class="col-sm-4 form-group">
+										<h:outputLabel value="#{msg['city']}:"/>
+										<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
+											<br/>
+											<h:outputText value="#{addressController.customer.city}"/>
+										</h:panelGroup>
+										<h:inputText class="form-control" value="#{addressController.customer.city}" 
+													 p:placeholder="#{msg['city.placeholder']}"
+													 rendered="#{addressController.customer.editable}" required="true"/>
+									</div>	
+									<div class="col-sm-4 form-group">
+										<h:outputLabel value="#{msg['country']}:"/>
+										<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
+											<br/>
+											<h:outputText value="#{addressController.customer.country}"/>
+										</h:panelGroup>
+										<h:inputText class="form-control" value="#{addressController.customer.country}" 
+													 p:placeholder="#{msg['country.placeholder']}"
+													 rendered="#{addressController.customer.editable}" required="true"/>
+									</div>									
+								</div>
+								
+								<!-- <div class="form-group">
+									<h:outputLabel value="#{msg['address.phonenumber']}:"/>
+									<h:inputText type="text" placeholder="Enter Phone Number Here.." class="form-control"/>
+								</div> -->		
+								<div class="form-group">
+									<h:outputLabel value="#{msg['email']}:"/>
+									<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
+										<br/>
+										<h:outputText value="#{addressController.customer.email}"/>
+									</h:panelGroup>
+									
+									<h:panelGroup layout="block" rendered="#{addressController.customer.editable}">
+										<div class="cols-sm-10">
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+												<h:inputText type="email" class="form-control" value="#{addressController.customer.email}" 
+															 p:placeholder="#{msg['email.placeholder']}" required="true"/>
+											</div>
+										</div>
+									</h:panelGroup>
+								</div>	
+								
+								<div class="row">
+									<div class="col-xs-6 col-md-6">
+										<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
+											<h:commandLink class="btn btn-primary" action="#{addressController.edit}">
+									 			<span class="glyphicon glyphicon-save"></span> #{msg['edit']}
+									 		</h:commandLink>
+								 		</h:panelGroup>
+								 		<h:panelGroup layout="block" rendered="#{addressController.customer.editable}">
+											<h:commandLink id="register" class="btn btn-success" action="#{addressController.persist}">
+									 			<span class="glyphicon glyphicon-save"></span> #{msg['save']}
+									 		</h:commandLink>	
+									 		<h:commandLink class="btn btn-default btn-sm button-space" action="#{addressController.cancelEdit}">
+									 			<span class="glyphicon glyphicon-remove"></span> #{msg['cancel']}
+							                </h:commandLink>	
+								 		</h:panelGroup>
+							 		</div>
+						 		</div>
+						 						
+							</div>							
+	
+						</h:form>	
+					
+					</div>
 				</div>
 			</div>
-
 		</div>
 
 	</ui:define>

@@ -43,6 +43,13 @@
   background-color: #428bca;
 }
 
+.button-space {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+
+
 .employeeTableHeader {
    text-align:center;
    background:none repeat scroll 0 0 #B5B5B5;

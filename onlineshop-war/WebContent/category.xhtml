@@ -42,17 +42,14 @@
 										 class="table table-responsive table-bordered table-striped"
 										 headerClass = "employeeTableHeader"
 										 columnClasses="column1,column2,column3">                                                > 
-							    <h:column sortingExpression="#{cat.description}" style="width: 100px;">
+							    <h:column sortingExpression="#{cat.description}">
 							        <f:facet name="header">
 					    			   <h:commandLink value="#{msg['category']}"  action="#{categoryController.sortByDescription}">
 					    			   		<f:ajax render="@form" />
 					    			   </h:commandLink>
-					    			</f:facet>
-	   			
+					    			</f:facet>	   			
 							        <h:inputText value="#{cat.description}" rendered="#{cat.editable}" required="true" requiredMessage="description is required"/>
 	               					<h:outputText value="#{cat.description}" rendered="#{not cat.editable}" />
-	               					<f:attribute value="center" name="align" />
-									<f:attribute value="middle" name="valign" />
 							    </h:column>
 							    
 							    

@@ -64,6 +64,8 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy="buyer")
 	private Set<Item> purchases;
 
+	private transient boolean editable;
+	
 	public Customer() {
 	}
 
@@ -190,6 +192,14 @@ public class Customer implements Serializable {
 		return purchase;
 	}
 
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+    
 	@Override
 	public int hashCode() {
 		final int prime = 31;

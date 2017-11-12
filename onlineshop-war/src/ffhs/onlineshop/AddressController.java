@@ -27,7 +27,6 @@ public class AddressController implements Serializable {
 	
 	@PostConstruct
     public void init() {
-		System.out.println("INIT Adresse");
 		FacesContext ctx = FacesContext.getCurrentInstance();
 			ELContext elc = ctx.getELContext();
 			ELResolver elr = ctx.getApplication().getELResolver();
@@ -52,18 +51,33 @@ public class AddressController implements Serializable {
 				e.printStackTrace();
 			}
 	}
-	
+
+    public String edit(){
+		try {
+	    	customer.setEditable(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesMessage fm = new FacesMessage(
+				FacesMessage.SEVERITY_WARN, 
+				e.getMessage(),
+				e.getCause().getMessage());
+			FacesContext.getCurrentInstance().addMessage("addressForm", fm);
+		}
+        return "/address.jsf";
+    }
+    
+    
+    public void cancelEdit(){
+    	customer.setEditable(false);
+    }
+    
 	public String persist() {
 		try {
 			userDAO.updateCustomer(customer);
-
-			FacesMessage message = 
-				new FacesMessage(
-					"Succesfully saved!",
-					"Your address was saved under id " + customer.getId());
-			FacesContext
-				.getCurrentInstance()
-				.addMessage("addressForm", message);
+			customer.setEditable(false);
+			
+			FacesMessage message = new FacesMessage("Succesfully saved!","Your address was updated");
+			FacesContext.getCurrentInstance().addMessage("addressForm", message);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error: " + e.getMessage());
@@ -72,11 +86,9 @@ public class AddressController implements Serializable {
 					FacesMessage.SEVERITY_WARN,
 					e.getMessage(), // ACHTUNG: nur im Entwicklerstadium anzeigen !!!
 					e.getCause().getMessage());
-			FacesContext
-				.getCurrentInstance()
-				.addMessage("addressForm",message);
+			FacesContext.getCurrentInstance().addMessage("addressForm",message);
 		}
-		return "/user_dashboard.jsf";
+		return "/address.jsf";
 	}
 	
 	public Customer getCustomer() {
