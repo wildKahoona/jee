@@ -4,7 +4,7 @@
 			 xmlns:f="http://xmlns.jcp.org/jsf/core"
 			 xmlns:c="http://java.sun.com/jsp/jstl/core"
 			 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-	
+			 
 		<div class="container" style="margin: 0px;">
 
 				<div class="panel panel-primary">
@@ -14,21 +14,23 @@
 					<div class="panel-body">
 					
 						<h:form id="sellForm" enctype="multipart/form-data" prependId="false">
+						
+							<h:message for="sellForm" showSummary="true" styleClass="text-success"/>
 												
 							<div class="col-sm-12">
 							
 								<div class="row">
 									<div class="col-sm-4 form-group">
-										<h:outputLabel for="cat" value="Category:"/>
+										<h:outputLabel for="cat" value="#{msg['item_category']}:"/>
 										  <h:selectOneMenu id="cat" value="#{sellController.selectedCategory}">
-											<f:selectItem itemValue="-1" itemLabel="-- Bitte wählen --"/>
+											<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
 											<f:selectItems value="#{sellController.categories}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
 										</h:selectOneMenu>
 									</div>
 									<div class="col-sm-4 form-group">
-										<h:outputLabel for="con" value="Zustand: " />
+										<h:outputLabel for="con" value="#{msg['item_condition']}:"/>
 										<h:selectOneMenu id="con" value="#{sellController.selectedCondition}" >
-								            <f:selectItem itemValue="-1" itemLabel="-- Bitte wählen --"/>
+								            <f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
 								            <f:selectItems value="#{sellController.conditions}" var="condition" itemValue="#{condition.id}" itemLabel="#{condition.description}"/>
 										</h:selectOneMenu>
 									</div>
@@ -36,28 +38,36 @@
 												
 								<div class="row">
 									<div class="col-sm-8 form-group">
-										<h:outputLabel value="#{msg['item.title']}:"/>
-										<input type="text" placeholder="Enter City Name Here.." class="form-control"/>
+										<h:outputLabel value="#{msg['item_title']}:"/>
+										<h:inputText id="title" value="#{sellController.item.title}" class="form-control"/>
 									</div>	
 									<div class="col-sm-4 form-group">
-										<h:outputLabel value="#{msg['item.price']}:"/>
-										<input type="text" placeholder="Enter State Name Here.." class="form-control"/>
+										<h:outputLabel value="#{msg['item_price']}:"/>
+										<h:inputText value="#{sellController.item.price}" class="form-control"/>
 									</div>		
 								</div>
 																
 								<div class="form-group">
-									<h:outputLabel value="#{msg['item.description']}:"/>
-									<textarea placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
+									<h:outputLabel value="#{msg['item_description']}:"/>
+									<h:inputTextarea value="#{sellController.item.description}" rows="3" class="form-control"/>
 								</div>
 																
-								<div class="form-group">
-									<h:outputLabel value="#{msg['item.foto']}:"/>
+								<!-- <div class="form-group">
+									<h:outputLabel value="#{msg['item_foto']}:"/>
 									<h:inputFile value="#{sellController.part}"/>
-								</div>		
+								</div>	 -->	
+								
+								<div class="form-group">
+									<h:outputLabel value="#{msg['item_foto']}:"/>
+									<h:inputFile id="file" value="#{sellController.file}">
+				                    	<!-- <f:validator validatorId="fileValidator"/> -->
+					                 </h:inputFile>            
+					                 <h:message for="file"/>
+								</div>
 
 								<h:commandButton value="#{msg['sell']}"
 												 class="btn btn-primary"
-												 action="#{sellController.persist(signinController)}"/>					
+												 action="#{sellController.upload()}"/>					
 							</div>							
 
 						</h:form>				

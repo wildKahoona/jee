@@ -1,53 +1,58 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-			 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-			 xmlns:h="http://xmlns.jcp.org/jsf/html"
-			 xmlns:f="http://xmlns.jcp.org/jsf/core"
-			 xmlns:c="http://java.sun.com/jsp/jstl/core"
-			 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<ui:composition template="/template.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="content">
 	
-	<div class="container" style="margin: 0px;overflow: auto;">
-	
-		<div class="panel panel-primary cat-panel">
-			<div class="panel-heading">
-				<h3 class="panel-title">Category</h3>
-			</div>
-			<div class="panel-body">						
-				<h:form id="categoryForm">
-					<h:message for="categoryForm" showSummary="true" styleClass="text-success"/>
- 
- 						<div class="row">
-							<div class="col-sm-6 form-group">
-								<div class="form-group"> 
-									<h:outputLabel for="description" value="#{msg['description']}:"/>
-									<div class="cols-sm-10">
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-											<h:inputText id="description" class="form-control" value="#{categoryController.description}" p:placeholder="#{msg['description.placeholder']}" required="true" requiredMessage="description is required"/>
-											<h:message for="description" style="color:red"/>
+		<div class="container" style="margin: 0px;overflow: auto;">
+		
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Category</h3>
+				</div>
+				<div class="panel-body">						
+					<h:form id="categoryForm">
+						<h:message for="categoryForm" showSummary="true" styleClass="text-success"/>
+	 
+	 						<div class="row">
+								<div class="col-sm-6 form-group">
+									<div class="form-group"> 
+										<h:outputLabel for="description" value="#{msg['description']}:"/>
+										<div class="cols-sm-10">
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+												<h:inputText id="description" class="form-control" value="#{categoryController.description}" p:placeholder="#{msg['description.placeholder']}" required="true" requiredMessage="description is required"/>
+												<h:message for="description" style="color:red"/>
+											</div>
 										</div>
-									</div>
-								 </div>
-								 
-								 <h:commandButton value="#{msg['add']}" action="#{categoryController.add}" class="btn btn-success btnSpace">
-								 	<f:ajax execute="categoryForm" render="categoryForm:categoryTable" />
-								 </h:commandButton>
-						  
-						 	</div>
-						 </div>
-						 
-						<div class="row">
+									 </div>
+									 
+									 <h:commandButton value="#{msg['add']}" action="#{categoryController.add}" class="btn btn-success btnSpace">
+									 	<f:ajax execute="categoryForm" render="categoryForm:categoryTable" />
+									 </h:commandButton>
+							  
+							 	</div>
+							 </div>
+							 
 							<h:dataTable id="categoryTable"
 										 value="#{categoryController.categoryList}" var="cat" 
-										 class="table table-responsive table-bordered table-striped "                                                  > 
+										 class="table table-responsive table-bordered table-striped"
+										 headerClass = "employeeTableHeader"
+										 columnClasses="column1,column2,column3">                                                > 
 							    <h:column sortingExpression="#{cat.description}" style="width: 100px;">
 							        <f:facet name="header">
 					    			   <h:commandLink value="#{msg['category']}"  action="#{categoryController.sortByDescription}">
 					    			   		<f:ajax render="@form" />
 					    			   </h:commandLink>
 					    			</f:facet>
-    			
+	   			
 							        <h:inputText value="#{cat.description}" rendered="#{cat.editable}" required="true" requiredMessage="description is required"/>
-                					<h:outputText value="#{cat.description}" rendered="#{not cat.editable}" />
+	               					<h:outputText value="#{cat.description}" rendered="#{not cat.editable}" />
+	               					<f:attribute value="center" name="align" />
+									<f:attribute value="middle" name="valign" />
 							    </h:column>
 							    
 							    
@@ -65,7 +70,6 @@
 					                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
 					                    <f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable" /> 
 					                </h:commandLink>
-					                 <h:column>
 					                 
 					                <h:commandLink value="#{msg['cancel']}" 
 					                			   class="btn btn-default btn-sm"
@@ -73,9 +77,11 @@
 					                			   rendered="#{cat.editable}" >
 					                    <f:ajax render="@form" />
 					                </h:commandLink>
+					                
+					                <f:attribute value="center" name="align" />
+									<f:attribute value="middle" name="valign" />
 					            </h:column>
-					            </h:column> 
-				               
+					            			               
 					            <h:column>
 					                <h:commandLink id="remove"
 					                			   class="btn btn-danger btn-sm"
@@ -86,10 +92,16 @@
 					                </h:commandLink>
 					            </h:column>
 							</h:dataTable>
-						</div> 			 								
-				</h:form>									
-			</div>								
+				 								
+					</h:form>									
+				</div>								
+			</div>
 		</div>
-	</div>
 
-</ui:fragment>
+	<script type="text/javascript">
+	    jQuery(document).ready(function() {
+	        alert("Hello");
+	    });
+    </script>
+	</ui:define>
+</ui:composition>

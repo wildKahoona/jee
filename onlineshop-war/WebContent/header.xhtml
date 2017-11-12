@@ -19,10 +19,14 @@
 		    </div>
 		    <ul class="nav navbar-nav">
 		      <li class="active"><a href="#">Home</a></li>
-		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin Dashboard<span class="caret"></span></a>
 		        <ul class="dropdown-menu">
-		          <li><a href="#">Page 1-1</a></li>
-		          <li><a href="#">Page 1-2</a></li>
+		          <li>
+		          	<h:link outcome="category" value="Category"/>
+		          </li>
+		          <li>
+		          	<h:link outcome="condition" value="Condition"/>
+		          </li>
 		          <li><a href="#">Page 1-3</a></li>
 		        </ul>
 		      </li>
@@ -36,7 +40,7 @@
 		      	<h:link outcome="admin_dashboard" value="Admin Dashboard"/>
 		      </li>
 		      <li>
-		      	<h:link outcome="order" value="Order"/>
+		      	<h:link outcome="upload" value="Upload"/>
 		      </li>
 		      <!-- <li>
 		      	<h:link outcome="register"><span class="glyphicon glyphicon-user"></span> #{msg['register']}</h:link>

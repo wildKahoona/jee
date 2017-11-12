@@ -43,6 +43,13 @@
   background-color: #428bca;
 }
 
+.employeeTableHeader {
+   text-align:center;
+   background:none repeat scroll 0 0 #B5B5B5;
+   border-bottom:1px solid #000000;  
+   padding:2px;
+}
+
 .cat-table{   
 	border-collapse:collapse;
 	padding: 10px;
@@ -50,8 +57,6 @@
 
 .cat-panel{
 	background: #FFCC33;
-	padding:10px;
-    display:inline-block;
 	margin: 0px 0px 0px 0px;
 }
 
@@ -68,12 +73,16 @@
 }
 
 
-.con-col1-width {
-   width: 150px;
+.column1 {
+	width: 150px;
 }
 
-.con-col2-width {
-   width: 50px;
+.column2 {
+	width: 100px;
+}
+
+.column3 {
+	width: 50px;
 }
 
 /*  Second Example with big stars */

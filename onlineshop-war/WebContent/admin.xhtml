@@ -7,15 +7,15 @@
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
 	
-		<div class="container" style="margin: 0px;overflow: auto;">
-		
+		<div class="container">
+
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">Condition</h3>
+					<h3 class="panel-title">Category</h3>
 				</div>
 				<div class="panel-body">						
-					<h:form id="conditionForm">
-						<h:message for="conditionForm" showSummary="true" styleClass="text-success"/>
+					<h:form id="categoryForm">
+						<h:message for="categoryForm" showSummary="true" styleClass="text-success"/>
 	 
 	 						<div class="row">
 								<div class="col-sm-6 form-group">
@@ -24,57 +24,57 @@
 										<div class="cols-sm-10">
 											<div class="input-group">
 												<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-												<h:inputText id="description" class="form-control" value="#{conditionController.description}" p:placeholder="#{msg['description.placeholder']}" required="true" requiredMessage="description is required"/>
+												<h:inputText id="description" class="form-control" value="#{adminController.description}" p:placeholder="#{msg['description.placeholder']}" required="true" requiredMessage="description is required"/>
 												<h:message for="description" style="color:red"/>
 											</div>
 										</div>
 									 </div>
 									 
-									 <h:commandButton value="#{msg['add']}" action="#{conditionController.add}" class="btn btn-success btnSpace">
-									 	<f:ajax execute="conditionForm" render="@form" />
+									 <h:commandButton value="#{msg['add']}" action="#{adminController.add}" class="btn btn-success btnSpace">
+									 	<f:ajax execute="categoryForm" render="categoryForm:categoryTable" />
 									 </h:commandButton>
 							  
 							 	</div>
 							 </div>
 							 
-							<h:dataTable id="conditionTable"
-										 value="#{conditionController.conditionList}" var="con" 
+							<h:dataTable id="categoryTable"
+										 value="#{adminController.categoryList}" var="cat" 
 										 class="table table-responsive table-bordered table-striped"
 										 headerClass = "employeeTableHeader"
 										 columnClasses="column1,column2,column3">                                                > 
-							    <h:column sortingExpression="#{con.description}" style="width: 100px;">
+							    <h:column sortingExpression="#{cat.description}" style="width: 100px;">
 							        <f:facet name="header">
-					    			   <h:commandLink value="#{msg['condition']}"  action="#{conditionController.sortByDescription}">
+					    			   <h:commandLink value="#{msg['category']}"  action="#{adminController.sortByDescription}">
 					    			   		<f:ajax render="@form" />
 					    			   </h:commandLink>
 					    			</f:facet>
 	   			
-							        <h:inputText value="#{con.description}" rendered="#{con.editable}" required="true" requiredMessage="description is required"/>
-	               					<h:outputText value="#{con.description}" rendered="#{not con.editable}" />
+							        <h:inputText value="#{cat.description}" rendered="#{cat.editable}" required="true" requiredMessage="description is required"/>
+	               					<h:outputText value="#{cat.description}" rendered="#{not cat.editable}" />
 	               					<f:attribute value="center" name="align" />
 									<f:attribute value="middle" name="valign" />
 							    </h:column>
 							    
 							    
 							    <h:column>
-					                <h:commandLink action="#{conditionController.edit(con)}" 
+					                <h:commandLink action="#{adminController.edit(cat)}" 
 					                			   class="btn btn-primary btn-sm"
-					                			   rendered="#{not con.editable}">
+					                			   rendered="#{not cat.editable}">
 					                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
 										<f:ajax render="@form" />
 					                </h:commandLink>
 					                
-					                <h:commandLink action="#{conditionController.update(con)}" 
+					                <h:commandLink action="#{adminController.update(cat)}" 
 					                			   class="btn btn-success btn-sm"
-					                			   rendered="#{con.editable}">
+					                			   rendered="#{cat.editable}">
 					                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
-					                    <f:ajax execute="conditionForm:conditionTable" render="@form" /> 
+					                    <f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable" /> 
 					                </h:commandLink>
 					                 
 					                <h:commandLink value="#{msg['cancel']}" 
 					                			   class="btn btn-default btn-sm"
-					                			   action="#{conditionController.cancelEdit(con)}" 
-					                			   rendered="#{con.editable}" >
+					                			   action="#{adminController.cancelEdit(cat)}" 
+					                			   rendered="#{cat.editable}" >
 					                    <f:ajax render="@form" />
 					                </h:commandLink>
 					                
@@ -85,7 +85,7 @@
 					            <h:column>
 					                <h:commandLink id="remove"
 					                			   class="btn btn-danger btn-sm"
-					                			   action="#{conditionController.remove(con)}"
+					                			   action="#{adminController.remove(cat)}"
 					                               onclick="return confirm('#{msg['deleteQuestion']}')">
 					                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
 					                    <f:ajax render="@form" />
@@ -96,7 +96,9 @@
 					</h:form>									
 				</div>								
 			</div>
-		</div>
 
+
+		
+		</div>
 	</ui:define>
 </ui:composition>

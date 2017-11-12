@@ -17,7 +17,7 @@ import ffhs.onlineshop.repository.ConditionDAO;
 
 @Named
 @ViewScoped
-public class ConditionController implements Serializable {
+public class DashboardConditionController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject

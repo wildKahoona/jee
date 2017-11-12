@@ -18,7 +18,7 @@ import ffhs.onlineshop.repository.CategoryDAO;
 
 @Named
 @ViewScoped
-public class CategoryController implements Serializable {
+public class AdminController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
@@ -148,3 +148,4 @@ public class CategoryController implements Serializable {
         this.description = description;
     }   
 }
+

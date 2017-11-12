@@ -31,9 +31,7 @@ public class AddressController implements Serializable {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 			ELContext elc = ctx.getELContext();
 			ELResolver elr = ctx.getApplication().getELResolver();
-			SigninController signinController = 
-				(SigninController) elr.getValue(
-					elc, null, "signinController");
+			SigninController signinController = (SigninController) elr.getValue(elc, null, "signinController");
 			
 			Customer customer = signinController.getCustomer();
 			if(customer == null)

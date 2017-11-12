@@ -1,19 +1,16 @@
 package ffhs.onlineshop;
 
-
 import java.io.Serializable;
-
-import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class NavigationController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String page="address.xhtml";
-	private String adminPage="category.xhtml";
+	private String adminPage="condition.xhtml";
 	
 	public String getPage() {
 		return page;
