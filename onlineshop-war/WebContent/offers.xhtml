@@ -68,9 +68,10 @@
 						    </h:column>
 						    						    
 						    <h:column>
+						    	<!-- rendered="#{(not offer.editable) or (offer.sold == null)}" -->
 				                <h:commandLink action="#{offersController.edit(offer)}" 
 				                			   class="btn btn-primary btn-sm"
-				                			   rendered="#{not offer.editable}">
+				                			   rendered="#{(not offer.editable) or (offer.sold != null)}">
 				                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
 									<f:ajax render="@form" />
 				                </h:commandLink>
@@ -95,6 +96,7 @@
 				                <h:commandLink id="remove"
 				                			   class="btn btn-danger btn-sm"
 				                			   action="#{offersController.remove(offer)}"
+				                			   rendered="#{offer.sold != null}"
 				                               onclick="return confirm('#{msg['deleteQuestion']}')">
 				                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
 				                    <f:ajax render="@form" />

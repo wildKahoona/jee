@@ -3,7 +3,8 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+				xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
 <ui:define name="content">
 
 <div class="container">
@@ -14,11 +15,13 @@
 
 			<div class="col-md-4">
 	        	<div class="thumbnail">
-	                <img src="http://tech.firstpost.com/wp-content/uploads/2014/09/Apple_iPhone6_Reuters.jpg" alt="" class="img-responsive"/>
+	                <!-- <img src="http://tech.firstpost.com/wp-content/uploads/2014/09/Apple_iPhone6_Reuters.jpg" alt="" class="img-responsive"/> -->
+	                <h:graphicImage url="image?id=#{item.id}" class="img-responsive"/>
 	                <div class="caption">
 	                  <h4 class="pull-right">CHF #{item.price}</h4>
 	                  <h4><a href="#">#{item.title}</a></h4>
-	                  <p>#{item.description}</p>
+	                  <!-- <p>#{item.description}</p> -->
+	                  <h:outputText value="#{fn:substring(item.description, 0, 40)}..." />
 	                </div>
 	                <div class="ratings">
 	                  <p>
@@ -35,7 +38,7 @@
 	                   <h:form id="detailForm" prependId="false">
 		                   <h:commandLink onclick="$('#product_view').modal('show');" class="btn btn-primary"
 		                   				  action="#{productController.showItemDetail(item.id)}">Show Detail
-		                    	<f:ajax render=":dialog-myprofile-form" />
+		                    	<f:ajax render=":dialog-detail-form" />
 		                   </h:commandLink>
 	                   </h:form>
 	                   <button type="button" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
@@ -61,13 +64,13 @@
             <div class="modal-body">
                 <div class="row">
                 
-	                <h:form id="dialog-myprofile-form">
+	                <h:form id="dialog-detail-form">
 	                
 	                    <div class="col-md-6 product_img">
-	                        <img src="http://img.bbystatic.com/BestBuy_US/images/products/5613/5613060_sd.jpg" class="img-responsive"/>
+	                        <h:graphicImage url="image?id=#{productController.selectedItem.id}" class="img-responsive"/>
 	                    </div>
 	                    <div class="col-md-6 product_content">
-	                        <h4>Product Id: <span>#{productController.selectedItem.title}</span></h4>
+	                        <h4><span>#{productController.selectedItem.title}</span></h4>
 	                        <div class="rating">
 	                            <span class="glyphicon glyphicon-star"></span>
 	                            <span class="glyphicon glyphicon-star"></span>
@@ -76,39 +79,15 @@
 	                            <span class="glyphicon glyphicon-star"></span>
 	                            (10 reviews)
 	                        </div>
-	                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-	                        <h3 class="cost"><span class="glyphicon glyphicon-usd"></span> #{productController.selectedItem.price} <small class="pre-cost"><span class="glyphicon glyphicon-usd"></span> 60.00</small></h3>
-	                        <div class="row">
-	                            <div class="col-md-4 col-sm-6 col-xs-12">
-	                                <select class="form-control" name="select">
-	                                    <option value="" selected="">Color</option>
-	                                    <option value="black">Black</option>
-	                                    <option value="white">White</option>
-	                                    <option value="gold">Gold</option>
-	                                    <option value="rose gold">Rose Gold</option>
-	                                </select>
-	                            </div>
-	                            <!-- end col -->
-	                            <div class="col-md-4 col-sm-6 col-xs-12">
-	                                <select class="form-control" name="select">
-	                                    <option value="">Capacity</option>
-	                                    <option value="">16GB</option>
-	                                    <option value="">32GB</option>
-	                                    <option value="">64GB</option>
-	                                    <option value="">128GB</option>
-	                                </select>
-	                            </div>
-	                            <!-- end col -->
-	                            <div class="col-md-4 col-sm-12">
-	                                <select class="form-control" name="select">
-	                                    <option value="" selected="">QTY</option>
-	                                    <option value="">1</option>
-	                                    <option value="">2</option>
-	                                    <option value="">3</option>
-	                                </select>
-	                            </div>
-	                            <!-- end col -->
-	                        </div>
+	                        <p>
+	                        	<h:outputText value="#{productController.selectedItem.description}"/>
+	                        </p>
+	                        <h3 class="cost">
+								<h:outputText value="#{productController.selectedItem.price}">
+									<f:convertNumber currencySymbol="CHF " type="currency" />
+								</h:outputText>
+							</h3>
+								
 	                        <div class="space-ten"></div>
 	                        <div class="btn-ground">
 	                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>

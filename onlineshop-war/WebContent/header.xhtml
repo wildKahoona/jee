@@ -59,13 +59,16 @@
 		      <li>
 		      	<h:link outcome="admin_dashboard" value="Admin Dashboard"/>
 		      </li>
-		      <li>
-		      	<h:link outcome="upload" value="Upload"/>
-		      </li>
-		      <!-- <li>
-		      	<h:link outcome="register"><span class="glyphicon glyphicon-user"></span> #{msg['register']}</h:link>
-		      </li> -->
+		      
 		    </ul>
+		    
+		    <h:form>
+				<h:selectOneMenu value="#{localeController.language}" onchange="submit()">
+					<f:selectItem itemValue="en" itemLabel="English" />
+					<f:selectItem itemValue="de" itemLabel="Deutsch" />
+				</h:selectOneMenu>
+			</h:form>
+		    
 		    <ul class="nav navbar-nav navbar-right">
 		      	<li>
 		      		<h:link outcome="register"><span class="glyphicon glyphicon-user"></span> #{msg['register']}</h:link>

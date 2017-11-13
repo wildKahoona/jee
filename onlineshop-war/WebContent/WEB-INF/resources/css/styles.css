@@ -1,3 +1,7 @@
+.space-ten {
+	padding: 10px 0;
+}
+
 .sub-header {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
@@ -41,6 +45,11 @@
 .nav-sidebar > .active > a {
   color: #fff;
   background-color: #428bca;
+}
+
+.product_view .modal-dialog {
+	max-width: 800px; 
+	width: 100%;
 }
 
 .button-space {

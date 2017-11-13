@@ -143,6 +143,7 @@ public class SellController implements Serializable {
 			setSelectedCategory(null);
 			setSelectedCondition(null);
 			
+			
 			FacesMessage message = new FacesMessage("Succesfully saved!","Your Offer was saved");
 			FacesContext.getCurrentInstance().addMessage("sellForm", message);
 		} catch (IOException e) {
