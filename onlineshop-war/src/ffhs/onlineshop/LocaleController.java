@@ -14,7 +14,6 @@ public class LocaleController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Locale locale;
-//	private String lang;
 	
 	@PostConstruct
 	public void init() {
@@ -33,17 +32,4 @@ public class LocaleController implements Serializable {
 		locale = new Locale(language);
 		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
 	}
-	
-//	public String getLang() {
-//		return lang;
-//	}
-//
-//	public void setLang(String lang) {
-//		this.lang = lang;
-//	}
-	
-//	public String change(String lang) {
-//		this.lang = lang;
-//		return "/index.jsf";
-//	}
 }

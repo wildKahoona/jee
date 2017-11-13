@@ -7,87 +7,89 @@
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
 	
-		<div class="container" style="margin: 0px;overflow: auto;">
+		<div class="row">
+			<div class="col-md-offset-3 col-md-6 col-md-offset-3">
 		
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Category</h3>
-				</div>
-				<div class="panel-body">						
-					<h:form id="categoryForm">
-						<h:message for="categoryForm" showSummary="true" styleClass="text-success"/>
-	 
-	 						<div class="row">
-								<div class="col-sm-6 form-group">
-									<div class="form-group"> 
-										<h:outputLabel for="description" value="#{msg['description']}:"/>
-										<div class="cols-sm-10">
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-												<h:inputText id="description" class="form-control" value="#{categoryController.description}" p:placeholder="#{msg['description.placeholder']}" required="true" requiredMessage="description is required"/>
-												<h:message for="description" style="color:red"/>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">#{msg['menu_category']}</h3>
+					</div>
+					<div class="panel-body">						
+						<h:form id="categoryForm">
+							<h:message for="categoryForm" showSummary="true" styleClass="text-success"/>
+		 
+		 						<div class="row">
+									<div class="col-sm-6 form-group">
+										<div class="form-group"> 
+											<h:outputLabel for="description" value="#{msg['description']}:"/>
+											<div class="cols-sm-10">
+												<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+													<h:inputText id="description" class="form-control" value="#{categoryController.description}" p:placeholder="#{msg['description.placeholder']}" required="true" requiredMessage="description is required"/>
+													<h:message for="description" style="color:red"/>
+												</div>
 											</div>
-										</div>
-									 </div>
-									 
-									 <h:commandButton value="#{msg['add']}" action="#{categoryController.add}" class="btn btn-success btnSpace">
-									 	<f:ajax execute="categoryForm" render="categoryForm:categoryTable" />
-									 </h:commandButton>
-							  
-							 	</div>
-							 </div>
-							 
-							<h:dataTable id="categoryTable"
-										 value="#{categoryController.categoryList}" var="cat" 
-										 class="table table-responsive table-bordered table-striped"
-										 headerClass = "employeeTableHeader"
-										 columnClasses="column1,column2,column3">                                                > 
-							    <h:column sortingExpression="#{cat.description}">
-							        <f:facet name="header">
-					    			   <h:commandLink value="#{msg['category']}" action="#{categoryController.sortByDescription}">
-					    			   		<f:ajax render="@form" />
-					    			   </h:commandLink>
-					    			</f:facet>	   			
-							        <h:inputText value="#{cat.description}" rendered="#{cat.editable}" required="true" requiredMessage="description is required"/>
-	               					<h:outputText value="#{cat.description}" rendered="#{not cat.editable}" />
-							    </h:column>
-							    
-							    <h:column>
-					                <h:commandLink action="#{categoryController.edit(cat)}" 
-					                			   class="btn btn-primary btn-sm"
-					                			   rendered="#{not cat.editable}">
-					                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
-										<f:ajax render="@form" />
-					                </h:commandLink>
-					                
-					                <h:commandLink action="#{categoryController.update(cat)}" 
-					                			   class="btn btn-success btn-sm"
-					                			   rendered="#{cat.editable}">
-					                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
-					                    <f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable" /> 
-					                </h:commandLink>
-					                 
-					                <h:commandLink value="#{msg['cancel']}" 
-					                			   class="btn btn-default btn-sm"
-					                			   action="#{categoryController.cancelEdit(cat)}" 
-					                			   rendered="#{cat.editable}" >
-					                    <f:ajax render="@form" />
-					                </h:commandLink>
-					            </h:column>
-					            			               
-					            <h:column>
-					                <h:commandLink id="remove"
-					                			   class="btn btn-danger btn-sm"
-					                			   action="#{categoryController.remove(cat)}"
-					                               onclick="return confirm('#{msg['deleteQuestion']}')">
-					                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
-					                    <f:ajax render="@form" />
-					                </h:commandLink>
-					            </h:column>
-							</h:dataTable>
-				 								
-					</h:form>									
-				</div>								
+										 </div>
+										 
+										 <h:commandButton value="#{msg['add']}" action="#{categoryController.add}" class="btn btn-success btnSpace">
+										 	<f:ajax execute="categoryForm" render="categoryForm:categoryTable" />
+										 </h:commandButton>
+								  
+								 	</div>
+								 </div>
+								 
+								<h:dataTable id="categoryTable"
+											 value="#{categoryController.categoryList}" var="cat" 
+											 class="table table-responsive table-bordered table-striped"
+											 headerClass = "employeeTableHeader"
+											 columnClasses="column1,column2,column3">                                                > 
+								    <h:column sortingExpression="#{cat.description}">
+								        <f:facet name="header">
+						    			   <h:commandLink value="#{msg['category']}" action="#{categoryController.sortByDescription}">
+						    			   		<f:ajax render="@form" />
+						    			   </h:commandLink>
+						    			</f:facet>	   			
+								        <h:inputText value="#{cat.description}" rendered="#{cat.editable}" required="true" requiredMessage="description is required"/>
+		               					<h:outputText value="#{cat.description}" rendered="#{not cat.editable}" />
+								    </h:column>
+								    
+								    <h:column>
+						                <h:commandLink action="#{categoryController.edit(cat)}" 
+						                			   class="btn btn-primary btn-sm"
+						                			   rendered="#{not cat.editable}">
+						                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
+											<f:ajax render="@form" />
+						                </h:commandLink>
+						                
+						                <h:commandLink action="#{categoryController.update(cat)}" 
+						                			   class="btn btn-success btn-sm"
+						                			   rendered="#{cat.editable}">
+						                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
+						                    <f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable" /> 
+						                </h:commandLink>
+						                 
+						                <h:commandLink value="#{msg['cancel']}" 
+						                			   class="btn btn-default btn-sm"
+						                			   action="#{categoryController.cancelEdit(cat)}" 
+						                			   rendered="#{cat.editable}" >
+						                    <f:ajax render="@form" />
+						                </h:commandLink>
+						            </h:column>
+						            			               
+						            <h:column>
+						                <h:commandLink id="remove"
+						                			   class="btn btn-danger btn-sm"
+						                			   action="#{categoryController.remove(cat)}"
+						                               onclick="return confirm('#{msg['deleteQuestion']}')">
+						                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
+						                    <f:ajax render="@form" />
+						                </h:commandLink>
+						            </h:column>
+								</h:dataTable>
+					 								
+						</h:form>									
+					</div>								
+				</div>
 			</div>
 		</div>
 

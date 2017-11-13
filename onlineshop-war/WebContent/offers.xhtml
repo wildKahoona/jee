@@ -7,106 +7,107 @@
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
 	
-		<div class="container" style="margin: 0px;">
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10 col-md-offset-1">
 	
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Meine Angebote</h3>
-				</div>
-				<div class="panel-body">		
-					<h:form id="offerForm">
-						<h:message for="offerForm" showSummary="true" styleClass="text-success"/>
-						<h:dataTable id="offerTable"
-									value="#{offersController.offerList}" var="offer" 
-									 class="table table-responsive table-bordered table-striped"
-									 columnClasses="column1,column2,column3">                                                  > 
-						    <h:column>
-						    	<f:facet name="header">#{msg.item_sold}</f:facet>
-						        <h:outputText value="#{offer.sold}" >
-						        	<f:convertDateTime dateStyle="full" type="date"/>
-								    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-								</h:outputText>
-						    </h:column>
-						    
-						    <h:column>
-						        <f:facet name="header">#{msg.item_title}</f:facet>
-						        <h:outputText value="#{offer.title}" rendered="#{not offer.editable}" />
-						        <h:inputText value="#{offer.title}" rendered="#{offer.editable}" required="true" requiredMessage="title is required"/>             				
-						    </h:column>
-						    
-							<h:column>
-						    	<f:facet name="header">#{msg.item_category}</f:facet>
-						    	<h:outputText value="#{offer.category.description}" rendered="#{not offer.editable}" />
-								<h:panelGroup rendered="#{offer.editable}">
-							    	<h:selectOneMenu value="#{offersController.selectedCategory}">
-										<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
-										<f:selectItems value="#{offersController.categories}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
-									</h:selectOneMenu>
-								</h:panelGroup>	
-						    </h:column> 
-						    
-						    <h:column>
-						        <f:facet name="header">#{msg.item_price}</f:facet>
-						        <h:outputText value="#{offer.price}" rendered="#{not offer.editable}">
-									<f:convertNumber currencySymbol="CHF " type="currency" />
-								</h:outputText>
-								
-								<h:inputText value="#{offer.price}" rendered="#{offer.editable}" required="true" requiredMessage="title is required">
-									<f:convertNumber currencySymbol="CHF " type="currency" />
-								</h:inputText>	
-						    </h:column> 
-						    
-						    <h:column>
-						    	<f:facet name="header">#{msg.item_condition}</f:facet>
-						    	<h:outputText value="#{offer.condition.description}" rendered="#{not offer.editable}" />
-								<h:panelGroup rendered="#{offer.editable}">
-							    	<h:selectOneMenu value="#{offersController.selectedCondition}">
-										<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
-										<f:selectItems value="#{offersController.conditions}" var="condition" itemValue="#{condition.id}" itemLabel="#{condition.description}"/>
-									</h:selectOneMenu>
-								</h:panelGroup>						    							    	
-						    </h:column>
-						    						    
-						    <h:column>
-						    	<!-- rendered="#{(not offer.editable) or (offer.sold == null)}" -->
-				                <h:commandLink action="#{offersController.edit(offer)}" 
-				                			   class="btn btn-primary btn-sm"
-				                			   rendered="#{(not offer.editable) or (offer.sold != null)}">
-				                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
-									<f:ajax render="@form" />
-				                </h:commandLink>
-				                
-				                <h:commandLink action="#{offersController.update(offer)}" 
-				                			   class="btn btn-success btn-sm"
-				                			   rendered="#{offer.editable}">
-				                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
-				                    <f:ajax execute="offerForm:offerTable" render="offerForm:offerTable" /> 
-				                </h:commandLink>
-				                 
-				                <h:commandLink value="#{msg['cancel']}" 
-				                			   class="btn btn-default btn-sm"
-				                			   action="#{offersController.cancelEdit(offer)}" 
-				                			   rendered="#{offer.editable}" >
-				                    <f:ajax render="@form" />
-				                </h:commandLink>
-				                
-				            </h:column>
-				            			               
-				            <h:column>
-				                <h:commandLink id="remove"
-				                			   class="btn btn-danger btn-sm"
-				                			   action="#{offersController.remove(offer)}"
-				                			   rendered="#{offer.sold != null}"
-				                               onclick="return confirm('#{msg['deleteQuestion']}')">
-				                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
-				                    <f:ajax render="@form" />
-				                </h:commandLink>
-				            </h:column>						    
-						   							
-						</h:dataTable>  						                                    					
-					</h:form>				
-				</div>
-			</div>				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">#{msg['menu_offers']}</h3>
+					</div>
+					<div class="panel-body">		
+						<h:form id="offerForm">
+							<h:message for="offerForm" showSummary="true" styleClass="text-success"/>
+							<h:dataTable id="offerTable"
+										value="#{offersController.offerList}" var="offer" 
+										 class="table table-responsive table-bordered table-striped"
+										 columnClasses="column1,column2,column3">                                                  > 
+							    <h:column>
+							    	<f:facet name="header">#{msg.item_sold}</f:facet>
+							        <h:outputText value="#{offer.sold}" >
+							        	<f:convertDateTime dateStyle="full" type="date"/>
+									    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+									</h:outputText>
+							    </h:column>
+							    
+							    <h:column>
+							        <f:facet name="header">#{msg.item_title}</f:facet>
+							        <h:outputText value="#{offer.title}" rendered="#{not offer.editable}" />
+							        <h:inputText value="#{offer.title}" rendered="#{offer.editable}" required="true" requiredMessage="title is required"/>             				
+							    </h:column>
+							    
+								<h:column>
+							    	<f:facet name="header">#{msg.item_category}</f:facet>
+							    	<h:outputText value="#{offer.category.description}" rendered="#{not offer.editable}" />
+									<h:panelGroup rendered="#{offer.editable}">
+								    	<h:selectOneMenu value="#{offersController.selectedCategory}">
+											<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
+											<f:selectItems value="#{offersController.categories}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
+										</h:selectOneMenu>
+									</h:panelGroup>	
+							    </h:column> 
+							    
+							    <h:column>
+							        <f:facet name="header">#{msg.item_price}</f:facet>
+							        <h:outputText value="#{offer.price}" rendered="#{not offer.editable}">
+										<f:convertNumber currencySymbol="CHF " type="currency" />
+									</h:outputText>
+									
+									<h:inputText value="#{offer.price}" rendered="#{offer.editable}" required="true" requiredMessage="title is required">
+										<f:convertNumber currencySymbol="CHF " type="currency" />
+									</h:inputText>	
+							    </h:column> 
+							    
+							    <h:column>
+							    	<f:facet name="header">#{msg.item_condition}</f:facet>
+							    	<h:outputText value="#{offer.condition.description}" rendered="#{not offer.editable}" />
+									<h:panelGroup rendered="#{offer.editable}">
+								    	<h:selectOneMenu value="#{offersController.selectedCondition}">
+											<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
+											<f:selectItems value="#{offersController.conditions}" var="condition" itemValue="#{condition.id}" itemLabel="#{condition.description}"/>
+										</h:selectOneMenu>
+									</h:panelGroup>						    							    	
+							    </h:column>
+							    						    
+							    <h:column>
+					                <h:commandLink action="#{offersController.edit(offer)}" 
+					                			   class="btn btn-primary btn-sm"
+					                			   rendered="#{(not offer.editable) and (offer.sold == null)}">
+					                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
+										<f:ajax render="@form" />
+					                </h:commandLink>
+					                
+					                <h:commandLink action="#{offersController.update(offer)}" 
+					                			   class="btn btn-success btn-sm"
+					                			   rendered="#{offer.editable}">
+					                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
+					                    <f:ajax execute="offerForm:offerTable" render="offerForm:offerTable" /> 
+					                </h:commandLink>
+					                 
+					                <h:commandLink value="#{msg['cancel']}" 
+					                			   class="btn btn-default btn-sm"
+					                			   action="#{offersController.cancelEdit(offer)}" 
+					                			   rendered="#{offer.editable}" >
+					                    <f:ajax render="@form" />
+					                </h:commandLink>
+					                
+					            </h:column>
+					            			               
+					            <h:column>
+					                <h:commandLink id="remove"
+					                			   class="btn btn-danger btn-sm"
+					                			   action="#{offersController.remove(offer)}"
+					                			   rendered="#{offer.sold == null}"
+					                               onclick="return confirm('#{msg['deleteQuestion']}')">
+					                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
+					                    <f:ajax render="@form" />
+					                </h:commandLink>
+					            </h:column>						    
+							   							
+							</h:dataTable>  						                                    					
+						</h:form>				
+					</div>
+				</div>				
+			</div>
 		</div>
 
 	</ui:define>

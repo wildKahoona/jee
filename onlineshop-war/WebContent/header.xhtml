@@ -15,40 +15,40 @@
 		<nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
-		      <a class="navbar-brand" href="#">WebSiteName</a>
+		      <a class="navbar-brand" href="#">Bigi's Shop</a>
 		    </div>
 		    <ul class="nav navbar-nav">
 		      <li class="active"><a href="#">Home</a></li>
 
 		      <li>
-		      	<h:link outcome="product" value="Produkte"/>
+		      	<h:link outcome="product" value="#{msg['menu_product']}"/>
 		      </li>
 		      
 		      
-		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">User Dashboard<span class="caret"></span></a>
+		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">#{msg['menu_userdashboard']}<span class="caret"></span></a>
 		        <ul class="dropdown-menu">
 		          <li>
-		          	<h:link outcome="address" value="Meine Adresse"/>
+		          	<h:link outcome="address" value="#{msg['menu_address']}"/>
 		          </li>
 		          <li>
-		          	<h:link outcome="purchase" value="Meine Einkäufe"/>
+		          	<h:link outcome="purchase" value="#{msg['menu_purchase']}"/>
 		          </li>
 		          <li>
-		          	<h:link outcome="offers" value="Meine Angebote"/>
+		          	<h:link outcome="offers" value="#{msg['menu_offers']}"/>
 		          </li>
 		          <li>
-		          	<h:link outcome="sell" value="Neues Angebot"/>
+		          	<h:link outcome="sell" value="#{msg['menu_sell']}"/>
 		          </li>
 		        </ul>
 		      </li>		      
 		      
-		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin Dashboard<span class="caret"></span></a>
+		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">#{msg['menu_admindashboard']}<span class="caret"></span></a>
 		        <ul class="dropdown-menu">
 		          <li>
-		          	<h:link outcome="category" value="Category"/>
+		          	<h:link outcome="category" value="#{msg['menu_category']}"/>
 		          </li>
 		          <li>
-		          	<h:link outcome="condition" value="Condition"/>
+		          	<h:link outcome="condition" value="#{msg['menu_condition']}"/>
 		          </li>
 		        </ul>
 		      </li>		      
@@ -58,25 +58,21 @@
 		      </li>
 		      <li>
 		      	<h:link outcome="admin_dashboard" value="Admin Dashboard"/>
-		      </li>
-		      
+		      </li>	      
 		    </ul>
-		    
-		    <h:form>
-				<h:selectOneMenu value="#{localeController.language}" onchange="submit()">
-					<f:selectItem itemValue="en" itemLabel="English" />
-					<f:selectItem itemValue="de" itemLabel="Deutsch" />
-				</h:selectOneMenu>
+			
+			<h:form>
+				<h:commandButton action="#{localeController.setLanguage('en')}" image="#{resource['img:us.gif']}"/>
+				<h:commandButton action="#{localeController.setLanguage('de')}" image="#{resource['img:de.gif']}"/>
 			</h:form>
 		    
 		    <ul class="nav navbar-nav navbar-right">
 		      	<li>
-		      		<h:link outcome="register"><span class="glyphicon glyphicon-user"></span> #{msg['register']}</h:link>
+		      		<h:link outcome="register"><span class="glyphicon glyphicon-user"></span> #{msg['menu_register']}</h:link>
 		      	</li>
 		      	<li>
-		      		<h:link outcome="signin"><span class="glyphicon glyphicon-log-in"></span> #{msg['signin']}</h:link>
+		      		<h:link outcome="signin"><span class="glyphicon glyphicon-log-in"></span> #{msg['menu_signin']}</h:link>
 		      	</li>
-		      	<!-- <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
 		    </ul>
 		  </div>
 		</nav>
