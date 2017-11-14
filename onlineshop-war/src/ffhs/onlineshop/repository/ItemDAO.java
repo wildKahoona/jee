@@ -1,6 +1,7 @@
 package ffhs.onlineshop.repository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 
+import ffhs.onlineshop.model.Category;
 import ffhs.onlineshop.model.Customer;
 import ffhs.onlineshop.model.Item;
 
@@ -26,6 +28,17 @@ public class ItemDAO implements Serializable{
 	
 	@Inject
 	private UserDAO userDao;
+	
+	public List<Item> getAllItems(){
+		try {
+			EntityManager em = emf.createEntityManager();
+			TypedQuery<Item> query = em.createNamedQuery("Item.findAll", Item.class);
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<Item>();
+	}
 	
 	public void updateItem(Item item){
 		try {
@@ -55,6 +68,15 @@ public class ItemDAO implements Serializable{
 		return null;
     }
  
+    public List<Item> getItemsByCategory(Category category) {
+    	if(category == null) return new ArrayList<Item>();
+    	
+    	EntityManager em = emf.createEntityManager();
+    	TypedQuery<Item> query = em.createQuery("SELECT i FROM Item i WHERE i.category= :category", Item.class);
+		query.setParameter("category", category);
+		return query.getResultList();
+    }
+    
     /**
      * get purchase by customer
      * 
@@ -63,16 +85,13 @@ public class ItemDAO implements Serializable{
      * @throws SQLException
      */
     public List<Item> getPurchasesByCustomer(Customer customer) {
-    	if(customer != null)
-    	{
-    		EntityManager em = emf.createEntityManager();
-    		TypedQuery<Item> query = em.createQuery(
-    			"SELECT i FROM Item i WHERE i.buyer= :buyer ", Item.class);
-    		query.setParameter("buyer", customer);
-    		List<Item> list = query.getResultList();
-    		return list;
-    	}
-		return null;
+    	if(customer == null) return new ArrayList<Item>();
+		
+    	EntityManager em = emf.createEntityManager();
+		TypedQuery<Item> query = em.createQuery(
+			"SELECT i FROM Item i WHERE i.buyer= :buyer ", Item.class);
+		query.setParameter("buyer", customer);
+		return query.getResultList();
     }
     
     /**
@@ -86,7 +105,7 @@ public class ItemDAO implements Serializable{
     	Customer customer = userDao.findUser(email);
     	if(customer != null)
     		return getOffersByCustomer(customer);
-		return null;
+		return new ArrayList<Item>();
     }    
  
     /**
@@ -109,8 +128,7 @@ public class ItemDAO implements Serializable{
 		return null;
     } 
     
-	public void deleteItem(Item item)
-	{		
+	public void deleteItem(Item item) {		
 		if(item == null) return;
         try {
         	ut.begin();

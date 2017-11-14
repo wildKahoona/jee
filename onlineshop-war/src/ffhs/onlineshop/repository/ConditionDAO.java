@@ -47,20 +47,13 @@ public class ConditionDAO implements Serializable{
 	public void updateCondition(Condition condition) {
 		if(condition == null) return;
 		try {
-        	System.out.println("DAO Speichern");
-        	if(condition != null)
-        		System.out.println("Condition: " + condition.getDescription());
         	ut.begin();
         	EntityManager em = emf.createEntityManager();
         	em.merge(condition);
             em.flush();
             ut.commit();
-            System.out.println("DAO Gespeichert");
-        	if(condition != null)
-        		System.out.println("Condition: " + condition.getDescription());
         } catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("ERROR Speichere Category: " + e.getMessage());
         } finally {
 //            em.close();
         }

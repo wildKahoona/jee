@@ -29,11 +29,16 @@ public class ImageServlet extends HttpServlet {
 
     	try {
     		String id = request.getParameter("id");	
-			Query query = emf.createEntityManager().createQuery("select i.foto from Item i where i.id = :id");
-			query.setParameter("id", Long.parseLong(id));
-			byte[] foto = (byte[]) query.getSingleResult();
-			response.reset();
-			response.getOutputStream().write(foto);
+    		if (id != null && !id.isEmpty()){
+    			Query query = emf.createEntityManager().createQuery("select i.foto from Item i where i.id = :id");
+    			query.setParameter("id", Long.parseLong(id));
+    			Object fotoObj = query.getSingleResult();
+    			if(fotoObj != null) {
+    				byte[] foto = (byte[])fotoObj;
+    				response.reset();
+    				response.getOutputStream().write(foto);
+    			}    			
+    		}
 		} catch(Exception ex) {
 			throw new ServletException(ex.getMessage());
 		}

@@ -39,7 +39,9 @@ public class Category implements Serializable {
 			strategy=GenerationType.SEQUENCE, 
 			generator="CATEGORY_ID_GENERATOR")
 	private Long id;	
+	
 	private String description;
+	
 	private transient boolean editable;
 	
 	//bi-directional many-to-one association to Item

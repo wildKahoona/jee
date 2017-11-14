@@ -40,6 +40,7 @@ public class Condition implements Serializable {
 	private Long id;
 	
 	private String description;
+	
 	private transient boolean editable;
 
 	//bi-directional many-to-one association to Item

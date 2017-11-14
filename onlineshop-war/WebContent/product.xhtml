@@ -6,52 +6,82 @@
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
 <ui:define name="content">
+  
+    <div class="row" id="content">
 
-<div class="container">
+	 	<h:form>
+			<div class="col-sm-2">
 
-    <div class="row">
-
-		<c:forEach var="item" items="#{productController.items}">
-
-			<div class="col-md-4">
-	        	<div class="thumbnail">
-	                <!-- <img src="http://tech.firstpost.com/wp-content/uploads/2014/09/Apple_iPhone6_Reuters.jpg" alt="" class="img-responsive"/> -->
-	                <h:graphicImage url="image?id=#{item.id}" class="img-responsive"/>
-	                <div class="caption">
-	                  <h4 class="pull-right">CHF #{item.price}</h4>
-	                  <h4><a href="#">#{item.title}</a></h4>
-	                  <!-- <p>#{item.description}</p> -->
-	                  <h:outputText value="#{fn:substring(item.description, 0, 40)}..." />
-	                </div>
-	                <div class="ratings">
-	                  <p>
-	                    <span class="glyphicon glyphicon-star"></span>
-	                    <span class="glyphicon glyphicon-star"></span>
-	                    <span class="glyphicon glyphicon-star"></span>
-	                    <span class="glyphicon glyphicon-star"></span>
-	                    <span class="glyphicon glyphicon-star"></span>
-	                     (15 reviews)
-	                  </p>
-	                </div>
-	                <!-- <div class="space-ten"></div> -->
-	                <div class="btn-ground text-center">
-	                   <h:form id="detailForm" prependId="false">
-		                   <h:commandLink onclick="$('#product_view').modal('show');" class="btn btn-primary"
-		                   				  action="#{productController.showItemDetail(item.id)}">Show Detail
-		                    	<f:ajax render=":dialog-detail-form" />
-		                   </h:commandLink>
-	                   </h:form>
-	                   <button type="button" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
-	                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button> -->
-	                </div>
-	                <!-- <div class="space-ten"></div> -->
-	              </div>
-			</div>            
-            
-		</c:forEach>    
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h4>#{msg['categories']}</h4>
+					</div>
+					<div class="panel-body">
+	                    <div class="single">
+	                        <ul class="list-unstyled">
+		                        <c:forEach var="cat" items="#{productController.categories}">
+		                        	<li>
+								 		<h:commandLink action="#{productController.loadItems(cat)}">
+									 		#{cat.description}
+									 		<span class="pull-right">
+									 			#{fn:length(cat.items)}
+									 		</span>
+									 		<f:ajax execute="productForm" render=":productForm" />
+										</h:commandLink>
+	                  				</li>    
+	                         	</c:forEach>  
+	                        </ul>
+	                    </div>
+					</div>		
+				</div>
+			</div>
+	 	</h:form>     
+   
+	   <h:panelGroup id="productForm" >
+			<div class="col-sm-10">
+			  
+				<c:forEach var="item" items="#{productController.items}">
 		
+					<div class="col-md-4">
+			        	<div class="thumbnail">
+			                <!-- <img src="http://tech.firstpost.com/wp-content/uploads/2014/09/Apple_iPhone6_Reuters.jpg" alt="" class="img-responsive"/> -->
+			                <h:graphicImage url="image?id=#{item.id}" class="img-responsive"/>
+			                <div class="caption">
+			                  <h4 class="pull-right">CHF #{item.price}</h4>
+			                  <h4><a href="#">#{item.title}</a></h4>
+			                  <!-- <p>#{item.description}</p> -->
+			                  <h:outputText value="#{fn:substring(item.description, 0, 40)}..." />
+			                </div>
+			                <div class="ratings">
+			                  <p>
+			                    <span class="glyphicon glyphicon-star"></span>
+			                    <span class="glyphicon glyphicon-star"></span>
+			                    <span class="glyphicon glyphicon-star"></span>
+			                    <span class="glyphicon glyphicon-star"></span>
+			                    <span class="glyphicon glyphicon-star"></span>
+			                     (15 reviews)
+			                  </p>
+			                </div>
+			                <!-- <div class="space-ten"></div> -->
+			                <div class="btn-ground text-center">
+			                   <h:form id="detailForm" prependId="false">
+				                   <h:commandLink onclick="$('#product_view').modal('show');" class="btn btn-primary"
+				                   				  action="#{productController.showItemDetail(item.id)}">Show Detail
+				                    	<f:ajax render=":dialog-detail-form" />
+				                   </h:commandLink>
+			                   </h:form>
+			                   <button type="button" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
+			                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button> -->
+			                </div>
+			                <div class="space-ten"></div>
+			              </div>
+					</div>            
+		            
+				</c:forEach>    
+			
+			</div>
+		</h:panelGroup>
     </div>
-</div>
 
 
 <div class="modal fade product_view" id="product_view">
@@ -88,7 +118,7 @@
 								</h:outputText>
 							</h3>
 								
-	                        <!-- <div class="space-ten"></div> -->
+	                        <div class="space-ten"></div>
 	                        <div class="btn-ground">
 	                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>
 	                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Add To Wishlist</button>

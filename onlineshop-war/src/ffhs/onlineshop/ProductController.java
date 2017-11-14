@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Resource;
-import javax.enterprise.context.RequestScoped;
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.TypedQuery;
-import javax.transaction.UserTransaction;
 
+import ffhs.onlineshop.model.Category;
 import ffhs.onlineshop.model.Item;
+import ffhs.onlineshop.repository.CategoryDAO;
+import ffhs.onlineshop.repository.ItemDAO;
 
 /**
  * 
@@ -21,36 +21,54 @@ import ffhs.onlineshop.model.Item;
  *
  */
 @Named
-@RequestScoped
+@ViewScoped
 public class ProductController implements Serializable {	
 	private static final long serialVersionUID = 1L;
 	
-	@PersistenceUnit
-	private EntityManagerFactory emf;
+	@Inject
+	private CategoryDAO categoryDAO;
 	
-	@Resource
-	private UserTransaction ut;			
+	@Inject
+	private ItemDAO itemDAO;
+		
 	private List<Item> items;	
+	private List<Category> categories;
 	private Item selectedItem;
 
-	public List<Item> getItems() {
-		items = findAll();
-		return items;
-	}
 	
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
+    @PostConstruct
+    public void init() {
+    	System.out.println("!!! Products INIT !!!");
+    	setCategories(getAllCatagories());
+    	items = findAll();
+    }
 	
 	public List<Item> findAll() {
 		try {
-			TypedQuery<Item> query = emf.createEntityManager().
-			createNamedQuery("Item.findAll", Item.class);
-			return query.getResultList();
+			return itemDAO.getAllItems();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}	
 		return new ArrayList<Item>();
+	}
+	
+	public List<Category> getAllCatagories(){	
+		try {
+			return categoryDAO.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return new ArrayList<Category>();
+	}
+	
+	public void loadItems(Category category){
+		List<Item> items = new ArrayList<Item>();
+		try {
+			items = itemDAO.getItemsByCategory(category);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		setItems(items);
 	}
 	
 	public void showItemDetail(Long itemID){	
@@ -59,7 +77,15 @@ public class ProductController implements Serializable {
 		if (item.isPresent())
 			setSelectedItem(item.get());
 	}
-
+    
+	public List<Item> getItems() {
+		return items;
+	}
+	
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	
 	public Item getSelectedItem() {
 		return selectedItem;
 	}
@@ -67,5 +93,12 @@ public class ProductController implements Serializable {
 	public void setSelectedItem(Item selectedItem) {
 		this.selectedItem = selectedItem;
 	}
-	
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}	
 }
