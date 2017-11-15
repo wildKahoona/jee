@@ -19,7 +19,19 @@
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-			<h:outputStylesheet library="css" name="styles.css"/>
+			<!-- Funktioniert NICHT -->
+			<!-- <h:outputStylesheet name="styles.css" library="css" target="head" /> -->
+					
+			<!-- Funktioniert (css nicht in WEB-INF) -->
+			<!-- <link href="resources/css/styles.css" rel="stylesheet" type="text/css" media="all" /> -->
+			<!-- <link href="resources/css/styles.css" rel="stylesheet" type="text/css" media="all" />
+			<link href="styles.css" rel="stylesheet" type="text/css" media="all" /> -->
+			
+			<h:outputStylesheet name="styles.css" library="css" target="head" />
+
+			<!-- <link href="#{facesContext.externalContext.requestContextPath}/css/styles.css" rel="styleSheet" type="text/css"/> -->
+
+			<!-- <link href="#{facesContext.externalContext.requestContextPath}/resources/css/styles.css" rel="stylesheet" type="text/css" /> -->
 		</h:head>
 		
 		<h:body>

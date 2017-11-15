@@ -5,16 +5,26 @@ import java.io.Serializable;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import javax.transaction.UserTransaction;
 
 import ffhs.onlineshop.model.Customer;
 import ffhs.onlineshop.model.Item;
+import ffhs.onlineshop.model.Rating;
 import ffhs.onlineshop.repository.ItemDAO;
+import ffhs.onlineshop.repository.RatingDAO;
 
 import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.el.ELContext;
+import javax.el.ELResolver;
 import javax.inject.Inject;
 
 
@@ -24,14 +34,25 @@ import javax.inject.Inject;
 public class PurchaseController implements Serializable {	
 	private static final long serialVersionUID = 1L;
 
+//	@PersistenceUnit
+//	private EntityManagerFactory emf;
+//	
+//	@Resource
+//	private UserTransaction ut;
+	
 	@Inject
     private Conversation conversation;
 	
 	@Inject
 	private ItemDAO itemDAO;
+	
+	@Inject
+	private RatingDAO ratingDAO;
+	
 	private String username;
 	private List<Item> purchaseList;
 	private Item selectedPurchase;
+	private String comment;
 	
     @PostConstruct
     public void init() {
@@ -59,8 +80,10 @@ public class PurchaseController implements Serializable {
     
     public void update(Long purchaseId){
     	if(purchaseId != null){
+    		System.out.println("Selected Purchase ID: " + getSelectedPurchase().getId() + " comment: " + comment);
+    		
     		// Update rate
-    		System.out.println("Update rate Purchase ID: " + purchaseId);
+    		System.out.println("Update rate Purchase ID: " + purchaseId + " comment: " + comment);
     		
     		Optional<Item> item = purchaseList.stream().filter(x -> x.getId() == purchaseId).findFirst();
     		if (item.isPresent()){
@@ -69,8 +92,36 @@ public class PurchaseController implements Serializable {
         		
         	System.out.println("Update: " + selectedPurchase.getId());
         	
-        	selectedPurchase.setTitle("aaaa");
-        	itemDAO.updateItem(selectedPurchase);
+        	Rating rating = new Rating();
+        	rating.setStars((int)4);
+        	rating.setCommentary(comment);
+        	
+			// Um eingeloggten User zu holen
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			ELContext elc = ctx.getELContext();
+			ELResolver elr = ctx.getApplication().getELResolver();
+			SigninController signinController = (SigninController) elr.getValue(elc, null, "signinController");
+			Customer customer = signinController.getCustomer();
+			rating.setTo(customer);
+			rating.setFrom(customer);
+        	
+			try {
+				System.out.println("Persist Rating: " + rating.getStars() + ", " + rating.getCommentary());			
+				ratingDAO.insertRating(rating);
+				
+				FacesMessage m = new FacesMessage("Succesfully rate!");
+				FacesContext.getCurrentInstance().addMessage("purchaseForm", m);
+			} catch (Exception e) {
+				e.printStackTrace();
+				FacesMessage m = 
+					new FacesMessage(
+						FacesMessage.SEVERITY_WARN,
+						e.getMessage(), // ACHTUNG: nur im Entwicklerstadium anzeigen !!!
+						e.getCause().getMessage());
+				FacesContext.getCurrentInstance().addMessage("purchaseForm",m);
+			}
+			
+//        	itemDAO.updateItem(selectedPurchase);
         	setPurchaseList(itemDAO.getPurchasesByCustomer(username));
         	conversation.end();
     	}
@@ -99,5 +150,13 @@ public class PurchaseController implements Serializable {
 
 	public void setSelectedPurchase(Item selectedPurchase) {
 		this.selectedPurchase = selectedPurchase;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }

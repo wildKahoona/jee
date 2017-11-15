@@ -64,7 +64,17 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy="buyer")
 	private Set<Item> purchases;
 
+	//bi-directional many-to-one association to Rating
+	@OneToMany(mappedBy="from")
+	private Set<Rating> froms;
+
+	//bi-directional many-to-one association to Rating
+	@OneToMany(mappedBy="to")
+	private Set<Rating> tos;
+	
 	private transient boolean editable;
+	
+	private transient double rating;
 	
 	public Customer() {
 	}
@@ -149,6 +159,7 @@ public class Customer implements Serializable {
 		this.offers = offers;
 	}
 
+	
 	public Item addOffer(Item offer) {
 		Set<Item> offers = getOffers();
 		if(offers == null) {
@@ -192,6 +203,42 @@ public class Customer implements Serializable {
 		return purchase;
 	}
 
+	public Set<Rating> getFroms() {
+		return this.froms;
+	}
+
+	public void setFroms(Set<Rating> froms) {
+		this.froms = froms;
+	}
+
+	public Rating addFrom(Rating rating) {
+		Set<Rating> froms = getFroms();
+		if(froms == null) {
+			froms = new HashSet<Rating>();
+		}
+		froms.add(rating);
+		rating.setFrom(this);
+		return rating;
+	}
+	
+	public Set<Rating> getTos() {
+		return this.tos;
+	}
+
+	public void setTos(Set<Rating> tos) {
+		this.tos = tos;
+	}
+
+	public Rating addTo(Rating rating) {
+		Set<Rating> tos = getTos();
+		if(tos == null) {
+			tos = new HashSet<Rating>();
+		}
+		tos.add(rating);
+		rating.setTo(this);
+		return rating;
+	}
+	
     public boolean isEditable() {
         return editable;
     }
@@ -232,6 +279,16 @@ public class Customer implements Serializable {
 
 	public String toString() {
 		return id + "-" + email + "-" + password;
+	}
+
+	public double getRating() {
+		if(tos.size() > 0)
+			return 10;
+		return 0;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
 }
 

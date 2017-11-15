@@ -59,7 +59,19 @@ public class UserDAO implements Serializable{
 		return null;
     }
     
+	public void insertCustomer(Customer customer){
+		if(customer == null) return;
+		try {
+			ut.begin();
+			emf.createEntityManager().persist(customer);
+			ut.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	} 
+    
 	public void updateCustomer(Customer customer){
+		if(customer == null) return;
 		try {
         	ut.begin();
         	EntityManager em = emf.createEntityManager();

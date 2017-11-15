@@ -6,8 +6,11 @@
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
+
+		<!-- <h:outputStylesheet library="css" name="styles.css"/> -->
 	
 		<div class="row">
+					
 			<div class="col-md-offset-1 col-md-10 col-md-offset-1">	
 				<div class="panel panel-primary">
 					<div class="panel-heading">
@@ -35,6 +38,11 @@
 							    <h:column>
 							    	<f:facet name="header">#{msg.item_condition}</f:facet>#{purchase.condition.description}
 							    </h:column> 
+							   
+							    <h:column>
+							    	<f:facet name="header">#{msg.item_rating}</f:facet>#{purchase.seller.rating}
+							    </h:column> 							  
+							 
 							    <h:column>
 								    <h:commandLink class="btn btn-primary" onclick="$('#product_view').modal('show');"
 								    			   action="#{purchaseController.rateSeller(purchase.id)}">Rate
@@ -67,17 +75,18 @@
 			                	<h4>Product Id: <span>#{purchaseController.selectedPurchase.id}</span></h4>
 			                	
 			                	<p>Gesamtbewertung</p>
-								<div class="rate-ex2-cnt">
-									<div id="1" class="rate-btn-1 rate-btn"></div>
-									<div id="2" class="rate-btn-2 rate-btn"></div>
-									<div id="3" class="rate-btn-3 rate-btn"></div>
-									<div id="4" class="rate-btn-4 rate-btn"></div>
-									<div id="5" class="rate-btn-5 rate-btn"></div>
-								</div>
+								<fieldset class="rating">
+								    <legend>Please rate:</legend>
+								    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+								    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+								    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+								    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+								    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+								</fieldset>
 			                	
 			                	<div class="form-group">
 									<h:outputLabel value="#{msg['comment']}:"/>
-									<h:inputTextarea rows="3" p:placeholder="#{msg['comment.placeholder']}" class="form-control"/>
+									<h:inputTextarea value="#{purchaseController.comment}" rows="3" p:placeholder="#{msg['comment.placeholder']}" class="form-control"/>
 									<!-- <textarea placeholder="#{msg['street.placeholder']}" rows="3" class="form-control"></textarea> -->
 								</div>
 			                	
@@ -86,7 +95,7 @@
 									value="Update1"
 									action="#{purchaseController.update(purchaseController.selectedPurchase.id)}"/>
 								<h:commandLink 
-									value="Update2"
+									value="SAVE"
 									action="#{purchaseController.update(2)}"/>
 			                </h:form>
 			            </div>

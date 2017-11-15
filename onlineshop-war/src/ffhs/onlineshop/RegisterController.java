@@ -2,16 +2,13 @@ package ffhs.onlineshop;
 
 import java.io.Serializable;
 
-import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
-import javax.transaction.UserTransaction;
 
 import ffhs.onlineshop.model.Customer;
+import ffhs.onlineshop.repository.UserDAO;
 
 import javax.enterprise.context.RequestScoped;
 
@@ -25,11 +22,8 @@ import javax.enterprise.context.RequestScoped;
 public class RegisterController implements Serializable {	
 	private static final long serialVersionUID = 1L;
 	
-	@PersistenceUnit
-	private EntityManagerFactory emf;
-	
-	@Resource
-	private UserTransaction ut;
+	@Inject
+	private UserDAO userDAO;
 	
 	@Inject
 	private Customer customer;
@@ -44,16 +38,24 @@ public class RegisterController implements Serializable {
 	
 	public String persist() {
 		try {
-			ut.begin();
-			emf.createEntityManager().persist(customer);
-			ut.commit();
+			System.out.println(
+					"Persist Customer..." 
+					+ " Firstname: " + customer.getFirstname() 
+					+ ", Lastname: " + customer.getLastname()
+					+ ", Street: " + customer.getStreet()
+					+ ", Zip: " + customer.getZip()
+					+ ", City: " + customer.getCity()
+					+ ", Country: " + customer.getCountry()
+					+ ", Email: " + customer.getEmail()
+					+ ", Passwort: " + customer.getPassword());
+			
+			userDAO.insertCustomer(customer);
+			
 			FacesMessage m = 
 				new FacesMessage(
 					"Succesfully registered!",
 					"Your email was saved under id " + customer.getId());
-			FacesContext
-				.getCurrentInstance()
-				.addMessage("registerForm", m);
+			FacesContext.getCurrentInstance().addMessage("registerForm", m);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage m = 
@@ -61,9 +63,7 @@ public class RegisterController implements Serializable {
 					FacesMessage.SEVERITY_WARN,
 					e.getMessage(), // ACHTUNG: nur im Entwicklerstadium anzeigen !!!
 					e.getCause().getMessage());
-			FacesContext
-				.getCurrentInstance()
-				.addMessage("registerForm",m);
+			FacesContext.getCurrentInstance().addMessage("registerForm",m);
 		}
 		return "/register.jsf";
 		

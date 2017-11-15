@@ -58,13 +58,21 @@
 		      </li>
 		      <li>
 		      	<h:link outcome="admin_dashboard" value="Admin Dashboard"/>
-		      </li>	      
+		      </li>	 
+		      
+		      <li>      
+		     	 <h:form>
+					<h:commandButton action="#{localeController.setLanguage('en')}" image="#{resource['img:us.gif']}"/>
+					<h:commandButton action="#{localeController.setLanguage('de')}" image="#{resource['img:de.gif']}"/>
+				</h:form>
+			  </li>
+			  
 		    </ul>
 			
-			<h:form>
+			<!-- <h:form>
 				<h:commandButton action="#{localeController.setLanguage('en')}" image="#{resource['img:us.gif']}"/>
 				<h:commandButton action="#{localeController.setLanguage('de')}" image="#{resource['img:de.gif']}"/>
-			</h:form>
+			</h:form> -->
 		    
 		    <ul class="nav navbar-nav navbar-right">
 		      	<li>
