@@ -27,12 +27,14 @@
 	                        <ul class="list-unstyled">
 		                        <c:forEach var="cat" items="#{productController.categories}">
 		                        	<li>
-								 		<h:commandLink action="#{productController.loadItems(cat)}">
+								 		<h:commandLink action="#{productController.filterItems(cat)}">
 									 		#{cat.description}
 									 		<span class="pull-right">
 									 			#{fn:length(cat.items)}
 									 		</span>
-									 		<!-- <f:ajax execute="productForm" render=":productForm" /> -->
+									 		<!-- Funktioniert nicht so wie gewünscht
+									 		<f:ajax execute="productForm" render=":productForm" /> 
+									 		-->
 										</h:commandLink>
 	                  				</li>    
 	                         	</c:forEach>  

@@ -64,7 +64,7 @@ public class ProductController implements Serializable {
 		return new ArrayList<Category>();
 	}
 	
-	public void loadItems(Category category){
+	public void filterItems(Category category){
 		items = allItems.stream().filter(x -> x.getCategory().equals(category)).collect(Collectors.toList());
 	}
 
