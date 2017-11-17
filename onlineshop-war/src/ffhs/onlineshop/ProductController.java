@@ -3,7 +3,7 @@ package ffhs.onlineshop;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -12,6 +12,7 @@ import javax.inject.Named;
 
 import ffhs.onlineshop.model.Category;
 import ffhs.onlineshop.model.Item;
+import ffhs.onlineshop.model.Rating;
 import ffhs.onlineshop.repository.CategoryDAO;
 import ffhs.onlineshop.repository.ItemDAO;
 
@@ -30,23 +31,24 @@ public class ProductController implements Serializable {
 	
 	@Inject
 	private ItemDAO itemDAO;
-		
-	private List<Item> items;	
+	private List<Item> items;
+	private List<Item> allItems;
 	private List<Category> categories;
 	private Item selectedItem;
-
 	
     @PostConstruct
     public void init() {
     	System.out.println("!!! Products INIT !!!");
     	setCategories(getAllCatagories());
-    	items = findAll();
+    	setAllItems(findAll());
+    	setItems(getAllItems());
     }
 	
 	public List<Item> findAll() {
 		try {
 			return itemDAO.getAllItems();
 		} catch (Exception e) {
+			System.out.println("Error findAll Items!!! " + e.getMessage());
 			e.printStackTrace();
 		}	
 		return new ArrayList<Item>();
@@ -56,26 +58,25 @@ public class ProductController implements Serializable {
 		try {
 			return categoryDAO.findAll();
 		} catch (Exception e) {
+			System.out.println("Error getAllCatagories!!! " + e.getMessage());
 			e.printStackTrace();
 		}	
 		return new ArrayList<Category>();
 	}
 	
 	public void loadItems(Category category){
-		List<Item> items = new ArrayList<Item>();
-		try {
-			items = itemDAO.getItemsByCategory(category);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
-		setItems(items);
+		items = allItems.stream().filter(x -> x.getCategory().equals(category)).collect(Collectors.toList());
 	}
-	
-	public void showItemDetail(Long itemID){	
-		System.out.println("showItemDetail: " + itemID);
-		Optional<Item> item = items.stream().filter(x -> x.getId() == itemID).findFirst();
-		if (item.isPresent())
-			setSelectedItem(item.get());
+
+    private double calcAverageStars(Item item) { 
+		Integer sum = 0;
+		if(!item.getSeller().getTos().isEmpty()) {
+		    for (Rating rating : item.getSeller().getTos()) {
+		        sum += rating.getStars();
+		    }
+		    return sum.doubleValue() / item.getSeller().getTos().size();
+		  }
+		  return sum;
 	}
     
 	public List<Item> getItems() {
@@ -84,12 +85,15 @@ public class ProductController implements Serializable {
 	
 	public void setItems(List<Item> items) {
 		this.items = items;
+		for(Item item : items){
+			item.getSeller().setAverageStars(calcAverageStars(item));
+		}
 	}
 	
 	public Item getSelectedItem() {
 		return selectedItem;
 	}
-
+	
 	public void setSelectedItem(Item selectedItem) {
 		this.selectedItem = selectedItem;
 	}
@@ -100,5 +104,13 @@ public class ProductController implements Serializable {
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
-	}	
+	}
+
+	public List<Item> getAllItems() {
+		return allItems;
+	}
+
+	public void setAllItems(List<Item> allItems) {
+		this.allItems = allItems;
+	}
 }

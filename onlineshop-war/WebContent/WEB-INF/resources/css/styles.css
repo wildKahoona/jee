@@ -62,6 +62,15 @@ body {
     color: #60B078; 
 }
 
+.glyphicon-star { 
+  color: #e67e22; 
+  font-size: 1.5em;
+}
+
+.glyphicon-star-empty { 
+  font-size: 1.5em;
+}
+
 /* Sidebar navigation */
 .nav-sidebar {
   margin-right: -21px; /* 20px padding + 1px border */
@@ -124,11 +133,11 @@ body {
 
 
 .column1 {
-	width: 30px;
+	width: 80px;
 }
 
 .column2 {
-	width: 50px;
+	width: 150px;
 }
 
 .column3 {
@@ -136,15 +145,15 @@ body {
 }
 
 .column4 {
-	width: 70px;
+	width: 100px;
 }
 
 .column5 {
-	width: 150px;
+	width: 100px;
 }
 
 .column6 {
-	width: 100px;
+	width: 150px;
 }
 
 .rating {

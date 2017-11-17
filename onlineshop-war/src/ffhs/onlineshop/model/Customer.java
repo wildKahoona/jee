@@ -74,7 +74,7 @@ public class Customer implements Serializable {
 	
 	private transient boolean editable;
 	
-	private transient double rating;
+	private transient double averageStars;
 	
 	public Customer() {
 	}
@@ -159,7 +159,6 @@ public class Customer implements Serializable {
 		this.offers = offers;
 	}
 
-	
 	public Item addOffer(Item offer) {
 		Set<Item> offers = getOffers();
 		if(offers == null) {
@@ -204,6 +203,7 @@ public class Customer implements Serializable {
 	}
 
 	public Set<Rating> getFroms() {
+		System.out.println("getFroms");
 		return this.froms;
 	}
 
@@ -222,6 +222,7 @@ public class Customer implements Serializable {
 	}
 	
 	public Set<Rating> getTos() {
+		System.out.println("getTos");
 		return this.tos;
 	}
 
@@ -246,7 +247,15 @@ public class Customer implements Serializable {
     public void setEditable(boolean editable) {
         this.editable = editable;
     }
-    
+
+	public double getAverageStars() {
+		return averageStars;
+	}
+
+	public void setAverageStars(double averageStars) {
+		this.averageStars = averageStars;
+	}
+	  
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -279,16 +288,6 @@ public class Customer implements Serializable {
 
 	public String toString() {
 		return id + "-" + email + "-" + password;
-	}
-
-	public double getRating() {
-		if(tos.size() > 0)
-			return 10;
-		return 0;
-	}
-
-	public void setRating(double rating) {
-		this.rating = rating;
 	}
 }
 
