@@ -61,7 +61,7 @@ public class PurchaseController implements Serializable {
 //    	Customer customer = signinController.getCustomer();
 //		customer = em.find(Customer.class,customer.getId());
 		
-    	setUsername("aaa@gmx.ch");
+    	setUsername("bbb@gmx.ch");
     	setPurchaseList(itemDAO.getPurchasesByCustomer(username));
     }
     

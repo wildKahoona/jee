@@ -79,6 +79,8 @@ public class ProductController implements Serializable {
 	}
 
 	public void buyItem(Item item){	
+		System.out.println("Kaufe Item: " + item.getTitle());
+		
 		// Um eingeloggten User zu holen
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ELContext elc = ctx.getELContext();

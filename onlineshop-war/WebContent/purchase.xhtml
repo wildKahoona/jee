@@ -6,7 +6,32 @@
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
+<style>
+.column1 {
+	width: 120px;
+}
 
+.column2 {
+	width: 120px;
+}
+
+.column3 {
+	width: 150px;
+}
+
+.column4 {
+	width: 100px;
+}
+
+.column5 {
+	width: 100px;
+}
+
+.column6 {
+	width: 100px;
+	text-align: right;
+}
+</style>
 		<!-- <h:outputStylesheet library="css" name="styles.css"/> -->
 	
 		<div class="row">
@@ -22,33 +47,39 @@
 			
 							<h:dataTable value="#{purchaseController.purchaseList}" var="purchase" 
 										 class="table table-responsive table-bordered table-striped"
-										 columnClasses="column1,column2,column3,column4,column5">                                                  > 
+										 columnClasses="column1,column2,column3,column4,column5">     
+										                                              > 
 							    <h:column>
-							        <f:facet name="header">#{msg.item_title}</f:facet>#{purchase.title}
+								    <h:commandLink class="btn btn-primary" onclick="$('#rating_view').modal('show');"
+								    			   action="#{purchaseController.rateSeller(purchase.id)}">Rate
+			                   				  	   <f:ajax render=":dialog-form" />
+				                   </h:commandLink>							    	
 							    </h:column>
+							    
 							    <h:column>
 							    	<f:facet name="header">#{msg.item_category}</f:facet>#{purchase.category.description}
 							    </h:column> 
+							    
+							    <h:column>
+							    	<f:facet name="header">#{msg.item_condition}</f:facet>#{purchase.condition.description}
+							    </h:column> 
+							    
 							    <h:column style="width: 50px;">
 							        <f:facet name="header">#{msg.item_price}</f:facet>
 							        <h:outputText value="#{purchase.price}" >
 										<f:convertNumber pattern="#0.00" />
 									</h:outputText>
 							    </h:column>
-							    <h:column>
-							    	<f:facet name="header">#{msg.item_condition}</f:facet>#{purchase.condition.description}
-							    </h:column> 
+
 							   
 							    <h:column>
 							    	<f:facet name="header">#{msg.item_rating}</f:facet>#{purchase.seller.averageStars}
 							    </h:column> 							  
 							 
+
+							    
 							    <h:column>
-								    <h:commandLink class="btn btn-primary" onclick="$('#product_view').modal('show');"
-								    			   action="#{purchaseController.rateSeller(purchase.id)}">Rate
-			                   				  	   <f:ajax render=":dialog-myprofile-form" />
-				                   </h:commandLink>
-							    	
+							        <f:facet name="header">#{msg.item_title}</f:facet>#{purchase.title}
 							    </h:column>
 								
 							</h:dataTable>
@@ -59,20 +90,23 @@
 				</div>				
 			</div>
 		</div>
+
+
 		
-		<div class="modal fade product_view" id="product_view">
+		<div class="modal fade" id="rating_view">
 		    <div class="modal-dialog">
 		        <div class="modal-content">
 		            <div class="modal-header">
-		                <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-		                <h3 class="modal-title">Produkt Detail</h3>
+		                <a href="#" data-dismiss="modal" class="class pull-right">
+		                <span class="glyphicon glyphicon-remove"></span>
+		                </a>
+		                <h3 class="modal-title">#{msg['title_myrating']}</h3>
 		            </div>
 		            <div class="modal-body">
 		            	<div class="row">
-			                <h:form id="dialog-myprofile-form">
+			                <h:form id="dialog-form">
 			                	<!-- <h:inputText value="#{purchaseController.selectedPurchase.id}" /> -->
 			                	<h4>Product Id: <span>#{purchaseController.selectedPurchase.title}</span></h4>
-			                	<h4>Product Id: <span>#{purchaseController.selectedPurchase.id}</span></h4>
 			                	
 			                	<p>Gesamtbewertung</p>
 								<fieldset class="rating">
@@ -84,11 +118,38 @@
 								    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
 								</fieldset>
 			                	
-			                	<div class="form-group">
+			               <div class="row">
+			           		<div class="col-sm-12">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+								  		<h3 class="panel-title">Review Title</h3>
+									</div>
+									<div class="panel-body">
+								  		<p><textarea placeholder="#{msg['street.placeholder']}" rows="3" class="form-control"></textarea></p>
+								  		<span class="pull-right"/>
+										<!-- <div class="ratings">
+					           				<p>
+					           					<c:forEach begin="0" end="4" var="val">						    
+					           						<c:choose>
+								              			<c:when test="${rating.stars > (val + 0.5)}">
+								              				<span class="glyphicon glyphicon-star"></span>
+								              			</c:when>
+														<c:otherwise>
+															<span class="glyphicon glyphicon-star-empty"></span>
+														</c:otherwise>
+								             		</c:choose>								    									    
+								            	</c:forEach>
+								            </p>
+				           				</div>		 -->					  
+									</div>
+								</div>
+			           		</div>	
+			           		</div>
+			                	<!-- <div class="form-group">
 									<h:outputLabel value="#{msg['comment']}:"/>
 									<h:inputTextarea value="#{purchaseController.comment}" rows="3" p:placeholder="#{msg['comment.placeholder']}" class="form-control"/>
-									<!-- <textarea placeholder="#{msg['street.placeholder']}" rows="3" class="form-control"></textarea> -->
-								</div>
+									<textarea placeholder="#{msg['street.placeholder']}" rows="3" class="form-control"></textarea>
+								</div> -->
 			                	
 			                	
 			                	<h:commandLink 

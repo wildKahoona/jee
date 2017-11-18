@@ -218,40 +218,45 @@
 	                        <h:graphicImage url="image?id=#{productController.selectedItem.id}" class="img-responsive"/>
 	                    </div>
 	                    <div class="col-md-6 product_content">
-	                        <h4><span>#{productController.selectedItem.title}</span></h4>
-	                        <div class="rating">
-	                            <span class="glyphicon glyphicon-star"></span>
-	                            <span class="glyphicon glyphicon-star"></span>
-	                            <span class="glyphicon glyphicon-star"></span>
-	                            <span class="glyphicon glyphicon-star"></span>
-	                            <span class="glyphicon glyphicon-star"></span>
-	                            (10 reviews)
-	                        </div>
+	                        <h3><span>#{productController.selectedItem.title}</span></h3>
 	                        <p>
 	                        	<h:outputText value="#{productController.selectedItem.description}"/>
 	                        </p>
-	                        <h3 class="cost">
-								<h:outputText value="#{productController.selectedItem.price}">
-									<f:convertNumber currencySymbol="CHF " type="currency" />
-								</h:outputText>
-							</h3>
-								
+	                        
+
 	                        <div class="space-ten"></div>
+	                        
 	                        <div class="btn-ground">
-	                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>
-	                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Add To Wishlist</button>
+	                        
+	                        <div style="height:40px;line-height:40px;"> 
+				                 	<p>
+				                 	<h:outputText value="#{productController.selectedItem.price}" style="font-size:medium;font-weight:bold;">
+										<f:convertNumber currencySymbol="CHF " type="currency" />
+									</h:outputText>
+									<span class="pull-right">
+										<c:if test="${empty productController.selectedItem.sold}"> 
+											<h:commandLink action="#{productController.buyItem(productController.selectedItem)}"
+											 			   class="btn btn-primary">Buy
+											 			   <f:ajax execute="@form" render="@form :productForm"/>
+						                    </h:commandLink>						                    
+					                    </c:if> 
+									</span>
+									</p>
+				                </div>
+	                           <!--  <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>
+	                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Add To Wishlist</button> -->
 	                        </div>
 	                    </div>   
 	                </div>
-                       
-                                
+                    <div class="space-ten"></div>   
+                    <div class="space-ten"></div>               
 					<c:forEach var="rating" items="${productController.selectedItem.seller.tos}">
 		           		
 						<div class="row">
 			           		<div class="col-sm-12">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-								  		<h3 class="panel-title">Review Title</h3>
+								  		<h3 class="panel-title"><h:outputText value="#{rating.from.firstname}"/></h3>
 									</div>
 									<div class="panel-body">
 								  		<p><h:outputText value="#{rating.commentary}"/></p>
