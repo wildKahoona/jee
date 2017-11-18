@@ -40,6 +40,7 @@ public class ProductController implements Serializable {
 	private List<Item> allItems;
 	private List<Category> categories;
 	private Item selectedItem;
+	private String search;
 	
     @PostConstruct
     public void init() {
@@ -67,6 +68,10 @@ public class ProductController implements Serializable {
 			e.printStackTrace();
 		}	
 		return new ArrayList<Category>();
+	}
+	
+	public void searchItems(){
+		items = allItems.stream().filter(x -> x.getTitle().equals(search)).collect(Collectors.toList());
 	}
 	
 	public void filterItems(Category category){
@@ -134,5 +139,13 @@ public class ProductController implements Serializable {
 
 	public void setAllItems(List<Item> allItems) {
 		this.allItems = allItems;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 }

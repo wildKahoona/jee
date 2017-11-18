@@ -4,7 +4,8 @@
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-				xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+				xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <ui:define name="content">
  
  <style>
@@ -83,40 +84,47 @@
  
 <div>
 
-	 	
-	<div class="col-sm-2">
-	
-		<h:form>
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h4>#{msg['categories']}</h4>
-				</div>
-				<div class="panel-body">
-	                   <div class="single">
-	                       <ul class="list-unstyled">
-	                        <c:forEach var="cat" items="#{productController.categories}">
-	                        	<li>
-							 		<h:commandLink action="#{productController.filterItems(cat)}">
-								 		#{cat.description}
-								 		<span class="pull-right">
-								 			#{fn:length(cat.items)}
-								 		</span>
-								 		<!-- Funktioniert nicht so wie gewünscht
-								 		<f:ajax execute="productForm" render=":productForm" /> 
-								 		-->
-									</h:commandLink>
-	                 				</li>    
-	                        	</c:forEach>  
-	                       </ul>
-	                   </div>
-				</div>		
+	<h:form>
+        <div class="col-sm-2">
+        
+			<div class="input-group">
+				<h:inputText class="form-control" value="#{productController.search}" 
+						 	 p:placeholder="#{msg['search']}"/>		            		            
+	            <div class="input-group-btn">
+	                <h:commandLink class="btn btn-default" action="#{productController.searchItems()}">
+	                	<i class="glyphicon glyphicon-search"></i>
+	                </h:commandLink>
+	            </div>
 			</div>
-		</h:form>  
-		 
-	</div>
-	
- 
+			
+		    <div class="space-ten"></div>
+		        
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">#{msg['categories']}</h3>
+                </div>
+                
+                <ul class="list-group">
+                
+					<c:forEach var="cat" items="#{productController.categories}">
+						 		<h:commandLink action="#{productController.filterItems(cat)}"
+						 					   class="list-group-item">
+							 		#{cat.description}
+							 		<span class="pull-right">
+							 			#{fn:length(cat.items)}
+							 		</span>
+							 		<!-- Funktioniert nicht so wie gewünscht
+							 		<f:ajax execute="productForm" render=":productForm" /> 
+							 		-->
+								</h:commandLink> 
+					</c:forEach>  
+                    
+                </ul>
+            </div>
+        </div> 
+	</h:form>
 
+	
 	<h:panelGroup id="productForm" class="col-sm-10">
 		<h:form> 
 		<div class="row">
@@ -179,7 +187,6 @@
 											<h:commandLink action="#{productController.buyItem(item)}"
 											 			   class="btn btn-primary">Buy
 											 			   <f:ajax execute="@form" render="productForm"/>
-						                    	<!-- <f:ajax render="productForm"/> -->
 						                    </h:commandLink>						                    
 					                    </c:if> 
 									</span>
