@@ -6,7 +6,32 @@
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
-	
+<style>
+.column1 {
+	width: 120px;
+}
+
+.column2 {
+	width: 120px;
+}
+
+.column3 {
+	width: 150px;
+}
+
+.column4 {
+	width: 100px;
+}
+
+.column5 {
+	width: 100px;
+}
+
+.column6 {
+	width: 100px;
+	text-align: right;
+}
+</style>	
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10 col-md-offset-1">
 	
@@ -21,53 +46,7 @@
 										value="#{offersController.offerList}" var="offer" 
 										 class="table table-responsive table-bordered table-striped"
 										 columnClasses="column1,column2,column3,column4,column5,column6">                                                  > 
-							    <h:column>
-							    	<f:facet name="header">#{msg.item_sold}</f:facet>
-							        <h:outputText value="#{offer.sold}" >
-							        	<f:convertDateTime dateStyle="full" type="date"/>
-									    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-									</h:outputText>
-							    </h:column>
 							    
-							    <h:column>
-							        <f:facet name="header">#{msg.item_title}</f:facet>
-							        <h:outputText value="#{offer.title}" rendered="#{not offer.editable}" />
-							        <h:inputText value="#{offer.title}" rendered="#{offer.editable}" required="true" requiredMessage="title is required"/>             				
-							    </h:column>
-							    
-								<h:column>
-							    	<f:facet name="header">#{msg.item_category}</f:facet>
-							    	<h:outputText value="#{offer.category.description}" rendered="#{not offer.editable}" />
-									<h:panelGroup rendered="#{offer.editable}">
-								    	<h:selectOneMenu value="#{offersController.selectedCategory}">
-											<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
-											<f:selectItems value="#{offersController.categories}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
-										</h:selectOneMenu>
-									</h:panelGroup>	
-							    </h:column> 
-							    
-							    <h:column>
-							        <f:facet name="header">#{msg.item_price}</f:facet>
-							        <h:outputText value="#{offer.price}" rendered="#{not offer.editable}">
-										<f:convertNumber currencySymbol="CHF " type="currency" />
-									</h:outputText>
-									
-									<h:inputText value="#{offer.price}" rendered="#{offer.editable}" required="true" requiredMessage="title is required">
-										<f:convertNumber currencySymbol="CHF " type="currency" />
-									</h:inputText>	
-							    </h:column> 
-							    
-							    <h:column>
-							    	<f:facet name="header">#{msg.item_condition}</f:facet>
-							    	<h:outputText value="#{offer.condition.description}" rendered="#{not offer.editable}" />
-									<h:panelGroup rendered="#{offer.editable}">
-								    	<h:selectOneMenu value="#{offersController.selectedCondition}">
-											<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
-											<f:selectItems value="#{offersController.conditions}" var="condition" itemValue="#{condition.id}" itemLabel="#{condition.description}"/>
-										</h:selectOneMenu>
-									</h:panelGroup>						    							    	
-							    </h:column>
-							    						    
 							    <h:column>
 					                <h:commandLink action="#{offersController.edit(offer)}" 
 					                			   class="btn btn-primary btn-sm"
@@ -101,7 +80,54 @@
 					                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
 					                    <f:ajax render="@form" />
 					                </h:commandLink>
-					            </h:column>						    
+					            </h:column>									    
+							    
+							    <h:column>
+							    	<f:facet name="header">#{msg.item_sold}</f:facet>
+							        <h:outputText value="#{offer.sold}" >
+							        	<f:convertDateTime dateStyle="full" type="date"/>
+									    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+									</h:outputText>
+							    </h:column>
+							    
+								<h:column>
+							    	<f:facet name="header">#{msg.item_category}</f:facet>
+							    	<h:outputText value="#{offer.category.description}" rendered="#{not offer.editable}" />
+									<h:panelGroup rendered="#{offer.editable}">
+								    	<h:selectOneMenu value="#{offersController.selectedCategory}">
+											<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
+											<f:selectItems value="#{offersController.categories}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
+										</h:selectOneMenu>
+									</h:panelGroup>	
+							    </h:column> 
+
+							    <h:column>
+							    	<f:facet name="header">#{msg.item_condition}</f:facet>
+							    	<h:outputText value="#{offer.condition.description}" rendered="#{not offer.editable}" />
+									<h:panelGroup rendered="#{offer.editable}">
+								    	<h:selectOneMenu value="#{offersController.selectedCondition}">
+											<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
+											<f:selectItems value="#{offersController.conditions}" var="condition" itemValue="#{condition.id}" itemLabel="#{condition.description}"/>
+										</h:selectOneMenu>
+									</h:panelGroup>						    							    	
+							    </h:column>
+							    							    
+							    <h:column>
+							        <f:facet name="header">#{msg.item_price}</f:facet>
+							        <h:outputText value="#{offer.price}" rendered="#{not offer.editable}">
+										<f:convertNumber currencySymbol="CHF " type="currency" />
+									</h:outputText>
+									
+									<h:inputText value="#{offer.price}" rendered="#{offer.editable}" required="true" requiredMessage="title is required">
+										<f:convertNumber currencySymbol="CHF " type="currency" />
+									</h:inputText>	
+							    </h:column> 
+						    						    
+				    			<h:column>
+							        <f:facet name="header">#{msg.item_title}</f:facet>
+							        <h:outputText value="#{offer.title}" rendered="#{not offer.editable}" />
+							        <h:inputText value="#{offer.title}" rendered="#{offer.editable}" required="true" requiredMessage="title is required"/>             				
+							    </h:column>
 							   							
 							</h:dataTable>  						                                    					
 						</h:form>				
