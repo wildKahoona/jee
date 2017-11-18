@@ -2,15 +2,20 @@ package ffhs.onlineshop;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.el.ELContext;
+import javax.el.ELResolver;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import ffhs.onlineshop.model.Category;
+import ffhs.onlineshop.model.Customer;
 import ffhs.onlineshop.model.Item;
 import ffhs.onlineshop.model.Rating;
 import ffhs.onlineshop.repository.CategoryDAO;
@@ -68,6 +73,23 @@ public class ProductController implements Serializable {
 		items = allItems.stream().filter(x -> x.getCategory().equals(category)).collect(Collectors.toList());
 	}
 
+	public void buyItem(Item item){	
+		// Um eingeloggten User zu holen
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ELContext elc = ctx.getELContext();
+		ELResolver elr = ctx.getApplication().getELResolver();
+		SigninController signinController = (SigninController) elr.getValue(elc, null, "signinController");
+		Customer customer = signinController.getCustomer();
+		try {		
+			item.setBuyer(customer);
+			item.setSold(new Date());
+			itemDAO.updateItem(item);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(" ex @{0}" + e);
+		}
+	}
+	
     private double calcAverageStars(Item item) { 
 		Integer sum = 0;
 		if(!item.getSeller().getTos().isEmpty()) {

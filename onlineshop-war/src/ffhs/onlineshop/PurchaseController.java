@@ -71,11 +71,8 @@ public class PurchaseController implements Serializable {
     	Optional<Item> item = purchaseList.stream().filter(x -> x.getId() == purchaseId).findFirst();
 		if (item.isPresent()){
 			System.out.println("RATE found: " + item.get().getId());
-			setSelectedPurchase(item.get());
-			
+			setSelectedPurchase(item.get());			
 		}
-		
-    	//setSelectedPurchase(purchase);
     }
     
     public void update(Long purchaseId){

@@ -8,113 +8,207 @@
 <ui:define name="content">
  
  <style>
+ 
+ .shape{    
+	border-style: solid; border-width: 0 70px 40px 0; float:right; height: 0px; width: 0px;
+	-ms-transform:rotate(360deg); /* IE 9 */
+	-o-transform: rotate(360deg);  /* Opera 10.5 */
+	-webkit-transform:rotate(360deg); /* Safari and Chrome */
+	transform:rotate(360deg);
+}
+
+.shape-text{
+	color:#fff; 
+	font-size:12px; 
+	font-weight:bold; 
+	position:relative; 
+	right:-40px; 
+	top:2px; 
+	white-space: nowrap;
+	-ms-transform:rotate(30deg); /* IE 9 */
+	-o-transform: rotate(360deg);  /* Opera 10.5 */
+	-webkit-transform:rotate(30deg); /* Safari and Chrome */
+	transform:rotate(30deg);
+}
+
+.offer{
+	background:#fff;
+	border:1px solid #ddd;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	margin: 15px 0;
+	overflow:hidden;
+	border-radius:7px;
+}
+
+.offer:hover {
+    -webkit-transform: scale(1.1); 
+    -moz-transform: scale(1.1); 
+    -ms-transform: scale(1.1); 
+    -o-transform: scale(1.1); 
+    transform:rotate scale(1.1); 
+    -webkit-transition: all 0.4s ease-in-out; 
+    -moz-transition: all 0.4s ease-in-out; 
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.offer-danger {	border-color: #d9534f; }
+.offer-danger .shape{
+	border-color: transparent #d9534f transparent transparent;
+}
+
+.offer-success {	border-color: #5cb85c; }
+.offer-success .shape{
+	border-color: transparent #5cb85c transparent transparent;
+}
+
+.offer-default {	border-color: #999999; }
+.offer-default .shape{
+	border-color: transparent #999999 transparent transparent;
+}
+
+.offer-content{
+	padding:0 20px 10px;
+}
+
+.img-container img {
+  object-fit: cover;
+  width: 200px;
+} 
+
 .glyphicon { margin-right:5px;}
 .glyphicon-heart { color:#e74c3c;}
 .section-box hr {margin-top:0;margin-bottom:5px;border:0;border-top:1px solid rgb(199, 199, 199);}
  </style>
  
-    <div class="row" id="content">
+<div>
 
-	 	<h:form>
-			<div class="col-sm-2">
-
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h4>#{msg['categories']}</h4>
-					</div>
-					<div class="panel-body">
-	                    <div class="single">
-	                        <ul class="list-unstyled">
-		                        <c:forEach var="cat" items="#{productController.categories}">
-		                        	<li>
-								 		<h:commandLink action="#{productController.filterItems(cat)}">
-									 		#{cat.description}
-									 		<span class="pull-right">
-									 			#{fn:length(cat.items)}
-									 		</span>
-									 		<!-- Funktioniert nicht so wie gewünscht
-									 		<f:ajax execute="productForm" render=":productForm" /> 
-									 		-->
-										</h:commandLink>
-	                  				</li>    
-	                         	</c:forEach>  
-	                        </ul>
-	                    </div>
-					</div>		
+	 	
+	<div class="col-sm-2">
+	
+		<h:form>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4>#{msg['categories']}</h4>
 				</div>
+				<div class="panel-body">
+	                   <div class="single">
+	                       <ul class="list-unstyled">
+	                        <c:forEach var="cat" items="#{productController.categories}">
+	                        	<li>
+							 		<h:commandLink action="#{productController.filterItems(cat)}">
+								 		#{cat.description}
+								 		<span class="pull-right">
+								 			#{fn:length(cat.items)}
+								 		</span>
+								 		<!-- Funktioniert nicht so wie gewünscht
+								 		<f:ajax execute="productForm" render=":productForm" /> 
+								 		-->
+									</h:commandLink>
+	                 				</li>    
+	                        	</c:forEach>  
+	                       </ul>
+	                   </div>
+				</div>		
 			</div>
-	 	</h:form>     
-   
-	   <h:panelGroup id="productForm" >
-			<div class="col-sm-10">
-			  
-				<c:forEach var="item" items="#{productController.items}">
-		
-					<div class="col-md-4">
-			        	<div class="thumbnail">
-			                <h:graphicImage url="image?id=#{item.id}" class="img-responsive"/>
-			                <div class="caption">
-			                  <h4 class="pull-right">CHF #{item.price}</h4>
-			                  <h4><a href="#">#{item.title}</a></h4>
-			                  <!-- <p>#{item.description}</p> -->
-			                  <h:outputText value="#{fn:substring(item.description, 0, 40)}..." />
-			                </div>
-			                <div class="ratings">
-			                  <p>
-			                  	<c:forEach begin="0" end="4" var="val">						    
-									<c:choose>
-					                  	<c:when test="${item.seller.averageStars > (val + 0.5)}">
-					                  		<span class="glyphicon glyphicon-star"></span>
-					                  	</c:when>
-										<c:otherwise>
-											<span class="glyphicon glyphicon-star-empty"></span>
-										</c:otherwise>
-				                  	</c:choose>								    									    
-			                  	</c:forEach>
-			                    (#{fn:length(item.seller.tos)} reviews)
-			                  </p>
-			                </div>
-			                <!-- <div class="space-ten"></div> -->
-			                <div class="btn-ground text-center">
-			                	<h:form>
-			                		
-				                   	<h:commandLink onclick="$('#product_view').modal('show');" class="btn btn-primary"
-				                   				   action="#{productController.setSelectedItem(item)}">Show Detail
-				                    	<f:ajax render=":dialog-detail-form" />
-				                   </h:commandLink>
-				                   
-				                   	<h:commandLink onclick="$('#review_view').modal('show');" class="btn btn-primary"
-				                   				   action="#{productController.setSelectedItem(item)}">Show Review
-				                    	<f:ajax render=":reviewForm" />
-				                   </h:commandLink>
-				                   
-			                   </h:form>
-			                   <!-- <button type="button" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add To Cart</button> -->
-			                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button> -->
-			                </div>
-			                <div class="space-ten"></div>
-			              </div>
-					</div>            
-		            
-				</c:forEach>    
-			
-			</div>
-		</h:panelGroup>
-    </div>
+		</h:form>  
+		 
+	</div>
+	
+ 
+
+	<h:panelGroup id="productForm" class="col-sm-10">
+	
+		<div class="row">
+	   
+		   <c:forEach var="item" items="#{productController.items}">
+		   
+				<div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
+					
+					<h:panelGroup layout="block" styleClass="#{item.sold eq null ? 'offer offer-success' : 'offer offer-danger'}">
+					
+						<div class="shape">
+							<div class="shape-text">	
+							
+								<h:outputText value="#{item.sold eq null ? '' : 'Sold'}"/>
+												
+								<!-- <c:if test="${!empty item.sold}"> 
+								  <h:outputText value="Sold"/>
+								</c:if> --> 
+								
+								
+							</div>
+						</div>
+						
+						<div class="offer-content">
+						    <div class="img-container">
+		                      <h:graphicImage url="image?id=#{item.id}" class="img-responsive"/>
+		                    </div>
+		                    <div class="offer-content">
+								<h4>
+									<h:form>
+										<h:commandLink onclick="$('#product_view').modal('show');"
+						                   			   action="#{productController.setSelectedItem(item)}">
+						                   			   #{item.title}
+					                    	<f:ajax render=":dialog-detail-form"/>
+					                    </h:commandLink>
+				                    </h:form>
+								</h4>						
+								<p>
+									<h:outputText value="#{fn:substring(item.description, 0, 40)}..." />
+								</p>							
+								<div class="ratings">
+				                  <p>
+				                  	<c:forEach begin="0" end="4" var="val">						    
+										<c:choose>
+						                  	<c:when test="${item.seller.averageStars > (val + 0.5)}">
+						                  		<span class="glyphicon glyphicon-star"></span>
+						                  	</c:when>
+											<c:otherwise>
+												<span class="glyphicon glyphicon-star-empty"></span>
+											</c:otherwise>
+					                  	</c:choose>								    									    
+				                  	</c:forEach>
+				                    (#{fn:length(item.seller.tos)} reviews)
+				                  </p>
+				                </div>		
+				                
+				                <h:form>               
+					                <div class="row" style="height: 40px;line-height: 40px;"> 
+					                 	<h:outputText value="#{item.price}" style="font-size:medium;font-weight: bold;">
+											<f:convertNumber currencySymbol="CHF " type="currency" />
+										</h:outputText>
+										<span class="pull-right">
+											<c:if test="${empty item.sold}"> 
+												<h:commandLink action="#{productController.buyItem(item)}"
+												 			   class="btn btn-primary">Buy
+							                    	<f:ajax render="productForm"/>
+							                    </h:commandLink>						                    
+						                    </c:if> 
+										</span>
+					                </div>
+				                </h:form>
+							</div>
+						</div>
+					</h:panelGroup>
+				</div>
+			</c:forEach>  		
+		</div>
+	</h:panelGroup>
+</div>
 
 
 <div class="modal fade product_view" id="product_view">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;">
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
                 <h3 class="modal-title">Produkt Detail</h3>
             </div>
             <div class="modal-body">
-                <div class="row">
-                
-	                <h:form id="dialog-detail-form">
+            	<h:form id="dialog-detail-form">
 	                
+	                <div class="row">
 	                    <div class="col-md-6 product_img">
 	                        <h:graphicImage url="image?id=#{productController.selectedItem.id}" class="img-responsive"/>
 	                    </div>
@@ -142,11 +236,43 @@
 	                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>
 	                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Add To Wishlist</button>
 	                        </div>
-	                    </div>
-                    
-                    </h:form>
-                    
-                </div>
+	                    </div>   
+	                </div>
+                       
+                                
+					<c:forEach var="rating" items="${productController.selectedItem.seller.tos}">
+		           		
+						<div class="row">
+			           		<div class="col-sm-12">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+								  		<h3 class="panel-title">Review Title</h3>
+									</div>
+									<div class="panel-body">
+								  		<p><h:outputText value="#{rating.commentary}"/></p>
+								  		<span class="pull-right"/>
+										<div class="ratings">
+					           				<p>
+					           					<c:forEach begin="0" end="4" var="val">						    
+					           						<c:choose>
+								              			<c:when test="${rating.stars > (val + 0.5)}">
+								              				<span class="glyphicon glyphicon-star"></span>
+								              			</c:when>
+														<c:otherwise>
+															<span class="glyphicon glyphicon-star-empty"></span>
+														</c:otherwise>
+								             		</c:choose>								    									    
+								            	</c:forEach>
+								            </p>
+				           				</div>							  
+									</div>
+								</div>
+			           		</div>		
+						</div>
+						
+					</c:forEach>
+	
+            	</h:form>     
             </div>
         </div>
     </div>

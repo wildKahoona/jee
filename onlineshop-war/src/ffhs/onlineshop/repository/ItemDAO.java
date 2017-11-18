@@ -72,7 +72,8 @@ public class ItemDAO implements Serializable{
     	if(category == null) return new ArrayList<Item>();
     	
     	EntityManager em = emf.createEntityManager();
-    	TypedQuery<Item> query = em.createQuery("SELECT i FROM Item i WHERE i.category= :category", Item.class);
+    	TypedQuery<Item> query = em.createQuery(
+    			"SELECT i FROM Item i WHERE i.category= :category", Item.class);
 		query.setParameter("category", category);
 		return query.getResultList();
     }
