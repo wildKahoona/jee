@@ -118,7 +118,7 @@
  
 
 	<h:panelGroup id="productForm" class="col-sm-10">
-	
+		<h:form> 
 		<div class="row">
 	   
 		   <c:forEach var="item" items="#{productController.items}">
@@ -146,13 +146,11 @@
 		                    </div>
 		                    <div class="offer-content">
 								<h4>
-									<h:form>
-										<h:commandLink onclick="$('#product_view').modal('show');"
-						                   			   action="#{productController.setSelectedItem(item)}">
-						                   			   #{item.title}
-					                    	<f:ajax render=":dialog-detail-form"/>
-					                    </h:commandLink>
-				                    </h:form>
+									<h:commandLink onclick="$('#product_view').modal('show');"
+					                   			   action="#{productController.setSelectedItem(item)}">
+					                   			   #{item.title}
+				                    	<f:ajax render=":dialog-detail-form"/>
+				                    </h:commandLink>
 								</h4>						
 								<p>
 									<h:outputText value="#{fn:substring(item.description, 0, 40)}..." />
@@ -171,29 +169,28 @@
 				                  	</c:forEach>
 				                    (#{fn:length(item.seller.tos)} reviews)
 				                  </p>
-				                </div>		
-				                
-				                <h:form>               
-					                <div class="row" style="height: 40px;line-height: 40px;"> 
-					                 	<h:outputText value="#{item.price}" style="font-size:medium;font-weight: bold;">
-											<f:convertNumber currencySymbol="CHF " type="currency" />
-										</h:outputText>
-										<span class="pull-right">
-											<c:if test="${empty item.sold}"> 
-												<h:commandLink action="#{productController.buyItem(item)}"
-												 			   class="btn btn-primary">Buy
-							                    	<f:ajax render="productForm"/>
-							                    </h:commandLink>						                    
-						                    </c:if> 
-										</span>
-					                </div>
-				                </h:form>
+				                </div>		     
+				                <div class="row" style="height: 40px;line-height: 40px;"> 
+				                 	<h:outputText value="#{item.price}" style="font-size:medium;font-weight: bold;">
+										<f:convertNumber currencySymbol="CHF " type="currency" />
+									</h:outputText>
+									<span class="pull-right">
+										<c:if test="${empty item.sold}"> 
+											<h:commandLink action="#{productController.buyItem(item)}"
+											 			   class="btn btn-primary">Buy
+											 			   <f:ajax execute="@form" render="productForm"/>
+						                    	<!-- <f:ajax render="productForm"/> -->
+						                    </h:commandLink>						                    
+					                    </c:if> 
+									</span>
+				                </div>
 							</div>
 						</div>
 					</h:panelGroup>
 				</div>
 			</c:forEach>  		
 		</div>
+		</h:form>
 	</h:panelGroup>
 </div>
 
