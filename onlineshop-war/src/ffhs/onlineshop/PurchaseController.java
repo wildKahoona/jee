@@ -2,15 +2,10 @@ package ffhs.onlineshop;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
-import javax.transaction.UserTransaction;
 
 import ffhs.onlineshop.model.Customer;
 import ffhs.onlineshop.model.Item;
@@ -22,15 +17,14 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.inject.Inject;
 
 
 @Named
-//@RequestScoped
-@ConversationScoped
+//@ConversationScoped
+@ViewScoped
 public class PurchaseController implements Serializable {	
 	private static final long serialVersionUID = 1L;
 
@@ -40,8 +34,8 @@ public class PurchaseController implements Serializable {
 //	@Resource
 //	private UserTransaction ut;
 	
-	@Inject
-    private Conversation conversation;
+//	@Inject
+//    private Conversation conversation;
 	
 	@Inject
 	private ItemDAO itemDAO;
@@ -62,11 +56,14 @@ public class PurchaseController implements Serializable {
 //		customer = em.find(Customer.class,customer.getId());
 		
     	setUsername("bbb@gmx.ch");
+    	System.out.println("User: " + username);
+    	List<Item> purchaseList = itemDAO.getPurchasesByCustomer(username);
+    	System.out.println("Liste gelesen...");
     	setPurchaseList(itemDAO.getPurchasesByCustomer(username));
     }
     
     public void rateSeller(Long purchaseId){
-    	conversation.begin();
+    	//conversation.begin();
     	System.out.println("RATE: " + purchaseId);
     	Optional<Item> item = purchaseList.stream().filter(x -> x.getId() == purchaseId).findFirst();
 		if (item.isPresent()){
@@ -120,7 +117,7 @@ public class PurchaseController implements Serializable {
 			
 //        	itemDAO.updateItem(selectedPurchase);
         	setPurchaseList(itemDAO.getPurchasesByCustomer(username));
-        	conversation.end();
+        	//conversation.end();
     	}
     }
     

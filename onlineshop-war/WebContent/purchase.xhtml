@@ -32,8 +32,7 @@
 	text-align: right;
 }
 </style>
-		<!-- <h:outputStylesheet library="css" name="styles.css"/> -->
-	
+
 		<div class="row">
 					
 			<div class="col-md-offset-1 col-md-10 col-md-offset-1">	
@@ -71,13 +70,10 @@
 									</h:outputText>
 							    </h:column>
 
-							   
 							    <h:column>
 							    	<f:facet name="header">#{msg.item_rating}</f:facet>#{purchase.seller.averageStars}
 							    </h:column> 							  
 							 
-
-							    
 							    <h:column>
 							        <f:facet name="header">#{msg.item_title}</f:facet>#{purchase.title}
 							    </h:column>
@@ -92,78 +88,44 @@
 		</div>
 
 
-		
-		<div class="modal fade" id="rating_view">
-		    <div class="modal-dialog">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <a href="#" data-dismiss="modal" class="class pull-right">
-		                <span class="glyphicon glyphicon-remove"></span>
-		                </a>
-		                <h3 class="modal-title">#{msg['title_myrating']}</h3>
-		            </div>
-		            <div class="modal-body">
-		            	<div class="row">
-			                <h:form id="dialog-form">
-			                	<!-- <h:inputText value="#{purchaseController.selectedPurchase.id}" /> -->
-			                	<h4>Product Id: <span>#{purchaseController.selectedPurchase.title}</span></h4>
-			                	
-			                	<p>Gesamtbewertung</p>
-								<fieldset class="rating">
-								    <legend>Please rate:</legend>
-								    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-								    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-								    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-								    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-								    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
-								</fieldset>
-			                	
-			               <div class="row">
-			           		<div class="col-sm-12">
-								<div class="panel panel-default">
-									<div class="panel-heading">
-								  		<h3 class="panel-title">Review Title</h3>
-									</div>
-									<div class="panel-body">
-								  		<p><textarea placeholder="#{msg['street.placeholder']}" rows="3" class="form-control"></textarea></p>
-								  		<span class="pull-right"/>
-										<!-- <div class="ratings">
-					           				<p>
-					           					<c:forEach begin="0" end="4" var="val">						    
-					           						<c:choose>
-								              			<c:when test="${rating.stars > (val + 0.5)}">
-								              				<span class="glyphicon glyphicon-star"></span>
-								              			</c:when>
-														<c:otherwise>
-															<span class="glyphicon glyphicon-star-empty"></span>
-														</c:otherwise>
-								             		</c:choose>								    									    
-								            	</c:forEach>
-								            </p>
-				           				</div>		 -->					  
-									</div>
-								</div>
-			           		</div>	
-			           		</div>
-			                	<!-- <div class="form-group">
-									<h:outputLabel value="#{msg['comment']}:"/>
-									<h:inputTextarea value="#{purchaseController.comment}" rows="3" p:placeholder="#{msg['comment.placeholder']}" class="form-control"/>
-									<textarea placeholder="#{msg['street.placeholder']}" rows="3" class="form-control"></textarea>
-								</div> -->
-			                	
-			                	
-			                	<h:commandLink 
-									value="Update1"
-									action="#{purchaseController.update(purchaseController.selectedPurchase.id)}"/>
-								<h:commandLink 
-									value="SAVE"
-									action="#{purchaseController.update(2)}"/>
-			                </h:form>
-			            </div>
-		            </div>
-		        </div>
-		     </div>
-		</div>
+<div class="modal fade" id="rating_view">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" data-dismiss="modal" class="class pull-right">
+                <span class="glyphicon glyphicon-remove"></span>
+                </a>
+                <h3 class="modal-title">#{msg['rating_title']}</h3>
+            </div>
+            <div class="modal-body">
+            	<h:form id="dialog-form">
+            		<h4>#{msg['rating_seller']}: <span>#{purchaseController.selectedPurchase.seller.firstname} #{purchaseController.selectedPurchase.seller.lastname}</span></h4>
+            		<fieldset class="rating">
+					    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+					    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+					    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+					    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+					    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+						</fieldset>
+            		<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">.</h3>
+						</div>
+						<div class="panel-body">
+					  		<p><textarea placeholder="#{msg['comment_placeholder']}" rows="3" class="form-control"></textarea></p>
+					  		<span class="pull-right"/>
+					  		<h:commandLink value="Speichern" class="btn btn-primary"
+										  action="#{purchaseController.update(purchaseController.selectedPurchase.id)}">
+										  <f:ajax execute="@form" render="@form :purchaseForm"/>
+										  </h:commandLink>
+					  	</div>
+            		</div>
+            	</h:form>
+            </div>
+        </div>
+     </div>
+</div>		
+
 
 	</ui:define>
 </ui:composition>
