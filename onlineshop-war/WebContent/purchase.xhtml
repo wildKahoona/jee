@@ -70,6 +70,10 @@
 									</h:outputText>
 							    </h:column>
 
+								<h:column>
+							    	<f:facet name="header">#{msg.seller_name}</f:facet>#{purchase.seller.name}
+							    </h:column> 
+							    
 							    <h:column>
 							    	<f:facet name="header">#{msg.item_rating}</f:facet>#{purchase.seller.averageStars}
 							    </h:column> 							  

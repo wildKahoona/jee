@@ -72,6 +72,8 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy="to")
 	private Set<Rating> tos;
 	
+	private transient String name;
+	
 	private transient boolean editable;
 	
 	private transient double averageStars;
@@ -238,6 +240,10 @@ public class Customer implements Serializable {
 		tos.add(rating);
 		rating.setTo(this);
 		return rating;
+	}
+	
+	public String getName() {
+		return this.firstname + " " + this.lastname;
 	}
 	
     public boolean isEditable() {

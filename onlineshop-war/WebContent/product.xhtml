@@ -9,7 +9,6 @@
 <ui:define name="content">
  
  <style>
- 
  .shape{    
 	border-style: solid; border-width: 0 70px 40px 0; float:right; height: 0px; width: 0px;
 	-ms-transform:rotate(360deg); /* IE 9 */
@@ -30,6 +29,12 @@
 	-o-transform: rotate(360deg);  /* Opera 10.5 */
 	-webkit-transform:rotate(30deg); /* Safari and Chrome */
 	transform:rotate(30deg);
+}
+
+.offerForm{
+	overflow-y:auto;
+	height: 88vh;
+	margin-top:-20px
 }
 
 .offer{
@@ -80,13 +85,13 @@
 .glyphicon { margin-right:5px;}
 .glyphicon-heart { color:#e74c3c;}
 .section-box hr {margin-top:0;margin-bottom:5px;border:0;border-top:1px solid rgb(199, 199, 199);}
+
  </style>
  
 <div>
 
-	<h:form>
-        <div class="col-sm-2">
-        
+	<div class="col-sm-2">
+        <h:form>
 			<div class="input-group">
 				<h:inputText class="form-control" value="#{productController.search}" 
 						 	 p:placeholder="#{msg['search']}"/>		            		            
@@ -102,10 +107,8 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">#{msg['categories']}</h3>
-                </div>
-                
-                <ul class="list-group">
-                
+                </div>             
+                <ul class="list-group">               
 					<c:forEach var="cat" items="#{productController.categories}">
 						 		<h:commandLink action="#{productController.filterItems(cat)}"
 						 					   class="list-group-item">
@@ -117,18 +120,15 @@
 							 		<f:ajax execute="productForm" render=":productForm" /> 
 							 		-->
 								</h:commandLink> 
-					</c:forEach>  
-                    
+					</c:forEach>                     
                 </ul>
             </div>
-        </div> 
-	</h:form>
-
+		</h:form>
+	</div> 
 	
-	<h:panelGroup id="productForm" class="col-sm-10">
+	
+	<h:panelGroup id="productForm" class="col-sm-10 offerForm">		
 		<h:form> 
-		<div class="row">
-	   
 		   <c:forEach var="item" items="#{productController.items}">
 		   
 				<div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
@@ -136,15 +136,8 @@
 					<h:panelGroup layout="block" styleClass="#{item.sold eq null ? 'offer offer-success' : 'offer offer-danger'}">
 					
 						<div class="shape">
-							<div class="shape-text">	
-							
+							<div class="shape-text">								
 								<h:outputText value="#{item.sold eq null ? '' : 'Sold'}"/>
-												
-								<!-- <c:if test="${!empty item.sold}"> 
-								  <h:outputText value="Sold"/>
-								</c:if> --> 
-								
-								
 							</div>
 						</div>
 						
@@ -162,9 +155,10 @@
 								</h4>						
 								<p>
 									<h:outputText value="#{fn:substring(item.description, 0, 40)}..." />
-								</p>							
+								</p>
+														
 								<div class="ratings">
-				                  <p>
+				                  <p style="white-space: nowrap;">
 				                  	<c:forEach begin="0" end="4" var="val">						    
 										<c:choose>
 						                  	<c:when test="${item.seller.averageStars > (val + 0.5)}">
@@ -175,7 +169,8 @@
 											</c:otherwise>
 					                  	</c:choose>								    									    
 				                  	</c:forEach>
-				                    (#{fn:length(item.seller.tos)} reviews)
+				                  	<br></br>
+				                  	<h:outputText value="(#{fn:length(item.seller.tos)} reviews)"/>
 				                  </p>
 				                </div>
 				                		     
@@ -186,7 +181,8 @@
 									<span class="pull-right">
 										<c:if test="${empty item.sold}"> 
 											<h:commandLink action="#{productController.buyItem(item)}"
-											 			   class="btn btn-primary">Buy
+											 			   class="btn btn-primary">
+											 			   <h:outputText value="#{msg['buy']}"/>
 											 			   <f:ajax execute="@form" render="productForm"/>
 						                    </h:commandLink>						                    
 					                    </c:if> 
@@ -197,7 +193,6 @@
 					</h:panelGroup>
 				</div>
 			</c:forEach>  		
-		</div>
 		</h:form>
 	</h:panelGroup>
 </div>
@@ -208,7 +203,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                <h3 class="modal-title">Produkt Detail</h3>
+                <h3 class="modal-title">#{msg['item_detail']}</h3>
             </div>
             <div class="modal-body">
             	<h:form id="dialog-detail-form">
@@ -236,7 +231,7 @@
 									<span class="pull-right">
 										<c:if test="${empty productController.selectedItem.sold}"> 
 											<h:commandLink action="#{productController.buyItem(productController.selectedItem)}"
-											 			   class="btn btn-primary">Buy
+											 			   class="btn btn-primary">#{msg['buy']}
 											 			   <f:ajax execute="@form" render="@form :productForm"/>
 						                    </h:commandLink>						                    
 					                    </c:if> 
@@ -249,6 +244,7 @@
 	                    </div>   
 	                </div>
                     <div class="space-ten"></div>   
+                    <h4><h:outputText value="#{msg['rating_seller']}: #{productController.selectedItem.seller.name}"/></h4>
                     <div class="space-ten"></div>               
 					<c:forEach var="rating" items="${productController.selectedItem.seller.tos}">
 		           		
@@ -256,7 +252,7 @@
 			           		<div class="col-sm-12">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-								  		<h3 class="panel-title"><h:outputText value="#{rating.from.firstname}"/></h3>
+								  		<h3 class="panel-title"><h:outputText value="#{rating.from.name}"/></h3>
 									</div>
 									<div class="panel-body">
 								  		<p><h:outputText value="#{rating.commentary}"/></p>
