@@ -8,7 +8,7 @@
 	<ui:define name="content">
 <style>
 .column1 {
-	width: 120px;
+	width: 150px;
 }
 
 .column2 {
@@ -16,21 +16,32 @@
 }
 
 .column3 {
-	width: 150px;
+	width: 120px;
 }
 
 .column4 {
 	width: 100px;
+	text-align: right;
 }
 
 .column5 {
-	width: 100px;
+	width: 120px;
 }
 
 .column6 {
-	width: 100px;
-	text-align: right;
+	width: 80px;
+	text-align: center;
 }
+
+.small_star .glyphicon-star { 
+  color: #e67e22;
+  font-size: 1.0em;  
+}
+
+.small_star .glyphicon-star-empty { 
+  font-size: 1.0em;
+}
+
 </style>
 
 		<div class="row">
@@ -42,19 +53,19 @@
 					</div>
 					<div class="panel-body">
 					
-						<h:form id="purchaseForm" prependId="false">
+						<h:form id="purchaseForm">
 			
 							<h:dataTable value="#{purchaseController.purchaseList}" var="purchase" 
 										 class="table table-responsive table-bordered table-striped"
-										 columnClasses="column1,column2,column3,column4,column5">     
-										                                              > 
-							    <h:column>
-								    <h:commandLink class="btn btn-primary" onclick="$('#rating_view').modal('show');"
-								    			   action="#{purchaseController.rateSeller(purchase.id)}">Rate
-			                   				  	   <f:ajax render=":dialog-form" />
-				                   </h:commandLink>							    	
+										 columnClasses="column1,column2,column3,column4,column5,column6">     
+								<h:column>
+							    	<f:facet name="header">#{msg.item_boughtat}</f:facet>
+							        <h:outputText value="#{purchase.sold}" >
+							        	<f:convertDateTime dateStyle="full" type="date"/>
+									    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+									</h:outputText>
 							    </h:column>
-							    
+							    		                                              >  
 							    <h:column>
 							    	<f:facet name="header">#{msg.item_category}</f:facet>#{purchase.category.description}
 							    </h:column> 
@@ -63,10 +74,10 @@
 							    	<f:facet name="header">#{msg.item_condition}</f:facet>#{purchase.condition.description}
 							    </h:column> 
 							    
-							    <h:column style="width: 50px;">
+							    <h:column>
 							        <f:facet name="header">#{msg.item_price}</f:facet>
-							        <h:outputText value="#{purchase.price}" >
-										<f:convertNumber pattern="#0.00" />
+							        <h:outputText value="#{purchase.price}">
+										<f:convertNumber currencySymbol="CHF " type="currency" />
 									</h:outputText>
 							    </h:column>
 
@@ -75,7 +86,36 @@
 							    </h:column> 
 							    
 							    <h:column>
-							    	<f:facet name="header">#{msg.item_rating}</f:facet>#{purchase.seller.averageStars}
+							    	<f:facet name="header">#{msg.rating_title}</f:facet>
+
+						    		<!-- <h:outputText value="#{purchase.sellerrating.stars}"
+						    					  rendered="#{purchase.sellerrating != null}"/> -->
+						    		
+						    		<h:panelGroup styleClass="ratings small_star"
+						    					  style="white-space: nowrap;"
+						    					  rendered="#{purchase.sellerrating != null}">					                  					                  
+					                  	<c:forEach begin="0" end="4" var="val">						    
+											<h:panelGroup styleClass="#{purchase.sellerrating.stars > val ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>					    									    
+				                  		</c:forEach>				                  	
+<!-- 					                  	<h:panelGroup styleClass="#{purchase.sellerrating.stars > 0 ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>
+										<h:panelGroup styleClass="#{purchase.sellerrating.stars > 1 ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>
+										<h:panelGroup styleClass="#{purchase.sellerrating.stars > 2 ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>
+										<h:panelGroup styleClass="#{purchase.sellerrating.stars > 3 ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>
+										<h:panelGroup styleClass="#{purchase.sellerrating.stars > 4 ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/> -->										
+					                </h:panelGroup>
+						    		
+									<h:commandLink class="btn btn-primary btn-xs small_star" onclick="$('#rating_view').modal('show');"
+										    	   action="#{purchaseController.rateSeller(purchase.id)}"
+										    	   rendered="#{purchase.sellerrating == null}">
+										    	   <span class="glyphicon glyphicon-star-empty"></span>
+										    	   <h:outputText value=" #{msg.rate}"/>
+					                   			   <f:ajax render=":dialog-form" />
+						           </h:commandLink>
+						           
+						           
+						         
+						    		
+											
 							    </h:column> 							  
 							 
 							    <h:column>

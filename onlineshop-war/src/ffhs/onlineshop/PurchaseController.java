@@ -58,7 +58,14 @@ public class PurchaseController implements Serializable {
     	setUsername("bbb@gmx.ch");
     	System.out.println("User: " + username);
     	List<Item> purchaseList = itemDAO.getPurchasesByCustomer(username);
-    	System.out.println("Liste gelesen...");
+    	for(Item i : purchaseList){
+    		if(i.getSellerrating() == null)
+    			System.out.println("Kein Rating");
+    		else{
+    			System.out.println("Rating");
+    		}
+    	}
+    	
     	setPurchaseList(itemDAO.getPurchasesByCustomer(username));
     }
     

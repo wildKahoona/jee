@@ -1,6 +1,7 @@
 package ffhs.onlineshop.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -44,6 +46,10 @@ public class Rating implements Serializable {
 	@ManyToOne
 	private Customer to;
 	
+	//bi-directional many-to-one association to Item
+	@OneToMany(mappedBy="sellerrating")
+	private Set<Item> sellerratings;
+	
 	private Integer stars;
 	
 	private String commentary;
@@ -63,6 +69,15 @@ public class Rating implements Serializable {
 		this.id = id;
 	}	
 
+	
+	public Set<Item> getSellerratings() {
+		return this.sellerratings;
+	}
+
+	public void setSellerratings(Set<Item> sellerratings) {
+		this.sellerratings = sellerratings;
+	}
+	
 	public Customer getFrom() {
 		return this.from;
 	}

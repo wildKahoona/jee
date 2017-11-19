@@ -74,6 +74,10 @@ public class Item implements Serializable {
 	@ManyToOne
 	private Customer buyer;
 
+	//bi-directional many-to-one association to Rating
+	@ManyToOne
+	private Rating sellerrating;	
+	
 	private transient boolean editable;
 	
 	public Item() {
@@ -159,6 +163,14 @@ public class Item implements Serializable {
 		this.category = category;
 	}
 	
+	public Rating getSellerrating() {
+		return this.sellerrating;
+	}
+
+	public void setSellerrating(Rating sellerrating) {
+		this.sellerrating = sellerrating;
+	}
+	
     public boolean isEditable() {
         return editable;
     }
@@ -166,14 +178,6 @@ public class Item implements Serializable {
     public void setEditable(boolean editable) {
         this.editable = editable;
     }
-    
-//	public Long getBuyer_id() {
-//		return buyer_id;
-//	}
-//
-//	public void setBuyer_id(Long buyer_id) {
-//		this.buyer_id = buyer_id;
-//	}
 
 	@Override
 	public int hashCode() {
