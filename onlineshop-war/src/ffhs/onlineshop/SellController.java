@@ -110,7 +110,6 @@ public class SellController implements Serializable {
 	public void persist(){
     	System.out.println("content-type:{0}" + file.getContentType());
     	System.out.println("filename:{0}" + file.getContentType());
-    	System.out.println("submitted filename:{0}" + file.getSubmittedFileName());
     	System.out.println("size:{0}" + file.getSize());
     	try {
     		InputStream input = file.getInputStream();
@@ -121,6 +120,7 @@ public class SellController implements Serializable {
 			}
 			item.setFoto(scale(output.toByteArray()));
 			
+			// TODO: Gewählte Optionen nehmen !!!!!!!!!!!!!!
 			Optional<Category> category = categories.stream().filter(x -> x.getId() == (long)4).findFirst();
 			if(category.isPresent())
 				item.setCategory(category.get());	
@@ -128,7 +128,7 @@ public class SellController implements Serializable {
 			Optional<Condition> condition = conditions.stream().filter(x -> x.getId() == (long)1).findFirst();
 			if(condition.isPresent())
 				item.setCondition(condition.get());	
-		
+
 			// Um eingeloggten User zu holen
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			ELContext elc = ctx.getELContext();
