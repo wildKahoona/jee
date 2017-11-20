@@ -28,6 +28,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(schema="ONLINESHOP", name="ITEM")
 @NamedQuery(name="Item.findAll", query="SELECT i FROM Item i")
+//@NamedQuery(name="Item.findAll", query="SELECT i, (SELECT AVG(r.seller_ratingstars) FROM Item r WHERE r.seller.id = i.seller.id) averageStars FROM Item i")
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -74,9 +75,9 @@ public class Item implements Serializable {
 	@ManyToOne
 	private Customer buyer;
 
-	//bi-directional many-to-one association to Rating
-	@ManyToOne
-	private Rating sellerrating;	
+	private Integer seller_ratingstars;
+	
+	private String seller_ratingcomment;
 	
 	private transient boolean editable;
 	
@@ -162,13 +163,21 @@ public class Item implements Serializable {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	public Rating getSellerrating() {
-		return this.sellerrating;
+
+	public Integer getSeller_ratingstars() {
+		return seller_ratingstars;
 	}
 
-	public void setSellerrating(Rating sellerrating) {
-		this.sellerrating = sellerrating;
+	public void setSeller_ratingstars(Integer seller_ratingstars) {
+		this.seller_ratingstars = seller_ratingstars;
+	}
+	
+	public String getSeller_ratingcomment() {
+		return seller_ratingcomment;
+	}
+
+	public void setSeller_ratingcomment(String seller_ratingcomment) {
+		this.seller_ratingcomment = seller_ratingcomment;
 	}
 	
     public boolean isEditable() {

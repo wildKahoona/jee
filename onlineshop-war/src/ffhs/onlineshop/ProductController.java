@@ -17,7 +17,6 @@ import javax.inject.Named;
 import ffhs.onlineshop.model.Category;
 import ffhs.onlineshop.model.Customer;
 import ffhs.onlineshop.model.Item;
-import ffhs.onlineshop.model.Rating;
 import ffhs.onlineshop.repository.CategoryDAO;
 import ffhs.onlineshop.repository.ItemDAO;
 
@@ -41,6 +40,9 @@ public class ProductController implements Serializable {
 	private List<Category> categories;
 	private Item selectedItem;
 	private String search;
+	private Customer selectedSeller;
+	
+	private List<Item> offers;
 	
     @PostConstruct
     public void init() {
@@ -52,7 +54,23 @@ public class ProductController implements Serializable {
 	
 	public List<Item> findAll() {
 		try {
-			return itemDAO.getAllItems();
+			List<Item> items = itemDAO.getAllItems();
+			for(Item item : items){
+				Customer seller = item.getSeller();
+				List<Item> offers = seller.getOffers().stream().filter(i -> i.getSeller_ratingstars() != null).collect(Collectors.toList());
+				Integer sum = offers.stream().mapToInt(o -> o.getSeller_ratingstars()).sum();
+				Integer size = offers.size();
+				double average = 0;
+				Integer count = 0;
+				if(size > 0){
+					average = sum/size;
+					count = size;
+				}
+				seller.setAverageStars(average);
+				seller.setCountComments(count);
+			}
+			
+			return items;
 		} catch (Exception e) {
 			System.out.println("Error findAll Items!!! " + e.getMessage());
 			e.printStackTrace();
@@ -97,16 +115,32 @@ public class ProductController implements Serializable {
 		}
 	}
 	
-    private double calcAverageStars(Item item) { 
-		Integer sum = 0;
-		if(!item.getSeller().getTos().isEmpty()) {
-		    for (Rating rating : item.getSeller().getTos()) {
-		        sum += rating.getStars();
-		    }
-		    return sum.doubleValue() / item.getSeller().getTos().size();
-		  }
-		  return sum;
-	}
+//    private double calcAverageStars(Item item) { 
+//		Integer sum = 0;
+//		if(!item.getSeller().getTos().isEmpty()) {
+//		    for (Rating rating : item.getSeller().getTos()) {
+//		        sum += rating.getStars();
+//		    }
+//		    return sum.doubleValue() / item.getSeller().getTos().size();
+//		  }
+//		  return sum;
+//	}
+    
+//    public void setAverageStars(Customer seller){
+//    	Integer sum = 0;
+//    	
+//    	List<Item> items = allItems.stream().filter(x -> x.getSeller().equals(seller)).collect(Collectors.toList());
+//    	
+//    	
+//    	
+////		if(!item.getSeller().getTos().isEmpty()) {
+////		    for (Rating rating : item.getSeller().getTos()) {
+////		        sum += rating.getStars();
+////		    }
+////		    return sum.doubleValue() / item.getSeller().getTos().size();
+////		  }
+////		  return sum;
+//    }
     
 	public List<Item> getItems() {
 		return items;
@@ -114,9 +148,9 @@ public class ProductController implements Serializable {
 	
 	public void setItems(List<Item> items) {
 		this.items = items;
-		for(Item item : items){
-			item.getSeller().setAverageStars(calcAverageStars(item));
-		}
+//		for(Item item : items){
+//			item.getSeller().setAverageStars(calcAverageStars(item));
+//		}
 	}
 	
 	public Item getSelectedItem() {
@@ -149,5 +183,22 @@ public class ProductController implements Serializable {
 
 	public void setSearch(String search) {
 		this.search = search;
+	}
+
+	public Customer getSelectedSeller() {
+		return selectedSeller;
+	}
+
+	public void setSelectedSeller(Customer selectedSeller) {
+		offers = allItems.stream().filter(x -> x.getSeller().equals(selectedSeller) && x.getSeller_ratingstars() != null).collect(Collectors.toList());		
+		this.selectedSeller = selectedSeller;
+	}
+
+	public List<Item> getOffers() {
+		return offers;
+	}
+
+	public void setOffers(List<Item> offers) {
+		this.offers = offers;
 	}
 }

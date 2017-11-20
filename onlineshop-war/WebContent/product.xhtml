@@ -46,14 +46,14 @@
 	border-radius:7px;
 }
 
-.offer .glyphicon-star { 
+/* .offer .glyphicon-star { 
   color: #e67e22;
   font-size: 1.5em;
 }
 
 .offer .glyphicon-star-empty { 
   font-size: 1.5em;
-}
+} */
 
 .offer:hover {
     -webkit-transform: scale(1.1); 
@@ -90,9 +90,6 @@
   object-fit: cover;
   width: 200px;
 } 
-
-.glyphicon { margin-right:5px;}
-.section-box hr {margin-top:0;margin-bottom:5px;border:0;border-top:1px solid rgb(199, 199, 199);}
 
  </style>
  
@@ -166,6 +163,14 @@
 								</p>
 														
 								<div class="ratings">
+									
+									<h:commandLink onclick="$('#review_view').modal('show');"
+					                   			   action="#{productController.setSelectedSeller(item.seller)}">
+					                   			  <h:outputText value="von #{item.seller.name}"/>
+				                    			  <f:ajax render=":reviewForm"/>
+				                    </h:commandLink>									
+									
+									
 				                  <p style="white-space: nowrap;">
 				                  	<c:forEach begin="0" end="4" var="val">						    
 										<c:choose>
@@ -178,7 +183,7 @@
 					                  	</c:choose>								    									    
 				                  	</c:forEach>
 				                  	<br></br>
-				                  	<h:outputText value="(#{fn:length(item.seller.tos)} reviews)"/>
+				                  	<h:outputText value="(#{item.seller.countComments} reviews)"/>
 				                  </p>
 				                </div>
 				                		     
@@ -207,7 +212,7 @@
 
 
 <div class="modal fade product_view" id="product_view">
-    <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
@@ -239,6 +244,7 @@
 									<span class="pull-right">
 										<c:if test="${empty productController.selectedItem.sold}"> 
 											<h:commandLink action="#{productController.buyItem(productController.selectedItem)}"
+														   onclick="$('#product_view').modal('hide');"
 											 			   class="btn btn-primary">#{msg['buy']}
 											 			   <f:ajax execute="@form" render="@form :productForm"/>
 						                    </h:commandLink>						                    
@@ -246,94 +252,62 @@
 									</span>
 									</p>
 				                </div>
-	                           <!--  <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>
-	                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Add To Wishlist</button> -->
 	                        </div>
 	                    </div>   
 	                </div>
-                    <div class="space-ten"></div>   
-                    <h4><h:outputText value="#{msg['rating_seller']}: #{productController.selectedItem.seller.name}"/></h4>
-                    <div class="space-ten"></div>               
-					<c:forEach var="rating" items="${productController.selectedItem.seller.tos}">
-		           		
-						<div class="row">
-			           		<div class="col-sm-12">
-								<div class="panel panel-default">
-									<div class="panel-heading">
-								  		<h3 class="panel-title"><h:outputText value="#{rating.from.name}"/></h3>
-									</div>
-									<div class="panel-body">
-								  		<p><h:outputText value="#{rating.commentary}"/></p>
-								  		<span class="pull-right"/>
-										<div class="ratings">
-					           				<p>
-					           					<c:forEach begin="0" end="4" var="val">						    
-					           						<c:choose>
-								              			<c:when test="${rating.stars > (val + 0.5)}">
-								              				<span class="glyphicon glyphicon-star"></span>
-								              			</c:when>
-														<c:otherwise>
-															<span class="glyphicon glyphicon-star-empty"></span>
-														</c:otherwise>
-								             		</c:choose>								    									    
-								            	</c:forEach>
-								            </p>
-				           				</div>							  
-									</div>
-								</div>
-			           		</div>		
-						</div>
-						
-					</c:forEach>
-	
+                              
             	</h:form>     
             </div>
         </div>
     </div>
 </div>
 
-
-<div class="modal fade" id="review_view"> 
-    <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;"> 
-        <div class="modal-content"> 
-            <div class="modal-header"> 
-            	<a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                <h3 class="modal-title">Vekäufer-Bewertung</h3>
-            </div> 
+<div class="modal fade review_view" id="review_view">
+    <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                <h3 class="modal-title">Verkäufer</h3>
+            </div>
             <div class="modal-body">
-            	<h:form id="reviewForm">
-            	
-	           		<c:forEach var="rating" items="${productController.selectedItem.seller.tos}">
-	           		
-		           		<div class="row">
-	
-							<div class="col-md-12 section-box">
-		                        <h4>Bootsnipp</h4>
-		                        <p><h:outputText value="#{rating.commentary}"/></p>
-		                        <hr/>
-								<div class="ratings">
-			           				<p>
-			           					<c:forEach begin="0" end="4" var="val">						    
-			           						<c:choose>
-						              			<c:when test="${rating.stars > (val + 0.5)}">
-						              				<span class="glyphicon glyphicon-star"></span>
-						              			</c:when>
-												<c:otherwise>
-													<span class="glyphicon glyphicon-star-empty"></span>
-												</c:otherwise>
-						             		</c:choose>								    									    
-						            	</c:forEach>
-						            </p>
-		           				</div>
-		                    </div>
-		           		</div>
-	           			
-	           		</c:forEach>
-          		</h:form>
-          	</div> 
-            <div class="modal-footer">ASDFASDFASDFASDF</div> 
-        </div> 
-    </div> 
+            	<h:form id="reviewForm">	                
+                    <h4><h:outputText value="#{productController.selectedSeller.name}"/></h4>
+                    <h:outputText value="#{productController.selectedSeller.street}"/>
+                    <br></br> 
+                    <h:outputText value="#{productController.selectedSeller.zip} #{productController.selectedSeller.city}"/>
+                    <br></br> 
+                    <h:outputText value="#{productController.selectedSeller.country}"/>
+                    <div class="space-ten"></div>               
+					<c:forEach var="offer" items="${productController.offers}">
+						<div class="row">
+			           		<div class="col-sm-12">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+								  		<h3 class="panel-title">
+								  			<h:outputText value="#{offer.buyer.name}"/>
+								  			<h:panelGroup styleClass="ratings class pull-right">					                  					                  
+							                  	<c:forEach begin="0" end="4" var="val">						    
+													<h:panelGroup styleClass="#{offer.seller_ratingstars > val ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>					    									    
+						                  		</c:forEach>				                  	
+					                		</h:panelGroup>	
+								  		</h3>
+									</div>
+									<div class="panel-body">
+										<p>
+								  			<h:outputText value="Produkt: #{offer.title}"/>
+								  		</p>
+								  		<p>
+								  			<h:outputText value="#{offer.seller_ratingcomment}"/>
+								  		</p>				    					  
+									</div>
+								</div>
+			           		</div>		
+						</div>
+					</c:forEach>
+            	</h:form>     
+            </div>
+        </div>
+    </div>
 </div>
 
 </ui:define>

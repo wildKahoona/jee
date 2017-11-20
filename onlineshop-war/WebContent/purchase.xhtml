@@ -33,15 +33,63 @@
 	text-align: center;
 }
 
-.small_star .glyphicon-star { 
-  color: #e67e22;
-  font-size: 1.0em;  
+.rating {
+    float:left;
 }
 
-.small_star .glyphicon-star-empty { 
-  font-size: 1.0em;
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+/* input[type=radio]:not(:checked) { tbody > tr >td :not(:checked)*/
+table tbody tr td input[type=radio]{
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
 }
 
+table tbody tr td :not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+    color:#ddd;
+    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+table tbody tr td:not(:checked) > label:before {
+    content: '★ ';
+    font-size: 25px;
+}
+
+table tbody tr td > input:checked ~ label {
+    color: #f70;
+    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+table tbody tr td:not(:checked) > label:hover,
+table tbody tr td:not(:checked) > label:hover ~ label {
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+table tbody tr td > input:checked + label:hover,
+table tbody tr td > input:checked + label:hover ~ label,
+table tbody tr td > input:checked ~ label:hover,
+table tbody tr td > input:checked ~ label:hover ~ label,
+table tbody tr td > label:hover ~ input:checked ~ label {
+    color: #ea0;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+table tbody tr td > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+}
 </style>
 
 		<div class="row">
@@ -87,35 +135,21 @@
 							    
 							    <h:column>
 							    	<f:facet name="header">#{msg.rating_title}</f:facet>
-
-						    		<!-- <h:outputText value="#{purchase.sellerrating.stars}"
-						    					  rendered="#{purchase.sellerrating != null}"/> -->
-						    		
-						    		<h:panelGroup styleClass="ratings small_star"
+						    		<h:panelGroup styleClass="ratings"
 						    					  style="white-space: nowrap;"
-						    					  rendered="#{purchase.sellerrating != null}">					                  					                  
+						    					  rendered="#{purchase.seller_ratingstars != null}">					                  					                  
 					                  	<c:forEach begin="0" end="4" var="val">						    
-											<h:panelGroup styleClass="#{purchase.sellerrating.stars > val ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>					    									    
+											<h:panelGroup styleClass="#{purchase.seller_ratingstars > val ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>					    									    
 				                  		</c:forEach>				                  	
-<!-- 					                  	<h:panelGroup styleClass="#{purchase.sellerrating.stars > 0 ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>
-										<h:panelGroup styleClass="#{purchase.sellerrating.stars > 1 ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>
-										<h:panelGroup styleClass="#{purchase.sellerrating.stars > 2 ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>
-										<h:panelGroup styleClass="#{purchase.sellerrating.stars > 3 ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>
-										<h:panelGroup styleClass="#{purchase.sellerrating.stars > 4 ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/> -->										
-					                </h:panelGroup>
-						    		
-									<h:commandLink class="btn btn-primary btn-xs small_star" onclick="$('#rating_view').modal('show');"
-										    	   action="#{purchaseController.rateSeller(purchase.id)}"
-										    	   rendered="#{purchase.sellerrating == null}">
+					                </h:panelGroup>						    		
+									<h:commandLink class="btn btn-primary btn-xs small_star"
+												   onclick="$('#rating_view').modal('show');"
+										    	   action="#{purchaseController.setSelectedPurchase(purchase)}"
+										    	   rendered="#{purchase.seller_ratingstars == null}">
 										    	   <span class="glyphicon glyphicon-star-empty"></span>
 										    	   <h:outputText value=" #{msg.rate}"/>
 					                   			   <f:ajax render=":dialog-form" />
-						           </h:commandLink>
-						           
-						           
-						         
-						    		
-											
+						           </h:commandLink>	
 							    </h:column> 							  
 							 
 							    <h:column>
@@ -143,25 +177,34 @@
             </div>
             <div class="modal-body">
             	<h:form id="dialog-form">
-            		<h4>#{msg['rating_seller']}: <span>#{purchaseController.selectedPurchase.seller.firstname} #{purchaseController.selectedPurchase.seller.lastname}</span></h4>
-            		<fieldset class="rating">
-					    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-					    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-					    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-					    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-					    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
-						</fieldset>
+            		<h4>
+            			<h:outputText value="#{msg['rating_for']}: #{purchaseController.selectedPurchase.seller.name}"/>
+            		</h4>
+             		
+             		<h:selectOneRadio styleClass="rating" group="foo" value="#{purchaseController.selectedStars}">
+					    <f:selectItem name="rating" itemValue="1" />
+					    <f:selectItem name="rating" itemValue="2" />
+					    <f:selectItem name="rating" itemValue="3" />
+					    <f:selectItem name="rating" itemValue="4" />
+					    <f:selectItem name="rating" itemValue="5" />
+					</h:selectOneRadio>
+
             		<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">.</h3>
 						</div>
 						<div class="panel-body">
-					  		<p><textarea placeholder="#{msg['comment_placeholder']}" rows="3" class="form-control"></textarea></p>
-					  		<span class="pull-right"/>
+					  		<p>
+					  			<h:inputTextarea value="#{purchaseController.selectedPurchase.seller_ratingcomment}" 
+					  					  		 p:placeholder="#{msg['comment_placeholder']}" 
+					  					  		 rows="3" class="form-control"/>
+					  		</p>
+					  		<span class="class pull-right"/>
 					  		<h:commandLink value="Speichern" class="btn btn-primary"
-										  action="#{purchaseController.update(purchaseController.selectedPurchase.id)}">
+					  					   onclick="$('#rating_view').modal('hide');"
+										   action="#{purchaseController.update(purchaseController.selectedPurchase)}">
 										  <f:ajax execute="@form" render="@form :purchaseForm"/>
-										  </h:commandLink>
+							</h:commandLink>
 					  	</div>
             		</div>
             	</h:form>

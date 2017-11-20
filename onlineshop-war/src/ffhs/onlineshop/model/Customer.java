@@ -64,19 +64,21 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy="buyer")
 	private Set<Item> purchases;
 
-	//bi-directional many-to-one association to Rating
-	@OneToMany(mappedBy="from")
-	private Set<Rating> froms;
-
-	//bi-directional many-to-one association to Rating
-	@OneToMany(mappedBy="to")
-	private Set<Rating> tos;
+//	//bi-directional many-to-one association to Rating
+//	@OneToMany(mappedBy="from")
+//	private Set<Rating> froms;
+//
+//	//bi-directional many-to-one association to Rating
+//	@OneToMany(mappedBy="to")
+//	private Set<Rating> tos;
 	
 	private transient String name;
 	
 	private transient boolean editable;
 	
 	private transient double averageStars;
+	
+	private transient Integer countComments;	
 	
 	public Customer() {
 	}
@@ -223,24 +225,24 @@ public class Customer implements Serializable {
 		return rating;
 	}
 	
-	public Set<Rating> getTos() {
-		System.out.println("getTos");
-		return this.tos;
-	}
-
-	public void setTos(Set<Rating> tos) {
-		this.tos = tos;
-	}
-
-	public Rating addTo(Rating rating) {
-		Set<Rating> tos = getTos();
-		if(tos == null) {
-			tos = new HashSet<Rating>();
-		}
-		tos.add(rating);
-		rating.setTo(this);
-		return rating;
-	}
+//	public Set<Rating> getTos() {
+//		System.out.println("getTos");
+//		return this.tos;
+//	}
+//
+//	public void setTos(Set<Rating> tos) {
+//		this.tos = tos;
+//	}
+//
+//	public Rating addTo(Rating rating) {
+//		Set<Rating> tos = getTos();
+//		if(tos == null) {
+//			tos = new HashSet<Rating>();
+//		}
+//		tos.add(rating);
+//		rating.setTo(this);
+//		return rating;
+//	}
 	
 	public String getName() {
 		return this.firstname + " " + this.lastname;
@@ -294,6 +296,14 @@ public class Customer implements Serializable {
 
 	public String toString() {
 		return id + "-" + email + "-" + password;
+	}
+
+	public Integer getCountComments() {
+		return countComments;
+	}
+
+	public void setCountComments(Integer countComments) {
+		this.countComments = countComments;
 	}
 }
 

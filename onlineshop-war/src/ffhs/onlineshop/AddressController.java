@@ -33,6 +33,7 @@ public class AddressController implements Serializable {
 		SigninController signinController = (SigninController) elr.getValue(elc, null, "signinController");
 			
 		Customer customer = signinController.getCustomer();
+		System.out.println("Customer: " + customer.getEmail());
 		setCustomer(customer);
 	}
 
