@@ -206,24 +206,24 @@ public class Customer implements Serializable {
 		return purchase;
 	}
 
-	public Set<Rating> getFroms() {
-		System.out.println("getFroms");
-		return this.froms;
-	}
-
-	public void setFroms(Set<Rating> froms) {
-		this.froms = froms;
-	}
-
-	public Rating addFrom(Rating rating) {
-		Set<Rating> froms = getFroms();
-		if(froms == null) {
-			froms = new HashSet<Rating>();
-		}
-		froms.add(rating);
-		rating.setFrom(this);
-		return rating;
-	}
+//	public Set<Rating> getFroms() {
+//		System.out.println("getFroms");
+//		return this.froms;
+//	}
+//
+//	public void setFroms(Set<Rating> froms) {
+//		this.froms = froms;
+//	}
+//
+//	public Rating addFrom(Rating rating) {
+//		Set<Rating> froms = getFroms();
+//		if(froms == null) {
+//			froms = new HashSet<Rating>();
+//		}
+//		froms.add(rating);
+//		rating.setFrom(this);
+//		return rating;
+//	}
 	
 //	public Set<Rating> getTos() {
 //		System.out.println("getTos");
