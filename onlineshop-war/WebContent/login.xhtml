@@ -25,8 +25,8 @@
 					    
 					    <c:if test="${param.status=='logout'}">
 					    	<div style="color:red;margin:10px 0px;">
-					                Logged out successfully!   
-					         </div>
+					    		<h:outputText value="#{msg['logged_out']}"/>
+					        </div>
 					    </c:if>
     
 						<form class="form-signin" action="j_spring_security_check" method="POST">

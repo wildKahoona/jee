@@ -61,6 +61,13 @@
 		      	<li>
 		      		<h:link outcome="register"><span class="glyphicon glyphicon-user"></span> #{msg['menu_register']}</h:link>
 		      	</li>
+
+		      	<li>
+		      		<h:outputLink value="#{request.contextPath}/j_spring_security_logout">
+				    	<span class="glyphicon glyphicon-log-out"></span> #{msg['signout']}
+					</h:outputLink>
+				</li>
+				
 		      	<li>
 		      		<h:link outcome="login"><span class="glyphicon glyphicon-log-in"></span> #{msg['menu_signin']}</h:link>
 		      	</li>
