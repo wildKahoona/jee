@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security-4.2.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+ 
+    <http use-expressions="true">
+		<csrf disabled="true" />
+		
+		<intercept-url pattern="/address.jsf" access="isAuthenticated()"/>
+		<!-- <intercept-url pattern="/account.jsf" access="isAuthenticated()"/>
+		<intercept-url pattern="/admin.jsf" access="isAuthenticated()"/>  -->
+		
+		
+		<!-- <intercept-url pattern="/welcome.jsf" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" /> -->		
+		<form-login 
+			login-page="/login.jsf" 
+			login-processing-url="/j_spring_security_check" 
+			default-target-url="/product.jsf"
+			always-use-default-target="false"
+	        authentication-failure-url="/login.jsf?error=true" 
+	        username-parameter="j_username"
+	        password-parameter="j_password" /> 
+	        
+	        <logout logout-success-url="/login.jsf"/>
+	        <!-- <logout logout-success-url="/userPage/login.jsp"/> -->
+	        <!-- <logout 
+	        	logout-success-url="/login.jsf?status=logout"
+	            delete-cookies="JSESSIONID" 
+	            invalidate-session="true" /> -->
+	</http>
+
+	<beans:bean id="dbSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	      <beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	      <beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />      
+	      <beans:property name="username" value="onlineshop_user" />
+	      <beans:property name="password" value="geheim_123" />
+	</beans:bean>
+   
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="user1" password="12345" authorities="ROLE_USER" />
+                <user name="admin1" password="12345" authorities="ROLE_USER, ROLE_ADMIN" />
+            </user-service>
+        </authentication-provider>
+ 
+        <!-- authentication from database -->
+ 		<authentication-provider>
+            <jdbc-user-service data-source-ref="dbSource"
+                users-by-username-query="select email, password,1 from onlineshop.customer where email=?"
+                authorities-by-username-query="Select email, 'ROLE_USER' from onlineshop.customer where email=?" />
+        </authentication-provider>
+    </authentication-manager>
+ 
+</beans:beans>
