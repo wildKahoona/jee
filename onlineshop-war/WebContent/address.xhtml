@@ -110,14 +110,14 @@
 									<div class="col-xs-6 col-md-6">
 										<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
 											<h:commandLink class="btn btn-primary" action="#{addressController.edit}">
-									 			<span class="glyphicon glyphicon-save"></span> #{msg['edit']}
+									 			<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
 									 		</h:commandLink>
 								 		</h:panelGroup>
 								 		<h:panelGroup layout="block" rendered="#{addressController.customer.editable}">
 											<h:commandLink class="btn btn-success" action="#{addressController.persist}">
 									 			<span class="glyphicon glyphicon-save"></span> #{msg['save']}
 									 		</h:commandLink>	
-									 		<h:commandLink class="btn btn-default btn-sm button-space" action="#{addressController.cancelEdit}">
+									 		<h:commandLink class="btn btn-default" action="#{addressController.cancelEdit}">
 									 			<span class="glyphicon glyphicon-remove"></span> #{msg['cancel']}
 							                </h:commandLink>	
 								 		</h:panelGroup>

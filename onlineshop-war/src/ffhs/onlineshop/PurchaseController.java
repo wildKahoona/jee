@@ -7,6 +7,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import ffhs.onlineshop.model.Item;
 import ffhs.onlineshop.repository.ItemDAO;
 
@@ -14,7 +16,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-
 
 @Named
 @ViewScoped
@@ -24,20 +25,13 @@ public class PurchaseController implements Serializable {
 	@Inject
 	private ItemDAO itemDAO;
 		
-	private String username;
 	private List<Item> purchaseList;
 	private Item selectedPurchase;
     private String selectedStars;
 	
     @PostConstruct
     public void init() {
-    	//this.username = SecurityContextHolder.getContext().getAuthentication().getName();
-    	
-//    	Customer customer = signinController.getCustomer();
-//		customer = em.find(Customer.class,customer.getId());
-		
-    	setUsername("bbb@gmx.ch");
-    	System.out.println("User: " + username);
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
     	setPurchaseList(itemDAO.getPurchasesByCustomer(username));
     }
     
@@ -69,14 +63,7 @@ public class PurchaseController implements Serializable {
     }
     
     // #### getters and setters ####   
-	public String getUsername() {
-		return username;
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
+
 	public List<Item> getPurchaseList() {
 		return purchaseList;
 	}

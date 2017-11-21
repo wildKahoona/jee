@@ -5,15 +5,48 @@
 			  	xmlns:f="http://java.sun.com/jsf/core"
 			  	xmlns:c="http://java.sun.com/jsp/jstl/core"
 			  	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-<ui:define name="content">
+	<ui:define name="content">
 
-	<form class="form-signin" action="j_spring_security_check" method="POST">
-	 	<h2 class="form-signin-heading">Please sign in</h2>
-	       <h:inputText id="j_username" name="j_username" placeholder="Email address" />
-	       <h:inputText id="j_password" name="j_password" placeholder="Password" type="password"/>
-	       <!-- <input type="submit" value="Login" class="primary btn-block"/> -->
-	       <h:commandButton look="primary btn-block" value="Sign In" icon="log-in" size="lg"/>
-	</form> 
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+		  
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">#{msg['login_title']}</h3>
+					</div>
+					<div class="panel-body">
+					
+						<form class="form-signin" action="j_spring_security_check" method="POST">
+					
+							<div class="form-group"> 
+								<h:outputLabel value="#{msg['email']}:"/>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+										<h:inputText id="j_username" name="j_username" class="form-control" p:placeholder="#{msg['email.placeholder']}" required="true"/>
+									</div>
+								</div>
+							 </div>
+							
+							<div class="form-group">
+							 	<h:outputLabel value="#{msg['password']}:"/>
+							 	<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+							 			<h:inputSecret id="j_password" name="j_password" class="form-control" p:placeholder="#{msg['password.placeholder']}" required="true"/>
+							 		</div>
+							 	</div>
+							 </div>
+							 							
+						    
+						    <!-- <input type="submit" value="Login" class="primary btn-block"/> -->
+						    <h:commandButton look="primary btn-block" value="#{msg['signin']}" icon="log-in" size="lg"/>
+						</form> 
+						
+					</div>
+				</div>
+			</div>
+		</div>
 	
-</ui:define>
+	</ui:define>
 </ui:composition>

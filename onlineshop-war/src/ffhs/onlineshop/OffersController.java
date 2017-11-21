@@ -6,6 +6,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +34,6 @@ public class OffersController implements Serializable {
 	@Inject
 	private ConditionDAO conditionDAO;
 	
-	private String username;
 	private List<Item> offerList;
 	private List<Category> categories;
 	private List<Condition> conditions;
@@ -41,13 +42,7 @@ public class OffersController implements Serializable {
 	
     @PostConstruct
     public void init() {
-    	System.out.println("!!! Offers INIT !!!");
-    	//this.username = SecurityContextHolder.getContext().getAuthentication().getName();
-    	
-//    	Customer customer = signinController.getCustomer();
-//		customer = em.find(Customer.class,customer.getId());
-		
-    	setUsername("bbb@gmx.ch");
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
     	setOfferList(itemDAO.getOffersByCustomer(username));
     }
 
@@ -102,7 +97,6 @@ public class OffersController implements Serializable {
     
     public String edit(Item offer){
 		try {
-	    	System.out.println("edit");
 	    	for (Item existing : getOfferList()){
 	            existing.setEditable(false);
 	        }
@@ -125,26 +119,16 @@ public class OffersController implements Serializable {
     }
 
     public void cancelEdit(Item offer){
-    	System.out.println("cancelEdit");
     	offer.setEditable(false);
     }
 
     public void remove(Item offer){
-    	System.out.println("remove");
     	offerList.remove(offer);
     	itemDAO.deleteItem(offer);
     }
     
     // #### getters and setters ####
-    
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
+    	
 	public List<Item> getOfferList() {
 		return offerList;
 	}

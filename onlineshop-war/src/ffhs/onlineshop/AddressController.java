@@ -11,6 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import ffhs.onlineshop.model.Customer;
 import ffhs.onlineshop.repository.UserDAO;
 
@@ -27,13 +29,8 @@ public class AddressController implements Serializable {
 	
 	@PostConstruct
     public void init() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ELContext elc = ctx.getELContext();
-		ELResolver elr = ctx.getApplication().getELResolver();
-		SigninController signinController = (SigninController) elr.getValue(elc, null, "signinController");
-			
-		Customer customer = signinController.getCustomer();
-		System.out.println("Customer: " + customer.getEmail());
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Customer customer = userDAO.findUser(username);
 		setCustomer(customer);
 	}
 

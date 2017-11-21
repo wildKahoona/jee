@@ -105,7 +105,7 @@ public class ItemDAO implements Serializable{
     public List<Item> getOffersByCustomer(String email) {
     	Customer customer = userDao.findUser(email);
     	if(customer != null)
-    		return getOffersByCustomer(customer);
+    		return getOffersByCustomer(customer);		
 		return new ArrayList<Item>();
     }    
  

@@ -44,7 +44,7 @@ public class LoginController implements Serializable {
 //        facesContext.responseComplete();
 //        return null;
         //String url = "/j_spring_security_check?j_username=" + username + "&j_password=" + password;
-        
+    	System.out.println("login!!! ");
         String url = "/j_spring_security_check?j_username=" + "user1" + "&j_password=" + "12345";
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         RequestDispatcher dispatcher = ((ServletRequest) context.getRequest()).getRequestDispatcher(url);

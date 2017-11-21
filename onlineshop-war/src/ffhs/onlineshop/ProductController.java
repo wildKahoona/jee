@@ -7,18 +7,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import ffhs.onlineshop.model.Category;
 import ffhs.onlineshop.model.Customer;
 import ffhs.onlineshop.model.Item;
 import ffhs.onlineshop.repository.CategoryDAO;
 import ffhs.onlineshop.repository.ItemDAO;
+import ffhs.onlineshop.repository.UserDAO;
 
 /**
  * 
@@ -31,17 +31,18 @@ public class ProductController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private CategoryDAO categoryDAO;
-	
+	private CategoryDAO categoryDAO;	
 	@Inject
 	private ItemDAO itemDAO;
+	@Inject
+	private UserDAO userDAO;
 	private List<Item> items;
 	private List<Item> allItems;
 	private List<Category> categories;
 	private Item selectedItem;
 	private String search;
-	private Customer selectedSeller;
-	
+	private Customer customer;
+	private Customer selectedSeller;	
 	private List<Item> offers;
 	
     @PostConstruct
@@ -50,6 +51,9 @@ public class ProductController implements Serializable {
     	setCategories(getAllCatagories());
     	setAllItems(findAll());
     	setItems(getAllItems());
+    	
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    	setCustomer(userDAO.findUser(username));
     }
 	
 	public List<Item> findAll() {
@@ -68,8 +72,7 @@ public class ProductController implements Serializable {
 				}
 				seller.setAverageStars(average);
 				seller.setCountComments(count);
-			}
-			
+			}		
 			return items;
 		} catch (Exception e) {
 			System.out.println("Error findAll Items!!! " + e.getMessage());
@@ -97,16 +100,10 @@ public class ProductController implements Serializable {
 	}
 
 	public void buyItem(Item item){	
-		System.out.println("Kaufe Item: " + item.getTitle());
-		
-		// Um eingeloggten User zu holen
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ELContext elc = ctx.getELContext();
-		ELResolver elr = ctx.getApplication().getELResolver();
-		SigninController signinController = (SigninController) elr.getValue(elc, null, "signinController");
-		Customer customer = signinController.getCustomer();
+		if(getCustomer() == null)
+			return;
 		try {		
-			item.setBuyer(customer);
+			item.setBuyer(getCustomer());
 			item.setSold(new Date());
 			itemDAO.updateItem(item);
 		} catch (Exception e) {
@@ -200,5 +197,13 @@ public class ProductController implements Serializable {
 
 	public void setOffers(List<Item> offers) {
 		this.offers = offers;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 }
