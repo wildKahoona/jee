@@ -13,12 +13,15 @@
 		      <a class="navbar-brand" href="#">Bigi's Shop</a>
 		    </div>
 		    <ul class="nav navbar-nav">
-		      <li class="active"><a href="#">Home</a></li>
+		      <!-- <li class="active"><a href="#">Home</a></li> -->
 		      <li>
 		      	<h:link outcome="product" value="#{msg['menu_product']}"/>
 		      </li>	      		      
 		      <li class="dropdown">
-		      	<a class="dropdown-toggle" data-toggle="dropdown" href="#">#{msg['menu_userdashboard']}<span class="caret"></span></a>
+		      	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		      		<h:outputText value="#{msg['menu_userdashboard']}"/>
+		      		<span class="caret"></span>
+		      	</a>
 		        <ul class="dropdown-menu">
 		          <li>
 		          	<h:link outcome="address" value="#{msg['menu_address']}"/>
@@ -35,7 +38,10 @@
 		        </ul>
 		      </li>		      		      
 		      <li class="dropdown">
-		      	<a class="dropdown-toggle" data-toggle="dropdown" href="#">#{msg['menu_admindashboard']}<span class="caret"></span></a>
+		      	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		      		<h:outputText value="#{msg['menu_admindashboard']}"/>
+		      		<span class="caret"></span>
+		      	</a>
 		        <ul class="dropdown-menu">
 		          <li>
 		          	<h:link outcome="category" value="#{msg['menu_category']}"/>
@@ -59,17 +65,21 @@
 					</a>
 			  	</li>
 		      	<li>
-		      		<h:link outcome="register"><span class="glyphicon glyphicon-user"></span> #{msg['menu_register']}</h:link>
+		      		<h:link outcome="register">
+		      			<span class="glyphicon glyphicon-user"></span> <h:outputText value="#{msg['menu_register']}"/>
+		      		</h:link>
 		      	</li>
 
 		      	<li>
-		      		<h:outputLink value="#{request.contextPath}/j_spring_security_logout">
-				    	<span class="glyphicon glyphicon-log-out"></span> #{msg['signout']}
+		      		<h:outputLink value="#{request.contextPath}/j_spring_security_logout"
+		      					  rendered="#{request.isUserInRole('ROLE_USER')}">
+				    	<span class="glyphicon glyphicon-log-out"></span> <h:outputText value="#{msg['signout']}"/>
 					</h:outputLink>
-				</li>
-				
+				</li>			
 		      	<li>
-		      		<h:link outcome="login"><span class="glyphicon glyphicon-log-in"></span> #{msg['menu_signin']}</h:link>
+		      		<h:link outcome="login" rendered="#{not request.isUserInRole('ROLE_USER')}">
+		      			<span class="glyphicon glyphicon-log-in"></span> <h:outputText value="#{msg['menu_signin']}"/>
+		      		</h:link>
 		      	</li>
 		    </ul>
 		  </div>

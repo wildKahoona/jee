@@ -31,9 +31,11 @@
 											</div>
 										 </div>
 										 
-										 <h:commandButton value="#{msg['add']}" action="#{conditionController.add}" class="btn btn-success btnSpace">
+										 <h:commandLink action="#{conditionController.add}"
+										 				class="btn btn-success">
+										 	<span class="glyphicon glyphicon-plus"></span> #{msg['add']}
 										 	<f:ajax execute="conditionForm" render="@form" />
-										 </h:commandButton>
+										 </h:commandLink>
 								  
 								 	</div>
 								 </div>
@@ -43,18 +45,14 @@
 											 class="table table-responsive table-bordered table-striped">                                                > 
 								    <h:column sortingExpression="#{con.description}" style="width: 100px;">
 								        <f:facet name="header">
-						    			   <h:commandLink value="#{msg['condition']}"  action="#{conditionController.sortByDescription}">
+						    			   <h:commandLink value="#{msg['condition']}" action="#{conditionController.sortByDescription}">
 						    			   		<f:ajax render="@form" />
 						    			   </h:commandLink>
 						    			</f:facet>
-		   			
 								        <h:inputText value="#{con.description}" rendered="#{con.editable}" required="true" requiredMessage="description is required"/>
 		               					<h:outputText value="#{con.description}" rendered="#{not con.editable}" />
-		               					<f:attribute value="center" name="align" />
-										<f:attribute value="middle" name="valign" />
 								    </h:column>
-								    
-								    
+								    					    
 								    <h:column>
 						                <h:commandLink action="#{conditionController.edit(con)}" 
 						                			   class="btn btn-primary btn-sm"
@@ -70,10 +68,10 @@
 						                    <f:ajax execute="conditionForm:conditionTable" render="@form" /> 
 						                </h:commandLink>
 						                 
-						                <h:commandLink value="#{msg['cancel']}" 
+						                <h:commandLink action="#{conditionController.cancelEdit(con)}"
 						                			   class="btn btn-default btn-sm"
-						                			   action="#{conditionController.cancelEdit(con)}" 
 						                			   rendered="#{con.editable}" >
+						                	<span class="glyphicon glyphicon-remove"></span> #{msg['cancel']}
 						                    <f:ajax render="@form" />
 						                </h:commandLink>
 						                

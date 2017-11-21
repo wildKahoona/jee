@@ -31,9 +31,11 @@
 											</div>
 										 </div>
 										 
-										 <h:commandButton value="#{msg['add']}" action="#{categoryController.add}" class="btn btn-success btnSpace">
+										 <h:commandLink action="#{categoryController.add}"
+										 				class="btn btn-success">
+										 	<span class="glyphicon glyphicon-plus"></span> #{msg['add']}
 										 	<f:ajax execute="categoryForm" render="categoryForm:categoryTable" />
-										 </h:commandButton>
+										 </h:commandLink>
 								  
 								 	</div>
 								 </div>
@@ -53,30 +55,30 @@
 								    
 								    <h:column>
 						                <h:commandLink action="#{categoryController.edit(cat)}" 
-						                			   class="btn btn-primary btn-sm"
+						                			   class="btn btn-primary btn-xs"
 						                			   rendered="#{not cat.editable}">
 						                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
 											<f:ajax render="@form" />
 						                </h:commandLink>
 						                
 						                <h:commandLink action="#{categoryController.update(cat)}" 
-						                			   class="btn btn-success btn-sm"
+						                			   class="btn btn-success btn-xs"
 						                			   rendered="#{cat.editable}">
 						                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
 						                    <f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable" /> 
 						                </h:commandLink>
 						                 
-						                <h:commandLink value="#{msg['cancel']}" 
-						                			   class="btn btn-default btn-sm"
-						                			   action="#{categoryController.cancelEdit(cat)}" 
+						                <h:commandLink action="#{categoryController.cancelEdit(cat)}" 
+						                			   class="btn btn-default btn-xs"
 						                			   rendered="#{cat.editable}" >
+						                	<span class="glyphicon glyphicon-remove"></span> #{msg['cancel']}
 						                    <f:ajax render="@form" />
 						                </h:commandLink>
 						            </h:column>
 						            			               
 						            <h:column>
 						                <h:commandLink id="remove"
-						                			   class="btn btn-danger btn-sm"
+						                			   class="btn btn-danger btn-xs"
 						                			   action="#{categoryController.remove(cat)}"
 						                               onclick="return confirm('#{msg['deleteQuestion']}')">
 						                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
