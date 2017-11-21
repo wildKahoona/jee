@@ -3,8 +3,6 @@ package ffhs.onlineshop;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.el.ELContext;
-import javax.el.ELResolver;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

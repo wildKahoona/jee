@@ -12,10 +12,23 @@
 		  
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">#{msg['login_title']}</h3>
+						<h3 class="panel-title"><h:outputText value="#{msg['login_title']}"/></h3>
 					</div>
 					<div class="panel-body">
 					
+					     <c:if test="${param.error == 'true'}">
+					         <div style="color:red;margin:10px 0px;">
+					                <h:outputText value="#{msg['login_failed']}"/><br/>
+					                <h:outputText value="#{msg['login_failed_reason']}"/>:  ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}    
+					         </div>
+					    </c:if>
+					    
+					    <c:if test="${param.status=='logout'}">
+					    	<div style="color:red;margin:10px 0px;">
+					                Logged out successfully!   
+					         </div>
+					    </c:if>
+    
 						<form class="form-signin" action="j_spring_security_check" method="POST">
 					
 							<div class="form-group"> 
@@ -26,7 +39,7 @@
 										<h:inputText id="j_username" name="j_username" class="form-control" p:placeholder="#{msg['email.placeholder']}" required="true"/>
 									</div>
 								</div>
-							 </div>
+							</div>
 							
 							<div class="form-group">
 							 	<h:outputLabel value="#{msg['password']}:"/>
@@ -36,11 +49,12 @@
 							 			<h:inputSecret id="j_password" name="j_password" class="form-control" p:placeholder="#{msg['password.placeholder']}" required="true"/>
 							 		</div>
 							 	</div>
-							 </div>
-							 							
-						    
-						    <!-- <input type="submit" value="Login" class="primary btn-block"/> -->
-						    <h:commandButton look="primary btn-block" value="#{msg['signin']}" icon="log-in" size="lg"/>
+							</div>
+							 											    
+						   <button class="btn btn-primary col-md-4">
+							    <span class="glyphicon glyphicon-log-in"></span> <h:outputText value="#{msg['signin']}"/>
+							</button>
+						  
 						</form> 
 						
 					</div>

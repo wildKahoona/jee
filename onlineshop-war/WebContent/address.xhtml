@@ -5,15 +5,13 @@
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-	<ui:define name="content">
-	
+	<ui:define name="content">	
 		<div class="row">
-
 			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
 	
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">#{msg['menu_address']}</h3>
+						<h3 class="panel-title"><h:outputText value="#{msg['menu_address']}"/></h3>
 					</div>
 					<div class="panel-body">
 					
@@ -115,7 +113,7 @@
 								 		</h:panelGroup>
 								 		<h:panelGroup layout="block" rendered="#{addressController.customer.editable}">
 											<h:commandLink class="btn btn-success" action="#{addressController.persist}">
-									 			<span class="glyphicon glyphicon-save"></span> #{msg['save']}
+									 			<span class="glyphicon glyphicon glyphicon-floppy-disk"></span> #{msg['save']}
 									 		</h:commandLink>	
 									 		<h:commandLink class="btn btn-default" action="#{addressController.cancelEdit}">
 									 			<span class="glyphicon glyphicon-remove"></span> #{msg['cancel']}
@@ -132,6 +130,5 @@
 				</div>
 			</div>
 		</div>
-
 	</ui:define>
 </ui:composition>

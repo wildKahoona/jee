@@ -12,12 +12,9 @@
 		  
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">#{msg['register_title']}</h3>
+						<h3 class="panel-title"><h:outputText value="#{msg['register_title']}"/></h3>
 					</div>
 					<div class="panel-body">
-				
-						<h:outputLabel value="#{signinController.email}"/>
-						
 						<h:form id="registerForm" prependId="false">
 							<h:message for="registerForm" showSummary="true" styleClass="text-success"/>
 							
@@ -71,17 +68,10 @@
 							 		</div>
 							 	</div>
 							 </div>
-							 
-							<hr/>
-							<div class="row">
-								<div class="col-xs-12 col-md-6"></div>
-								<div class="col-xs-6 col-md-6">
-									<h:commandLink id="register" class="btn btn-primary btn-block pull-right" action="#{registerController.persist}">
-							 			<span class="glyphicon glyphicon-user"></span> #{msg['register']}
-							 		</h:commandLink>
-								</div>
-							</div>
-	
+							<h:commandLink id="register" class="btn btn-primary col-md-4" 
+										   action="#{registerController.persist}">
+					 			<span class="glyphicon glyphicon-user"></span> <h:outputText value="#{msg['register']}"/>
+					 		</h:commandLink>
 							 <h:message for="register" styleClass="text-success"/>
 						</h:form>	
 					

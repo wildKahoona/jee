@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
-import javax.el.ELContext;
-import javax.el.ELResolver;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -23,6 +21,8 @@ import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import ffhs.onlineshop.model.Category;
 import ffhs.onlineshop.model.Condition;
@@ -54,11 +54,9 @@ public class SellController implements Serializable {
 	@Inject
 	private CategoryDAO categoryDAO;
 	@Inject
-	private ConditionDAO conditionDAO;
-	
+	private ConditionDAO conditionDAO;	
 	@Inject
 	private Item item;
-	private String username;
 	
 	private List<Category> categories;
 	private List<Condition> conditions;
@@ -68,22 +66,6 @@ public class SellController implements Serializable {
 	
 	@PostConstruct
     public void init(){
-//		this.username = SecurityContextHolder.getContext().getAuthentication().getName();
-//		try {
-//			HttpSession session = SessionUtils.getSession();
-//			Object xxx = session.getAttribute("username");
-//			if(xxx != null)
-//			{
-//				String username = xxx.toString();
-//			}else{
-//				FacesContext.getCurrentInstance().getExternalContext().redirect("signin.jsf");
-//			}
-//			
-//			
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		item = new Item();
 		setCategories(getAllCatagories());
 		setConditions(getAllConditions());
@@ -108,33 +90,26 @@ public class SellController implements Serializable {
 	}
 
 	public void persist(){
-    	System.out.println("content-type:{0}" + file.getContentType());
-    	System.out.println("filename:{0}" + file.getContentType());
+		System.out.println("selectedCategory: " + selectedCategory);
     	System.out.println("size:{0}" + file.getSize());
     	try {
     		InputStream input = file.getInputStream();
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
 			byte[] buffer = new byte[10240];
-			for (int length = 0; (length = input.read(buffer)) > 0;) {
+			for (int length = 0; (length = input.read(buffer)) > 0;)
 				output.write(buffer, 0, length);
-			}
 			item.setFoto(scale(output.toByteArray()));
 			
-			// TODO: Gewählte Optionen nehmen !!!!!!!!!!!!!!
-			Optional<Category> category = categories.stream().filter(x -> x.getId() == (long)4).findFirst();
+			Optional<Category> category = categories.stream().filter(x -> x.getId() == selectedCategory).findFirst();
 			if(category.isPresent())
 				item.setCategory(category.get());	
 			
-			Optional<Condition> condition = conditions.stream().filter(x -> x.getId() == (long)1).findFirst();
+			Optional<Condition> condition = conditions.stream().filter(x -> x.getId() == selectedCondition).findFirst();
 			if(condition.isPresent())
 				item.setCondition(condition.get());	
 
-			// Um eingeloggten User zu holen
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			ELContext elc = ctx.getELContext();
-			ELResolver elr = ctx.getApplication().getELResolver();
-			SigninController signinController = (SigninController) elr.getValue(elc, null, "signinController");
-			Customer customer = signinController.getCustomer();
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	    	Customer customer = userDao.findUser(username);
 			item.setSeller(customer);
 			
 			itemDao.updateItem(item);
@@ -142,7 +117,6 @@ public class SellController implements Serializable {
 			setItem(new Item());
 			setSelectedCategory(null);
 			setSelectedCondition(null);
-			
 			
 			FacesMessage message = new FacesMessage("Succesfully saved!","Your Offer was saved");
 			FacesContext.getCurrentInstance().addMessage("sellForm", message);
@@ -189,14 +163,6 @@ public class SellController implements Serializable {
 		this.item = item;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
 	public List<Category> getCategories() {
 		if(this.categories != null)
 			return this.categories;

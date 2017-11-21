@@ -38,7 +38,7 @@
 	
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">#{msg['menu_offers']}</h3>
+						<h3 class="panel-title"><h:outputText value="#{msg['menu_offers']}"/></h3>
 					</div>
 					<div class="panel-body">		
 						<h:form id="offerForm">
@@ -63,13 +63,13 @@
 					                    <f:ajax execute="offerForm:offerTable" render="offerForm:offerTable" /> 
 					                </h:commandLink>
 					                 
-					                <h:commandLink value="#{msg['cancel']}" 
+					                <h:commandLink action="#{offersController.cancelEdit(offer)}" 
 					                			   class="btn btn-default btn-sm"
-					                			   action="#{offersController.cancelEdit(offer)}" 
-					                			   rendered="#{offer.editable}" >
+					                			   rendered="#{offer.editable}">
+					                	<span class="glyphicon glyphicon-remove"></span> #{msg['cancel']}
 					                    <f:ajax render="@form" />
 					                </h:commandLink>
-					                
+					                  
 					            </h:column>
 					            			               
 					            <h:column>

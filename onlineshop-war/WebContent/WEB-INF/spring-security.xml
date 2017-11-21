@@ -11,6 +11,13 @@
 		<csrf disabled="true" />
 		
 		<intercept-url pattern="/address.jsf" access="isAuthenticated()"/>
+		<intercept-url pattern="/offers.jsf" access="isAuthenticated()"/>
+		<intercept-url pattern="/purchase.jsf" access="isAuthenticated()"/>
+		<intercept-url pattern="/sell.jsf" access="isAuthenticated()"/>
+		
+		<intercept-url pattern="/category.jsf" access="isAuthenticated()"/>
+		<intercept-url pattern="/condition.jsf" access="isAuthenticated()"/>
+		
 		<!-- <intercept-url pattern="/account.jsf" access="isAuthenticated()"/>
 		<intercept-url pattern="/admin.jsf" access="isAuthenticated()"/>  -->
 		

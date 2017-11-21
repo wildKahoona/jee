@@ -111,13 +111,13 @@
 		        
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">#{msg['categories']}</h3>
+                    <h3 class="panel-title"><h:outputText value="#{msg['categories']}"/></h3>
                 </div>             
                 <ul class="list-group">               
 					<c:forEach var="cat" items="#{productController.categories}">
 						 		<h:commandLink action="#{productController.filterItems(cat)}"
 						 					   class="list-group-item">
-							 		#{cat.description}
+							 		<h:outputText value="#{cat.description}"/>
 							 		<span class="pull-right">
 							 			#{fn:length(cat.items)}
 							 		</span>
@@ -216,7 +216,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                <h3 class="modal-title">#{msg['item_detail']}</h3>
+                <h3 class="modal-title"><h:outputText value="#{msg['item_detail']}"/></h3>
             </div>
             <div class="modal-body">
             	<h:form id="dialog-detail-form">
@@ -231,28 +231,24 @@
 	                        	<h:outputText value="#{productController.selectedItem.description}"/>
 	                        </p>
 	                        
-
-	                        <div class="space-ten"></div>
-	                        
-	                        <div class="btn-ground">
-	                        
+	                        <div class="space-ten"></div>	                        
 	                        <div style="height:40px;line-height:40px;"> 
-				                 	<p>
-				                 	<h:outputText value="#{productController.selectedItem.price}" style="font-size:medium;font-weight:bold;">
-										<f:convertNumber currencySymbol="CHF " type="currency" />
-									</h:outputText>
-									<span class="pull-right">
-										<c:if test="${empty productController.selectedItem.sold}"> 
-											<h:commandLink action="#{productController.buyItem(productController.selectedItem)}"
-														   onclick="$('#product_view').modal('hide');"
-											 			   class="btn btn-primary">#{msg['buy']}
-											 			   <f:ajax execute="@form" render="@form :productForm"/>
-						                    </h:commandLink>						                    
-					                    </c:if> 
-									</span>
-									</p>
-				                </div>
-	                        </div>
+			                 	<p>
+			                 	<h:outputText value="#{productController.selectedItem.price}" style="font-size:medium;font-weight:bold;">
+									<f:convertNumber currencySymbol="CHF " type="currency" />
+								</h:outputText>
+								<span class="pull-right">
+									<c:if test="${empty productController.selectedItem.sold}"> 
+										<h:commandLink action="#{productController.buyItem(productController.selectedItem)}"
+													   onclick="$('#product_view').modal('hide');"
+										 			   class="btn btn-primary">
+										 			   <h:outputText value="#{msg['buy']}"/>
+										 			   <f:ajax execute="@form" render="@form :productForm"/>
+					                    </h:commandLink>						                    
+				                    </c:if> 
+								</span>
+								</p>
+			                </div>
 	                    </div>   
 	                </div>
                               
@@ -267,7 +263,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                <h3 class="modal-title">Verkäufer</h3>
+                <h3 class="modal-title"><h:outputText value="#{msg['seller_name']}"/></h3>
             </div>
             <div class="modal-body">
             	<h:form id="reviewForm">	                

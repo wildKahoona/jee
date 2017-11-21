@@ -40,8 +40,8 @@
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>signin</from-outcome>
-			<to-view-id>/signin.jsf</to-view-id>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/login.jsf</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
