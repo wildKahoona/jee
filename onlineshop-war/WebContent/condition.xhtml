@@ -28,10 +28,13 @@
 							<h:message for="conditionForm" showSummary="true" styleClass="text-success"/>
 		 
 							<div class="form-group"> 
-								<h:outputLabel for="description" value="#{msg['description']}:"/>
+								<h:outputLabel for="description" value="#{msg['new_condition']}:"/>
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
-									<h:inputText id="description" class="form-control" value="#{conditionController.description}" p:placeholder="#{msg['description.placeholder']}" required="true" requiredMessage="description is required"/>
+									<h:inputText id="adddescription" class="form-control" 
+												 value="#{conditionController.description}" 
+												 p:placeholder="#{msg['description.placeholder']}" 
+												 required="true" requiredMessage="#{msg['error_description_required']}"/>
 									<h:message for="description" style="color:red"/>												
 									<span class="input-group-btn">
 										<h:commandLink action="#{conditionController.add}"
@@ -40,7 +43,8 @@
 										 	<f:ajax execute="conditionForm" render="@form" />
 										 </h:commandLink>												
 									</span>
-								</div>									
+								</div>
+								<h:message for="adddescription" styleClass="bg-danger"/>									
 							 </div>
 	 
 							<h:dataTable id="conditionTable"
@@ -49,11 +53,14 @@
 										 columnClasses=",column2,column3">                                                 > 
 							    <h:column sortingExpression="#{con.description}" style="width: 100px;">
 							        <f:facet name="header">
-					    			   <h:commandLink value="#{msg['condition']}" action="#{conditionController.sortByDescription}">
-					    			   		<f:ajax render="@form" />
+					    			   <h:commandLink value="#{msg['condition']}"
+					    			   				  action="#{conditionController.sortByDescription}">
+					    			   		<f:ajax render="conditionForm:conditionTable" />
 					    			   </h:commandLink>
 					    			</f:facet>
-							        <h:inputText value="#{con.description}" rendered="#{con.editable}" required="true" requiredMessage="description is required"/>
+							        <h:inputText id="description" value="#{con.description}" rendered="#{con.editable}" 
+							        			 required="true" requiredMessage="#{msg['error_description_required']}"/>
+	               					<p><h:message for="description" styleClass="bg-danger"/></p>
 	               					<h:outputText value="#{con.description}" rendered="#{not con.editable}" />
 							    </h:column>
 							    					    
@@ -62,21 +69,21 @@
 					                			   class="btn btn-primary btn-xs"
 					                			   rendered="#{not con.editable}">
 					                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
-										<f:ajax render="@form" />
+										<f:ajax render="conditionForm:conditionTable"/>
 					                </h:commandLink>
 					                
 					                <h:commandLink action="#{conditionController.update(con)}" 
 					                			   class="btn btn-success btn-xs"
 					                			   rendered="#{con.editable}">
 					                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
-					                    <f:ajax execute="conditionForm:conditionTable" render="@form" /> 
+					                    <f:ajax execute="conditionForm:conditionTable" render="conditionForm:conditionTable"/> 
 					                </h:commandLink>
 					                 
 					                <h:commandLink action="#{conditionController.cancelEdit(con)}"
 					                			   class="btn btn-default btn-xs"
 					                			   rendered="#{con.editable}" >
 					                	<span class="glyphicon glyphicon-remove"></span> #{msg['cancel']}
-					                    <f:ajax render="@form" />
+					                    <f:ajax render="conditionForm:conditionTable" />
 					                </h:commandLink>
 					                
 					            </h:column>
@@ -87,7 +94,7 @@
 					                			   action="#{conditionController.remove(con)}"
 					                               onclick="return confirm('#{msg['deleteQuestion']}')">
 					                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
-					                    <f:ajax render="@form" />
+					                    <f:ajax render="conditionForm:conditionTable" />
 					                </h:commandLink>
 					            </h:column>
 							</h:dataTable>

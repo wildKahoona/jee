@@ -3,9 +3,9 @@ package ffhs.onlineshop;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -15,7 +15,7 @@ import ffhs.onlineshop.model.Customer;
 import ffhs.onlineshop.repository.UserDAO;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class AddressController implements Serializable {	
 	private static final long serialVersionUID = 1L;
 
@@ -32,9 +32,9 @@ public class AddressController implements Serializable {
 		setCustomer(customer);
 	}
 
-    public String edit(){
+    public void edit(){
 		try {
-	    	customer.setEditable(true);
+			customer.setEditable(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage fm = new FacesMessage(
@@ -43,7 +43,6 @@ public class AddressController implements Serializable {
 				e.getCause().getMessage());
 			FacesContext.getCurrentInstance().addMessage("addressForm", fm);
 		}
-        return "/address.jsf";
     }
     
     
@@ -51,12 +50,12 @@ public class AddressController implements Serializable {
     	customer.setEditable(false);
     }
     
-	public String persist() {
+	public void persist() {
 		try {
 			userDAO.updateCustomer(customer);
 			customer.setEditable(false);
 			
-			FacesMessage message = new FacesMessage("Succesfully saved!","Your address was updated");
+			FacesMessage message = new FacesMessage("Erfolgreich aktualisiert");
 			FacesContext.getCurrentInstance().addMessage("addressForm", message);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,7 +67,6 @@ public class AddressController implements Serializable {
 					e.getCause().getMessage());
 			FacesContext.getCurrentInstance().addMessage("addressForm",message);
 		}
-		return "/address.jsf";
 	}
 	
 	public Customer getCustomer() {

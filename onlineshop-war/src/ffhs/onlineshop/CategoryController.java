@@ -32,28 +32,33 @@ public class CategoryController implements Serializable {
     @PostConstruct
     public void init() {
     	categoryList = categoryDAO.findAll();
-    	System.out.println("INIT Category !!!!!!!");
     }
     
-    public String add(){
-    	Category newCategory = new Category();
-    	newCategory.setDescription(description);
-    	categoryList.add(newCategory);
-    	setDescription("");
-    	categoryDAO.addCategory(newCategory);
-    	//categoryList = categoryDAO.findAll();
-    	return null;
+    public void add(){
+    	try {
+	    	Category newCategory = new Category();
+	    	newCategory.setDescription(description);
+	    	categoryList.add(newCategory);
+	    	setDescription("");
+	    	categoryDAO.addCategory(newCategory);
+	        FacesMessage m = new FacesMessage("Erfolgreich hinzugefügt!");
+    		FacesContext.getCurrentInstance().addMessage("categoryForm", m);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesMessage fm = new FacesMessage(
+				FacesMessage.SEVERITY_WARN, 
+				e.getMessage(),
+				e.getCause().getMessage());
+			FacesContext.getCurrentInstance().addMessage("categoryForm", fm);
+		}
     }
 
-    public String update(Category category){
+    public void update(Category category){
 		try {
-			if(category != null)
-	    		System.out.println("Speichern Category: " + category.getDescription());
-			
 			categoryDAO.updateCategory(category);
 	        cancelEdit(category);
 	        
-	        FacesMessage m = new FacesMessage("Succesfully saved!","id " + category.getId());
+	        FacesMessage m = new FacesMessage("Erfolgreich aktualisiert!");
 			FacesContext.getCurrentInstance().addMessage("categoryForm", m);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,12 +68,10 @@ public class CategoryController implements Serializable {
 				e.getCause().getMessage());
 			FacesContext.getCurrentInstance().addMessage("categoryForm", fm);
 		}
-        return null;
     }
 
-    public String edit(Category category){
+    public void edit(Category category){
 		try {
-	    	System.out.println("edit");
 	    	for (Category existing : getCategoryList()){
 	            existing.setEditable(false);
 	        }
@@ -81,16 +84,13 @@ public class CategoryController implements Serializable {
 				e.getCause().getMessage());
 			FacesContext.getCurrentInstance().addMessage("categoryForm", fm);
 		}
-        return null;
     }
 
     public void cancelEdit(Category category){
-    	System.out.println("cancelEdit");
     	category.setEditable(false);
     }
 
     public void remove(Category category){
-    	System.out.println("remove");
     	categoryList.remove(category);
     	categoryDAO.deleteCategory(category);
     }
@@ -98,7 +98,6 @@ public class CategoryController implements Serializable {
 	public String sortByDescription() {
 		
 	   if(sortAscending){
-
 		//ascending order
 		Collections.sort(categoryList, new Comparator<Category>() {
 			@Override
@@ -108,7 +107,6 @@ public class CategoryController implements Serializable {
 		});
 		sortAscending = false;
 	   }else{
-
 		//descending order
 		Collections.sort(categoryList, new Comparator<Category>() {
 			@Override

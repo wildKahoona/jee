@@ -9,10 +9,12 @@
 <style>
 .column1 {
 	width: 120px;
+	text-align: center;
 }
 
 .column2 {
 	width: 120px;
+	text-align: center;
 }
 
 .column3 {
@@ -50,21 +52,21 @@
 							    
 							    <h:column>
 					                <h:commandLink action="#{offersController.edit(offer)}" 
-					                			   class="btn btn-primary btn-sm"
+					                			   class="btn btn-primary btn-xs"
 					                			   rendered="#{(not offer.editable) and (offer.sold == null)}">
 					                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
 										<f:ajax render="@form" />
 					                </h:commandLink>
 					                
 					                <h:commandLink action="#{offersController.update(offer)}" 
-					                			   class="btn btn-success btn-sm"
+					                			   class="btn btn-success btn-xs"
 					                			   rendered="#{offer.editable}">
 					                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
 					                    <f:ajax execute="offerForm:offerTable" render="offerForm:offerTable" /> 
 					                </h:commandLink>
 					                 
 					                <h:commandLink action="#{offersController.cancelEdit(offer)}" 
-					                			   class="btn btn-default btn-sm"
+					                			   class="btn btn-default btn-xs"
 					                			   rendered="#{offer.editable}">
 					                	<span class="glyphicon glyphicon-remove"></span> #{msg['cancel']}
 					                    <f:ajax render="@form" />
@@ -74,7 +76,7 @@
 					            			               
 					            <h:column>
 					                <h:commandLink id="remove"
-					                			   class="btn btn-danger btn-sm"
+					                			   class="btn btn-danger btn-xs"
 					                			   action="#{offersController.remove(offer)}"
 					                			   rendered="#{offer.sold == null}"
 					                               onclick="return confirm('#{msg['deleteQuestion']}')">

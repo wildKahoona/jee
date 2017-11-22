@@ -32,28 +32,34 @@ public class ConditionController implements Serializable {
     @PostConstruct
     public void init() {
     	conditionList = conditionDAO.findAll();
-    	System.out.println("INIT Condition !!!!!!!");
     }
 
-    public String add(){
-    	Condition newCondition = new Condition();
-    	newCondition.setDescription(description);
-    	conditionList.add(newCondition);
-    	setDescription("");
-    	conditionDAO.addCondition(newCondition);
-    	
-    	return null;
+    public void add(){
+    	try {
+	    	Condition newCondition = new Condition();
+	    	newCondition.setDescription(description);
+	    	conditionList.add(newCondition);
+	    	setDescription("");
+	    	conditionDAO.addCondition(newCondition);
+	    	
+	    	FacesMessage m = new FacesMessage("Erfolgreich hinzugefügt!");
+			FacesContext.getCurrentInstance().addMessage("conditionForm", m);
+    	} catch (Exception e) {
+			e.printStackTrace();
+			FacesMessage fm = new FacesMessage(
+				FacesMessage.SEVERITY_WARN, 
+				e.getMessage(),
+				e.getCause().getMessage());
+			FacesContext.getCurrentInstance().addMessage("conditionForm", fm);
+		}
     }
 
-    public String update(Condition condition){
+    public void update(Condition condition){
 		try {
-			if(condition != null)
-	    		System.out.println("Speichern Condition: " + condition.getDescription());
-			
 			conditionDAO.updateCondition(condition);
 	        cancelEdit(condition);
 	        
-	        FacesMessage m = new FacesMessage("Succesfully saved!","id " + condition.getId());
+	        FacesMessage m = new FacesMessage("Erfolgreich aktualisiert!");
 			FacesContext.getCurrentInstance().addMessage("conditionForm", m);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,12 +69,10 @@ public class ConditionController implements Serializable {
 				e.getCause().getMessage());
 			FacesContext.getCurrentInstance().addMessage("conditionForm", fm);
 		}
-        return null;
     }
     
-    public String edit(Condition condition){
+    public void edit(Condition condition){
 		try {
-	    	System.out.println("edit");
 	    	for (Condition existing : getConditionList()){
 	            existing.setEditable(false);
 	        }
@@ -81,16 +85,13 @@ public class ConditionController implements Serializable {
 				e.getCause().getMessage());
 			FacesContext.getCurrentInstance().addMessage("conditionForm", fm);
 		}
-        return null;
     }
 
     public void cancelEdit(Condition condition){
-    	System.out.println("cancelEdit");
     	condition.setEditable(false);
     }
 
     public void remove(Condition condition){
-    	System.out.println("remove");
     	conditionDAO.deleteCondition(condition);
     	conditionList.remove(condition);
     }
@@ -98,7 +99,6 @@ public class ConditionController implements Serializable {
 	public String sortByDescription() {
 		
 	   if(sortAscending){
-
 		//ascending order
 		Collections.sort(conditionList, new Comparator<Condition>() {
 			@Override
@@ -108,7 +108,6 @@ public class ConditionController implements Serializable {
 		});
 		sortAscending = false;
 	   }else{
-
 		//descending order
 		Collections.sort(conditionList, new Comparator<Condition>() {
 			@Override

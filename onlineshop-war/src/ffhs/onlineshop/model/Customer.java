@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 /**
  * 
@@ -91,6 +92,7 @@ public class Customer implements Serializable {
 		this.id = id;
 	}
 
+	@Size(min=2, max=40, message="Min 2 and max 40 characters")
 	public String getFirstname() {
 		return firstname;
 	}
@@ -99,6 +101,7 @@ public class Customer implements Serializable {
 		this.firstname = firstname;
 	}
 
+	@Size(min=2, max=40, message="Min 2 and max 40 characters")
 	public String getLastname() {
 		return lastname;
 	}
@@ -107,6 +110,7 @@ public class Customer implements Serializable {
 		this.lastname = lastname;
 	}
 
+	@Size(min=2, max=100, message="Min 2 and max 100 characters")
 	public String getStreet() {
 		return street;
 	}
@@ -123,6 +127,7 @@ public class Customer implements Serializable {
 		this.zip = zip;
 	}
 
+	@Size(min=2, max=40, message="Min 2 and max 40 characters")
 	public String getCity() {
 		return city;
 	}
@@ -131,6 +136,7 @@ public class Customer implements Serializable {
 		this.city = city;
 	}
 
+	@Size(min=2, max=40, message="Min 2 and max 40 characters")
 	public String getCountry() {
 		return country;
 	}
@@ -139,6 +145,7 @@ public class Customer implements Serializable {
 		this.country = country;
 	}
 	
+	@Size(min=2, max=40, message="Min 2 and max 40 characters")
 	public String getEmail() {
 		return this.email;
 	}
@@ -147,6 +154,7 @@ public class Customer implements Serializable {
 		this.email = email;
 	}
 
+	@Size(min=6, max=10, message="Min 6 and max 10 characters")
 	public String getPassword() {
 		return this.password;
 	}

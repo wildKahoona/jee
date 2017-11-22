@@ -36,25 +36,11 @@ public class RegisterController implements Serializable {
 		this.customer = customer;
 	}
 	
-	public String persist() {
+	public void persist() {
 		try {
-			System.out.println(
-					"Persist Customer..." 
-					+ " Firstname: " + customer.getFirstname() 
-					+ ", Lastname: " + customer.getLastname()
-					+ ", Street: " + customer.getStreet()
-					+ ", Zip: " + customer.getZip()
-					+ ", City: " + customer.getCity()
-					+ ", Country: " + customer.getCountry()
-					+ ", Email: " + customer.getEmail()
-					+ ", Passwort: " + customer.getPassword());
-			
 			userDAO.insertCustomer(customer);
 			
-			FacesMessage m = 
-				new FacesMessage(
-					"Succesfully registered!",
-					"Your email was saved under id " + customer.getId());
+			FacesMessage m = new FacesMessage("Erfolgreich registriert!");
 			FacesContext.getCurrentInstance().addMessage("registerForm", m);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,9 +51,5 @@ public class RegisterController implements Serializable {
 					e.getCause().getMessage());
 			FacesContext.getCurrentInstance().addMessage("registerForm",m);
 		}
-		return "/register.jsf";
-		
-//		return "reject";
-//		return "failure";
 	}
 }
