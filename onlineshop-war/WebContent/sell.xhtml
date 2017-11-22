@@ -15,14 +15,10 @@
 					<div class="panel-heading">
 						<h3 class="panel-title"><h:outputText value="#{msg['sell']}"/></h3>
 					</div>
-					<div class="panel-body">
-					
-						<h:form id="sellForm" enctype="multipart/form-data">
-						
-							<h:message for="sellForm" showSummary="true" styleClass="text-success"/>
-												
+					<div class="panel-body">					
+						<h:form id="sellForm" enctype="multipart/form-data">					
 							<div class="col-sm-12">
-							
+								<h:message for="sellForm" showSummary="true" styleClass="bg-success"/>
 								<div class="row">
 									<div class="col-sm-4 form-group">
 										<h:outputLabel value="#{msg['item_category']}:"/>
@@ -43,17 +39,29 @@
 								<div class="row">
 									<div class="col-sm-8 form-group">
 										<h:outputLabel value="#{msg['item_title']}:"/>
-										<h:inputText id="title" value="#{sellController.item.title}" class="form-control"/>
+										<h:inputText id="title" class="form-control"
+													 value="#{sellController.item.title}"
+													 p:placeholder="#{msg['item_title_placeholder']}" 
+													 required="true" requiredMessage="#{msg['error_title_required']}"/>
+										<h:message for="title" styleClass="bg-danger"/>
 									</div>	
 									<div class="col-sm-4 form-group">
 										<h:outputLabel value="#{msg['item_price']}:"/>
-										<h:inputText value="#{sellController.item.price}" class="form-control"/>
+										<h:inputText id="price" class="form-control"
+													 value="#{sellController.item.price}"
+													 p:placeholder="#{msg['item_price_placeholder']}"
+													 required="true" requiredMessage="#{msg['error_price_required']}"/>
+										<h:message for="price" styleClass="bg-danger"/>			 
 									</div>		
 								</div>
 																
 								<div class="form-group">
 									<h:outputLabel value="#{msg['item_description']}:"/>
-									<h:inputTextarea value="#{sellController.item.description}" rows="3" class="form-control"/>
+									<h:inputTextarea id="description" rows="3" class="form-control"
+													 value="#{sellController.item.description}" 
+													 p:placeholder="#{msg['item_description_placeholder']}"
+													 required="true" requiredMessage="#{msg['error_description_required']}"/>
+									<h:message for="description" styleClass="bg-danger"/>		
 								</div>
 																
 								<div class="form-group">

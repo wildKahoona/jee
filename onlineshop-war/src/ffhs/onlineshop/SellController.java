@@ -90,8 +90,6 @@ public class SellController implements Serializable {
 	}
 
 	public void persist(){
-		System.out.println("selectedCategory: " + selectedCategory);
-    	System.out.println("size:{0}" + file.getSize());
     	try {
     		InputStream input = file.getInputStream();
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -118,7 +116,7 @@ public class SellController implements Serializable {
 			setSelectedCategory(null);
 			setSelectedCondition(null);
 			
-			FacesMessage message = new FacesMessage("Succesfully saved!","Your Offer was saved");
+			FacesMessage message = new FacesMessage("Erfolgreich gespeichert!");
 			FacesContext.getCurrentInstance().addMessage("sellForm", message);
 		} catch (IOException e) {
 		     e.printStackTrace();

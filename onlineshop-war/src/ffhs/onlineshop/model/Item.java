@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 /**
  * 
@@ -92,6 +93,7 @@ public class Item implements Serializable {
 		this.id = id;
 	}
 
+	@Size(min=20, max=1000, message="Min 20 and max 1000 characters")
 	public String getDescription() {
 		return this.description;
 	}
@@ -116,6 +118,7 @@ public class Item implements Serializable {
 		this.price = price;
 	}
 
+	@Size(min=4, max=40, message="Min 4 and max 40 characters")
 	public String getTitle() {
 		return this.title;
 	}
