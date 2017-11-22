@@ -35,20 +35,12 @@ public class PurchaseController implements Serializable {
     	setPurchaseList(itemDAO.getPurchasesByCustomer(username));
     }
     
-    public void update(Item selectedPurchase){
+    public void rate(Item selectedPurchase){
     	if(selectedPurchase != null){
-    		System.out.println("Kommentar: " + selectedPurchase.getSeller_ratingcomment());
-    		System.out.println("Selected item: " + selectedStars);
-//    		Optional<Item> item = purchaseList.stream().filter(x -> x.getId() == selectedPurchase.getId()).findFirst();
-//    		if (item.isPresent()){
-//    			setSelectedPurchase(item.get());
-//    		}
-    		//selectedPurchase.setSeller_ratingcomment(getSelectedPurchase().getSeller_ratingcomment());
-    		selectedPurchase.setSeller_ratingstars(Integer.parseInt(selectedStars));
-			   	
+    		selectedPurchase.setSeller_ratingstars(Integer.parseInt(selectedStars));		   	
 			try {
 				itemDAO.updateItem(selectedPurchase);				
-				FacesMessage m = new FacesMessage("Succesfully rate!");
+				FacesMessage m = new FacesMessage("Erfolgreich bewertet!");
 				FacesContext.getCurrentInstance().addMessage("purchaseForm", m);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -63,7 +55,6 @@ public class PurchaseController implements Serializable {
     }
     
     // #### getters and setters ####   
-
 	public List<Item> getPurchaseList() {
 		return purchaseList;
 	}

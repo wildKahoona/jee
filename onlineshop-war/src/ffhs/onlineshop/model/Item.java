@@ -1,6 +1,5 @@
 package ffhs.onlineshop.model;
 
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,7 +16,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 
 /**
  * 
@@ -76,9 +74,10 @@ public class Item implements Serializable {
 	@ManyToOne
 	private Customer buyer;
 
-	private Integer seller_ratingstars;
-	
-	private String seller_ratingcomment;
+	private Integer seller_ratingstars;	
+	private String seller_ratingcomment;	
+	private Integer buyer_ratingstars;
+	private String buyer_ratingcomment;
 	
 	private transient boolean editable;
 	
@@ -93,7 +92,7 @@ public class Item implements Serializable {
 		this.id = id;
 	}
 
-	@Size(min=20, max=1000, message="Min 20 and max 1000 characters")
+	//@Size(min=20, max=1000, message="Min 20 and max 1000 characters")
 	public String getDescription() {
 		return this.description;
 	}
@@ -118,7 +117,7 @@ public class Item implements Serializable {
 		this.price = price;
 	}
 
-	@Size(min=4, max=40, message="Min 4 and max 40 characters")
+	//@Size(min=4, max=40, message="Min 4 and max 40 characters")
 	public String getTitle() {
 		return this.title;
 	}
@@ -181,6 +180,22 @@ public class Item implements Serializable {
 
 	public void setSeller_ratingcomment(String seller_ratingcomment) {
 		this.seller_ratingcomment = seller_ratingcomment;
+	}
+
+	public Integer getBuyer_ratingstars() {
+		return buyer_ratingstars;
+	}
+
+	public void setBuyer_ratingstars(Integer buyer_ratingstars) {
+		this.buyer_ratingstars = buyer_ratingstars;
+	}
+	
+	public String getBuyer_ratingcomment() {
+		return buyer_ratingcomment;
+	}
+
+	public void setBuyer_ratingcomment(String buyer_ratingcomment) {
+		this.buyer_ratingcomment = buyer_ratingcomment;
 	}
 	
     public boolean isEditable() {

@@ -8,7 +8,7 @@
 	<ui:define name="content">
 <style>
 .column1 {
-	width: 150px;
+	width: 130px;
 }
 
 .column2 {
@@ -113,13 +113,15 @@ table tbody tr td > label:active {
 									    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
 									</h:outputText>
 							    </h:column>
-							    		                                              >  
+
 							    <h:column>
-							    	<f:facet name="header">#{msg.item_category}</f:facet>#{purchase.category.description}
+							    	<f:facet name="header">#{msg.item_category}</f:facet>
+							    	<h:outputText value="#{purchase.category.description}"/>
 							    </h:column> 
 							    
 							    <h:column>
-							    	<f:facet name="header">#{msg.item_condition}</f:facet>#{purchase.condition.description}
+							    	<f:facet name="header">#{msg.item_condition}</f:facet>
+							    	<h:outputText value="#{purchase.condition.description}"/>
 							    </h:column> 
 							    
 							    <h:column>
@@ -130,7 +132,8 @@ table tbody tr td > label:active {
 							    </h:column>
 
 								<h:column>
-							    	<f:facet name="header">#{msg.seller_name}</f:facet>#{purchase.seller.name}
+							    	<f:facet name="header">#{msg.seller_name}</f:facet>
+							    	<h:outputText value="#{purchase.seller.name}"/>
 							    </h:column> 
 							    
 							    <h:column>
@@ -166,52 +169,52 @@ table tbody tr td > label:active {
 		</div>
 
 
-<div class="modal fade" id="rating_view">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <a href="#" data-dismiss="modal" class="class pull-right">
-                <span class="glyphicon glyphicon-remove"></span>
-                </a>
-                <h3 class="modal-title">#{msg['rating_title']}</h3>
-            </div>
-            <div class="modal-body">
-            	<h:form id="dialog-form">
-            		<h4>
-            			<h:outputText value="#{msg['rating_for']}: #{purchaseController.selectedPurchase.seller.name}"/>
-            		</h4>
-             		
-             		<h:selectOneRadio styleClass="rating" group="foo" value="#{purchaseController.selectedStars}">
-					    <f:selectItem name="rating" itemValue="1" />
-					    <f:selectItem name="rating" itemValue="2" />
-					    <f:selectItem name="rating" itemValue="3" />
-					    <f:selectItem name="rating" itemValue="4" />
-					    <f:selectItem name="rating" itemValue="5" />
-					</h:selectOneRadio>
-
-            		<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">.</h3>
-						</div>
-						<div class="panel-body">
-					  		<p>
-					  			<h:inputTextarea value="#{purchaseController.selectedPurchase.seller_ratingcomment}" 
-					  					  		 p:placeholder="#{msg['comment_placeholder']}" 
-					  					  		 rows="3" class="form-control"/>
-					  		</p>
-					  		<span class="class pull-right"/>
-					  		<h:commandLink value="Speichern" class="btn btn-primary"
-					  					   onclick="$('#rating_view').modal('hide');"
-										   action="#{purchaseController.update(purchaseController.selectedPurchase)}">
-										  <f:ajax execute="@form" render="@form :purchaseForm"/>
-							</h:commandLink>
-					  	</div>
-            		</div>
-            	</h:form>
-            </div>
-        </div>
-     </div>
-</div>		
+		<div class="modal fade" id="rating_view">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <a href="#" data-dismiss="modal" class="class pull-right">
+		                <span class="glyphicon glyphicon-remove"></span>
+		                </a>
+		                <h3 class="modal-title">#{msg['rating_title']}</h3>
+		            </div>
+		            <div class="modal-body">
+		            	<h:form id="dialog-form">
+		            		<h4>
+		            			<h:outputText value="#{msg['rating_for']}: #{purchaseController.selectedPurchase.seller.name}"/>
+		            		</h4>
+		             		
+		             		<h:selectOneRadio styleClass="rating" group="foo" value="#{purchaseController.selectedStars}">
+							    <f:selectItem name="rating" itemValue="1" />
+							    <f:selectItem name="rating" itemValue="2" />
+							    <f:selectItem name="rating" itemValue="3" />
+							    <f:selectItem name="rating" itemValue="4" />
+							    <f:selectItem name="rating" itemValue="5" />
+							</h:selectOneRadio>
+		
+		            		<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">.</h3>
+								</div>
+								<div class="panel-body">
+							  		<p>
+							  			<h:inputTextarea value="#{purchaseController.selectedPurchase.seller_ratingcomment}" 
+							  					  		 p:placeholder="#{msg['comment_placeholder']}" 
+							  					  		 rows="3" class="form-control"/>
+							  		</p>
+							  		<span class="class pull-right"/>
+							  		<h:commandLink value="Speichern" class="btn btn-primary"
+							  					   onclick="$('#rating_view').modal('hide');"
+												   action="#{purchaseController.rate(purchaseController.selectedPurchase)}">
+												  <f:ajax execute="@form" render="@form :purchaseForm"/>
+									</h:commandLink>
+							  	</div>
+		            		</div>
+		            	</h:form>
+		            </div>
+		        </div>
+		     </div>
+		</div>		
 
 
 	</ui:define>

@@ -39,6 +39,8 @@ public class OffersController implements Serializable {
 	private List<Condition> conditions;
 	private Long selectedCategory; 
 	private Long selectedCondition; 
+	private Item selectedOffer;
+    private String selectedStars;
 	
     @PostConstruct
     public void init() {
@@ -64,7 +66,7 @@ public class OffersController implements Serializable {
 		return new ArrayList<Condition>();
 	}
 	
-    public String update(Item offer){
+    public void update(Item offer){
 		try {
 			if(offer != null)
 	    		System.out.println("Speichern Offer: " + offer.getTitle());
@@ -92,10 +94,9 @@ public class OffersController implements Serializable {
 				e.getCause().getMessage());
 			FacesContext.getCurrentInstance().addMessage("offerForm", fm);
 		}
-        return null;
     }
     
-    public String edit(Item offer){
+    public void edit(Item offer){
 		try {
 	    	for (Item existing : getOfferList()){
 	            existing.setEditable(false);
@@ -115,7 +116,6 @@ public class OffersController implements Serializable {
 				e.getCause().getMessage());
 			FacesContext.getCurrentInstance().addMessage("offerForm", fm);
 		}
-		return null;
     }
 
     public void cancelEdit(Item offer){
@@ -127,8 +127,26 @@ public class OffersController implements Serializable {
     	itemDAO.deleteItem(offer);
     }
     
-    // #### getters and setters ####
-    	
+    public void rate(Item selectedOffer){
+    	if(selectedOffer != null){
+    		selectedOffer.setBuyer_ratingstars(Integer.parseInt(selectedStars));			   	
+			try {
+				itemDAO.updateItem(selectedOffer);				
+				FacesMessage m = new FacesMessage("Erfolgreich bewertet!");
+				FacesContext.getCurrentInstance().addMessage("offerForm", m);
+			} catch (Exception e) {
+				e.printStackTrace();
+				FacesMessage m = 
+					new FacesMessage(
+						FacesMessage.SEVERITY_WARN,
+						e.getMessage(), // ACHTUNG: nur im Entwicklerstadium anzeigen !!!
+						e.getCause().getMessage());
+				FacesContext.getCurrentInstance().addMessage("offerForm",m);
+			}
+    	}
+    }    
+    
+    // #### getters and setters ####  	
 	public List<Item> getOfferList() {
 		return offerList;
 	}
@@ -171,5 +189,21 @@ public class OffersController implements Serializable {
 
 	public void setSelectedCondition(Long selectedCondition) {
 		this.selectedCondition = selectedCondition;
+	}
+
+	public Item getSelectedOffer() {
+		return selectedOffer;
+	}
+
+	public void setSelectedOffer(Item selectedOffer) {
+		this.selectedOffer = selectedOffer;
+	}
+
+	public String getSelectedStars() {
+		return selectedStars;
+	}
+
+	public void setSelectedStars(String selectedStars) {
+		this.selectedStars = selectedStars;
 	}
 }

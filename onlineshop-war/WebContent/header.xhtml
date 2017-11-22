@@ -54,16 +54,7 @@
 		    </ul>
 			    
 		    <ul class="nav navbar-nav navbar-right">
-		    	<li>      
-			     	 <a href="#">
-				     	 <h:form>
-							<h:commandButton action="#{localeController.setLanguage('en')}"
-											 image="#{resource['img:us.gif']}"/>						
-							<h:commandButton action="#{localeController.setLanguage('de')}" 
-											 image="#{resource['img:de.gif']}" style="margin-left: 10px;" />
-						</h:form>
-					</a>
-			  	</li>
+		    	
 		      	<li>
 		      		<h:link outcome="register">
 		      			<span class="glyphicon glyphicon-user"></span> <h:outputText value="#{msg['menu_register']}"/>
@@ -81,6 +72,17 @@
 		      			<span class="glyphicon glyphicon-log-in"></span> <h:outputText value="#{msg['menu_signin']}"/>
 		      		</h:link>
 		      	</li>
+		      	
+		      	<li>      
+			     	 <a href="#">
+				     	 <h:form>
+							<h:commandButton action="#{localeController.setLanguage('en')}"
+											 image="#{resource['img:us.gif']}"/>						
+							<h:commandButton action="#{localeController.setLanguage('de')}" 
+											 image="#{resource['img:de.gif']}" style="margin-left: 10px;" />
+						</h:form>
+					</a>
+			  	</li>
 		    </ul>
 		  </div>
 		</nav>

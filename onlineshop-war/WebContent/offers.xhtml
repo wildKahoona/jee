@@ -8,17 +8,17 @@
 	<ui:define name="content">
 <style>
 .column1 {
-	width: 120px;
+	width: 100px;
 	text-align: center;
 }
 
 .column2 {
-	width: 120px;
+	width: 100px;
 	text-align: center;
 }
 
 .column3 {
-	width: 150px;
+	width: 130px;
 }
 
 .column4 {
@@ -33,10 +33,77 @@
 	width: 100px;
 	text-align: right;
 }
+
+.column7 {
+	width: 120px;
+}
+
+.column8 {
+	width: 80px;
+	text-align: center;
+}
+
+.rating {
+    float:left;
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+/* input[type=radio]:not(:checked) { tbody > tr >td :not(:checked)*/
+table tbody tr td input[type=radio]{
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+
+table tbody tr td :not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+    color:#ddd;
+    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+table tbody tr td:not(:checked) > label:before {
+    content: '★ ';
+    font-size: 25px;
+}
+
+table tbody tr td > input:checked ~ label {
+    color: #f70;
+    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+table tbody tr td:not(:checked) > label:hover,
+table tbody tr td:not(:checked) > label:hover ~ label {
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+table tbody tr td > input:checked + label:hover,
+table tbody tr td > input:checked + label:hover ~ label,
+table tbody tr td > input:checked ~ label:hover,
+table tbody tr td > input:checked ~ label:hover ~ label,
+table tbody tr td > label:hover ~ input:checked ~ label {
+    color: #ea0;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+table tbody tr td > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+}
 </style>
 
-		<div class="row">
-			<div class="col-md-offset-1 col-md-10 col-md-offset-1">
+		<div class="row" style="margin-left:10px; margin-right:10px">
+			<div class="col-md-12">
 	
 				<div class="panel panel-primary">
 					<div class="panel-heading">
@@ -48,7 +115,7 @@
 							<h:dataTable id="offerTable"
 										value="#{offersController.offerList}" var="offer" 
 										 class="table table-responsive table-bordered table-striped"
-										 columnClasses="column1,column2,column3,column4,column5,column6">                                                  > 
+										 columnClasses="column1,column2,column3,column4,column5,column6,column7,column8">                                                  > 
 							    
 							    <h:column>
 					                <h:commandLink action="#{offersController.edit(offer)}" 
@@ -121,15 +188,45 @@
 										<f:convertNumber currencySymbol="CHF " type="currency" />
 									</h:outputText>
 									
-									<h:inputText value="#{offer.price}" rendered="#{offer.editable}" required="true" requiredMessage="title is required">
+									<h:inputText id="price" value="#{offer.price}"
+									             rendered="#{offer.editable}"
+												 required="true" requiredMessage="#{msg['error_price_required']}">
 										<f:convertNumber currencySymbol="CHF " type="currency" />
 									</h:inputText>	
+									<p><h:message for="price" styleClass="bg-danger"/></p>
 							    </h:column> 
-						    						    
+						    	
+						    	<h:column>
+							    	<f:facet name="header">#{msg.buyer_name}</f:facet>
+							    	<h:outputText value="#{offer.buyer.name}"/>
+							    </h:column> 
+
+							    <h:column>
+							    	<f:facet name="header">#{msg.rating_title}</f:facet>
+						    		<h:panelGroup styleClass="ratings"
+						    					  style="white-space: nowrap;"
+						    					  rendered="#{offer.buyer_ratingstars != null}">					                  					                  
+					                  	<c:forEach begin="0" end="4" var="val">						    
+											<h:panelGroup styleClass="#{offer.buyer_ratingstars > val ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>					    									    
+				                  		</c:forEach>				                  	
+					                </h:panelGroup>						    		
+									<h:commandLink class="btn btn-primary btn-xs small_star"
+												   onclick="$('#rating_view').modal('show');"
+										    	   action="#{offersController.setSelectedOffer(offer)}"
+										    	   rendered="#{offer.buyer_ratingstars == null and offer.sold != null}">
+										    	   <span class="glyphicon glyphicon-star-empty"></span>
+										    	   <h:outputText value=" #{msg.rate}"/>
+					                   			   <f:ajax render=":dialog-form" />
+						           </h:commandLink>	
+							    </h:column> 	
+							    							    				    
 				    			<h:column>
 							        <f:facet name="header">#{msg.item_title}</f:facet>
 							        <h:outputText value="#{offer.title}" rendered="#{not offer.editable}" />
-							        <h:inputText value="#{offer.title}" rendered="#{offer.editable}" required="true" requiredMessage="title is required"/>             				
+							        <h:inputText id="title"  value="#{offer.title}"
+							        			 rendered="#{offer.editable}" 
+							        			 required="true" requiredMessage="#{msg['error_title_required']}"/>
+										<p><h:message for="title" styleClass="bg-danger"/></p>          				
 							    </h:column>
 							   							
 							</h:dataTable>  						                                    					
@@ -139,5 +236,51 @@
 			</div>
 		</div>
 
+		<div class="modal fade" id="rating_view">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <a href="#" data-dismiss="modal" class="class pull-right">
+		                <span class="glyphicon glyphicon-remove"></span>
+		                </a>
+		                <h3 class="modal-title">#{msg['rating_title']}</h3>
+		            </div>
+		            <div class="modal-body">
+		            	<h:form id="dialog-form">
+		            		<h4>
+		            			<h:outputText value="#{msg['rating_for']}: #{offersController.selectedOffer.buyer.name}"/>
+		            		</h4>
+		             		
+		             		<h:selectOneRadio styleClass="rating" group="foo" value="#{offersController.selectedStars}">
+							    <f:selectItem name="rating" itemValue="1" />
+							    <f:selectItem name="rating" itemValue="2" />
+							    <f:selectItem name="rating" itemValue="3" />
+							    <f:selectItem name="rating" itemValue="4" />
+							    <f:selectItem name="rating" itemValue="5" />
+							</h:selectOneRadio>
+		
+		            		<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">.</h3>
+								</div>
+								<div class="panel-body">
+							  		<p>
+							  			<h:inputTextarea value="#{offersController.selectedOffer.buyer_ratingcomment}" 
+							  					  		 p:placeholder="#{msg['comment_placeholder']}" 
+							  					  		 rows="3" class="form-control"/>
+							  		</p>
+							  		<span class="class pull-right"/>
+							  		<h:commandLink value="Speichern" class="btn btn-primary"
+							  					   onclick="$('#rating_view').modal('hide');"
+												   action="#{offersController.rate(offersController.selectedOffer)}">
+												  <f:ajax execute="@form" render="@form :offerForm"/>
+									</h:commandLink>
+							  	</div>
+		            		</div>
+		            	</h:form>
+		            </div>
+		        </div>
+		     </div>
+		</div>	
 	</ui:define>
 </ui:composition>
