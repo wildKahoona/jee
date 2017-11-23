@@ -5,108 +5,108 @@
 			  	xmlns:f="http://java.sun.com/jsf/core"
 			  	xmlns:c="http://java.sun.com/jsp/jstl/core"
 			  	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-	<ui:define name="content">
-	
-		<div class="row">
-			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-		  
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><h:outputText value="#{msg['register_title']}"/></h3>
-					</div>
-					<div class="panel-body">
-						<h:form id="registerForm" prependId="false">
-							<h:message for="registerForm" showSummary="true" styleClass="text-success"/>
-							
-							<div class="row">
-								<div class="col-sm-6 form-group">
-									<h:outputLabel value="#{msg['firstname']}:*"/>
-									<h:inputText id="firstname" class="form-control" 
-												 value="#{registerController.customer.firstname}" 
-												 p:placeholder="#{msg['firstname.placeholder']}" 
-												 required="true" requiredMessage="#{msg['error_firstname_required']}"/>
-									<h:message for="firstname" styleClass="bg-danger"/>
-								</div>
-								<div class="col-sm-6 form-group">
-									<h:outputLabel value="#{msg['lastname']}:*"/>
-									<h:inputText id="lastname" class="form-control" 
-												 value="#{registerController.customer.lastname}" 
-												 p:placeholder="#{msg['lastname.placeholder']}" 
-												 required="true" requiredMessage="#{msg['error_lastname_required']}"/>
-									<h:message for="lastname" styleClass="bg-danger"/>
-								</div>
-							</div>	
-							
-							<div class="form-group">
-								<h:outputLabel value="#{msg['street']}:*"/>
-								<h:inputText id="street" class="form-control"
-											 value="#{registerController.customer.street}" 
-											 p:placeholder="#{msg['street.placeholder']}"
-											 required="true" requiredMessage="#{msg['error_street_required']}"/>
-								<h:message for="street" styleClass="bg-danger"/>
-							</div>		
+<ui:define name="content">
 
-							<div class="row">
-								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['zip']}:*"/>
-									<h:inputText  id="zip" class="form-control"
-												  value="#{registerController.customer.zip}" 
-												  placeholder="#{msg['zip.placeholder']}"
-												  required="true" requiredMessage="#{msg['error_zip_required']}"/>
-									<h:message for="zip" styleClass="bg-danger"/>
-								</div>	
-								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['city']}:*"/>
-									<h:inputText  id="city" class="form-control" 
-												  value="#{registerController.customer.city}" 
-												  placeholder="#{msg['city.placeholder']}"
-												  required="true" requiredMessage="#{msg['error_city_required']}"/>
-									<h:message for="city" styleClass="bg-danger"/>
-								</div>	
-								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['country']}:*"/>
-									<h:inputText id="country" class="form-control"
-												 value="#{registerController.customer.country}" 
-												 placeholder="#{msg['country.placeholder']}"
-												 required="true" requiredMessage="#{msg['error_country_required']}"/>
-									<h:message for="country" styleClass="bg-danger"/>
-								</div>									
-							</div>
-												
-							<div class="form-group"> 
-								<h:outputLabel for="email" value="#{msg['email']}*:"/>
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<h:inputText id="email" type="email" class="form-control"
-												 value="#{registerController.customer.email}"
-												 p:placeholder="#{msg['email.placeholder']}"
-												 required="true" requiredMessage="#{msg['error_email_required']}"/>
-								 </div>
-								 <h:message for="email" styleClass="bg-danger"/>
-							 </div>
-							 		
-							 <div class="form-group">
-							 	<h:outputLabel for="password" value="#{msg['password']}*:"/>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-							 			<h:inputSecret id="password" type="password" class="form-control" 
-							 						   value="#{registerController.customer.password}" 
-							 						   p:placeholder="#{msg['password.placeholder']}" name="password"
-							 						   required="true" requiredMessage="#{msg['error_password_required']}"/>
-							 		</div>
-							 		<h:message for="password" styleClass="bg-danger"/>
-							 </div>
-							<h:commandLink id="register" class="btn btn-primary col-md-4" 
-										   action="#{registerController.persist}">
-					 			<span class="glyphicon glyphicon-user"></span> <h:outputText value="#{msg['register']}"/>
-					 		</h:commandLink>
-							 <h:message for="register" styleClass="text-success"/>
-						</h:form>	
-					
-					</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+	  
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title"><h:outputText value="#{msg['register_title']}"/></h3>
 				</div>
-			
+				<div class="panel-body">
+					<h:form id="registerForm" prependId="false">
+						<h:message for="registerForm" showSummary="true" styleClass="bg-success"/>
+						
+						<div class="row">
+							<div class="col-sm-6 form-group">
+								<h:outputLabel value="#{msg['firstname']}:*"/>
+								<h:inputText id="firstname" class="form-control" 
+											 value="#{registerController.customer.firstname}" 
+											 p:placeholder="#{msg['firstname.placeholder']}" 
+											 required="true" requiredMessage="#{msg['error_firstname_required']}"/>
+								<h:message for="firstname" styleClass="bg-danger"/>
+							</div>
+							<div class="col-sm-6 form-group">
+								<h:outputLabel value="#{msg['lastname']}:*"/>
+								<h:inputText id="lastname" class="form-control" 
+											 value="#{registerController.customer.lastname}" 
+											 p:placeholder="#{msg['lastname.placeholder']}" 
+											 required="true" requiredMessage="#{msg['error_lastname_required']}"/>
+								<h:message for="lastname" styleClass="bg-danger"/>
+							</div>
+						</div>	
+						
+						<div class="form-group">
+							<h:outputLabel value="#{msg['street']}:*"/>
+							<h:inputText id="street" class="form-control"
+										 value="#{registerController.customer.street}" 
+										 p:placeholder="#{msg['street.placeholder']}"
+										 required="true" requiredMessage="#{msg['error_street_required']}"/>
+							<h:message for="street" styleClass="bg-danger"/>
+						</div>		
+
+						<div class="row">
+							<div class="col-sm-4 form-group">
+								<h:outputLabel value="#{msg['zip']}:*"/>
+								<h:inputText  id="zip" class="form-control"
+											  value="#{registerController.customer.zip}" 
+											  placeholder="#{msg['zip.placeholder']}"
+											  required="true" requiredMessage="#{msg['error_zip_required']}"/>
+								<h:message for="zip" styleClass="bg-danger"/>
+							</div>	
+							<div class="col-sm-4 form-group">
+								<h:outputLabel value="#{msg['city']}:*"/>
+								<h:inputText  id="city" class="form-control" 
+											  value="#{registerController.customer.city}" 
+											  placeholder="#{msg['city.placeholder']}"
+											  required="true" requiredMessage="#{msg['error_city_required']}"/>
+								<h:message for="city" styleClass="bg-danger"/>
+							</div>	
+							<div class="col-sm-4 form-group">
+								<h:outputLabel value="#{msg['country']}:*"/>
+								<h:inputText id="country" class="form-control"
+											 value="#{registerController.customer.country}" 
+											 placeholder="#{msg['country.placeholder']}"
+											 required="true" requiredMessage="#{msg['error_country_required']}"/>
+								<h:message for="country" styleClass="bg-danger"/>
+							</div>									
+						</div>
+											
+						<div class="form-group"> 
+							<h:outputLabel for="email" value="#{msg['email']}*:"/>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<h:inputText id="email" type="email" class="form-control"
+											 value="#{registerController.customer.email}"
+											 p:placeholder="#{msg['email.placeholder']}"
+											 required="true" requiredMessage="#{msg['error_email_required']}"/>
+							 </div>
+							 <h:message for="email" styleClass="bg-danger"/>
+						 </div>
+						 		
+						 <div class="form-group">
+						 	<h:outputLabel for="password" value="#{msg['password']}*:"/>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+						 			<h:inputSecret id="password" type="password" class="form-control" 
+						 						   value="#{registerController.customer.password}" 
+						 						   p:placeholder="#{msg['password.placeholder']}" name="password"
+						 						   required="true" requiredMessage="#{msg['error_password_required']}"/>
+						 		</div>
+						 		<h:message for="password" styleClass="bg-danger"/>
+						 </div>
+						<h:commandLink id="register" class="btn btn-primary col-md-4" 
+									   action="#{registerController.persist}">
+				 			<span class="glyphicon glyphicon-user"></span> <h:outputText value="#{msg['register']}"/>
+				 		</h:commandLink>
+						 <h:message for="register" styleClass="text-success"/>
+					</h:form>	
+				
+				</div>
 			</div>
+		
 		</div>
-	</ui:define>
+	</div>
+</ui:define>
 </ui:composition>

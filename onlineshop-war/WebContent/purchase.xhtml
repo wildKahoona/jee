@@ -5,217 +5,140 @@
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-	<ui:define name="content">
+<ui:define name="content">
 <style>
-.column1 {
-	width: 130px;
-}
-
-.column2 {
-	width: 120px;
-}
-
-.column3 {
-	width: 120px;
-}
-
-.column4 {
-	width: 100px;
-	text-align: right;
-}
-
-.column5 {
-	width: 120px;
-}
-
-.column6 {
-	width: 80px;
-	text-align: center;
-}
-
-.rating {
-    float:left;
-}
-
-/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
-   follow these rules. Every browser that supports :checked also supports :not(), so
-   it doesn’t make the test unnecessarily selective */
-/* input[type=radio]:not(:checked) { tbody > tr >td :not(:checked)*/
-table tbody tr td input[type=radio]{
-    position:absolute;
-    top:-9999px;
-    clip:rect(0,0,0,0);
-}
-
-table tbody tr td :not(:checked) > label {
-    float:right;
-    width:1em;
-    padding:0 .1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:200%;
-    line-height:1.2;
-    color:#ddd;
-    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-table tbody tr td:not(:checked) > label:before {
-    content: '★ ';
-    font-size: 25px;
-}
-
-table tbody tr td > input:checked ~ label {
-    color: #f70;
-    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-table tbody tr td:not(:checked) > label:hover,
-table tbody tr td:not(:checked) > label:hover ~ label {
-    color: gold;
-    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-table tbody tr td > input:checked + label:hover,
-table tbody tr td > input:checked + label:hover ~ label,
-table tbody tr td > input:checked ~ label:hover,
-table tbody tr td > input:checked ~ label:hover ~ label,
-table tbody tr td > label:hover ~ input:checked ~ label {
-    color: #ea0;
-    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-table tbody tr td > label:active {
-    position:relative;
-    top:2px;
-    left:2px;
-}
+.column1 { width:130px; }
+.column2 { width:120px; }
+.column3 { width:120px; }
+.column4 { width:100px; text-align:right; }
+.column5 { width:120px; }
+.column6 { width:80px; text-align:center; }
 </style>
 
-		<div class="row">
-					
-			<div class="col-md-offset-1 col-md-10 col-md-offset-1">	
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">#{msg['menu_purchase']}</h3>
-					</div>
-					<div class="panel-body">
-					
-						<h:form id="purchaseForm">
-			
-							<h:dataTable value="#{purchaseController.purchaseList}" var="purchase" 
-										 class="table table-responsive table-bordered table-striped"
-										 columnClasses="column1,column2,column3,column4,column5,column6">     
-								<h:column>
-							    	<f:facet name="header">#{msg.item_boughtat}</f:facet>
-							        <h:outputText value="#{purchase.sold}" >
-							        	<f:convertDateTime dateStyle="full" type="date"/>
-									    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-									</h:outputText>
-							    </h:column>
+	<div class="row">
+				
+		<div class="col-md-offset-1 col-md-10 col-md-offset-1">	
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">#{msg['menu_purchase']}</h3>
+				</div>
+				<div class="panel-body">
+				
+					<h:form id="purchaseForm">
+						<h:message for="purchaseForm" showSummary="true" styleClass="bg-success"/>
+						<h:dataTable value="#{purchaseController.purchaseList}" var="purchase" 
+									 class="table table-responsive table-bordered table-striped"
+									 columnClasses="column1,column2,column3,column4,column5,column6">     
+							<h:column>
+						    	<f:facet name="header">#{msg.item_boughtat}</f:facet>
+						        <h:outputText value="#{purchase.sold}" >
+						        	<f:convertDateTime dateStyle="full" type="date"/>
+								    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+								</h:outputText>
+						    </h:column>
 
-							    <h:column>
-							    	<f:facet name="header">#{msg.item_category}</f:facet>
-							    	<h:outputText value="#{purchase.category.description}"/>
-							    </h:column> 
-							    
-							    <h:column>
-							    	<f:facet name="header">#{msg.item_condition}</f:facet>
-							    	<h:outputText value="#{purchase.condition.description}"/>
-							    </h:column> 
-							    
-							    <h:column>
-							        <f:facet name="header">#{msg.item_price}</f:facet>
-							        <h:outputText value="#{purchase.price}">
-										<f:convertNumber currencySymbol="CHF " type="currency" />
-									</h:outputText>
-							    </h:column>
+						    <h:column>
+						    	<f:facet name="header">#{msg.item_category}</f:facet>
+						    	<h:outputText value="#{purchase.category.description}"/>
+						    </h:column> 
+						    
+						    <h:column>
+						    	<f:facet name="header">#{msg.item_condition}</f:facet>
+						    	<h:outputText value="#{purchase.condition.description}"/>
+						    </h:column> 
+						    
+						    <h:column>
+						        <f:facet name="header">#{msg.item_price}</f:facet>
+						        <h:outputText value="#{purchase.price}">
+									<f:convertNumber currencySymbol="CHF " type="currency" />
+								</h:outputText>
+						    </h:column>
 
-								<h:column>
-							    	<f:facet name="header">#{msg.seller_name}</f:facet>
-							    	<h:outputText value="#{purchase.seller.name}"/>
-							    </h:column> 
-							    
-							    <h:column>
-							    	<f:facet name="header">#{msg.rating_title}</f:facet>
-						    		<h:panelGroup styleClass="ratings"
-						    					  style="white-space: nowrap;"
-						    					  rendered="#{purchase.seller_ratingstars != null}">					                  					                  
-					                  	<c:forEach begin="0" end="4" var="val">						    
-											<h:panelGroup styleClass="#{purchase.seller_ratingstars > val ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>					    									    
-				                  		</c:forEach>				                  	
-					                </h:panelGroup>						    		
-									<h:commandLink class="btn btn-primary btn-xs small_star"
-												   onclick="$('#rating_view').modal('show');"
-										    	   action="#{purchaseController.setSelectedPurchase(purchase)}"
-										    	   rendered="#{purchase.seller_ratingstars == null}">
-										    	   <span class="glyphicon glyphicon-star-empty"></span>
-										    	   <h:outputText value=" #{msg.rate}"/>
-					                   			   <f:ajax render=":dialog-form" />
-						           </h:commandLink>	
-							    </h:column> 							  
-							 
-							    <h:column>
-							        <f:facet name="header">#{msg.item_title}</f:facet>#{purchase.title}
-							    </h:column>
-								
-							</h:dataTable>
-			                                     					
-						</h:form>	
-					
-					</div>
-				</div>				
-			</div>
+							<h:column>
+						    	<f:facet name="header">#{msg.seller_name}</f:facet>
+						    	<h:outputText value="#{purchase.seller.name}"/>
+						    </h:column> 
+						    
+						    <h:column>
+						    	<f:facet name="header">#{msg.rating_title}</f:facet>
+					    		<h:panelGroup styleClass="ratings"
+					    					  style="white-space: nowrap;"
+					    					  rendered="#{purchase.seller_ratingstars != null}">					                  					                  
+				                  	<c:forEach begin="0" end="4" var="val">						    
+										<h:panelGroup styleClass="#{purchase.seller_ratingstars > val ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'}"/>					    									    
+			                  		</c:forEach>				                  	
+				                </h:panelGroup>						    		
+								<h:commandLink class="btn btn-primary btn-xs small_star"
+											   onclick="$('#rating_view').modal('show');"
+									    	   action="#{purchaseController.setSelectedPurchase(purchase)}"
+									    	   rendered="#{purchase.seller_ratingstars == null}">
+									    	   <span class="glyphicon glyphicon-star-empty"></span>
+									    	   <h:outputText value=" #{msg.rate}"/>
+				                   			   <f:ajax render=":dialog-form" />
+					           </h:commandLink>	
+						    </h:column> 							  
+						 
+						    <h:column>
+						        <f:facet name="header">#{msg.item_title}</f:facet>#{purchase.title}
+						    </h:column>
+							
+						</h:dataTable>
+		                                     					
+					</h:form>	
+				
+				</div>
+			</div>				
 		</div>
+	</div>
 
 
-		<div class="modal fade" id="rating_view">
-		    <div class="modal-dialog">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <a href="#" data-dismiss="modal" class="class pull-right">
-		                <span class="glyphicon glyphicon-remove"></span>
-		                </a>
-		                <h3 class="modal-title">#{msg['rating_title']}</h3>
-		            </div>
-		            <div class="modal-body">
-		            	<h:form id="dialog-form">
-		            		<h4>
-		            			<h:outputText value="#{msg['rating_for']}: #{purchaseController.selectedPurchase.seller.name}"/>
-		            		</h4>
-		             		
-		             		<h:selectOneRadio styleClass="rating" group="foo" value="#{purchaseController.selectedStars}">
-							    <f:selectItem name="rating" itemValue="1" />
-							    <f:selectItem name="rating" itemValue="2" />
-							    <f:selectItem name="rating" itemValue="3" />
-							    <f:selectItem name="rating" itemValue="4" />
-							    <f:selectItem name="rating" itemValue="5" />
-							</h:selectOneRadio>
-		
-		            		<div class="panel panel-default">
-								<div class="panel-heading">
-									<h3 class="panel-title">.</h3>
-								</div>
-								<div class="panel-body">
-							  		<p>
-							  			<h:inputTextarea value="#{purchaseController.selectedPurchase.seller_ratingcomment}" 
-							  					  		 p:placeholder="#{msg['comment_placeholder']}" 
-							  					  		 rows="3" class="form-control"/>
-							  		</p>
-							  		<span class="class pull-right"/>
-							  		<h:commandLink value="Speichern" class="btn btn-primary"
-							  					   onclick="$('#rating_view').modal('hide');"
-												   action="#{purchaseController.rate(purchaseController.selectedPurchase)}">
-												  <f:ajax execute="@form" render="@form :purchaseForm"/>
-									</h:commandLink>
-							  	</div>
-		            		</div>
-		            	</h:form>
-		            </div>
-		        </div>
-		     </div>
-		</div>		
+	<div class="modal fade" id="rating_view">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <a href="#" data-dismiss="modal" class="class pull-right">
+	                <span class="glyphicon glyphicon-remove"></span>
+	                </a>
+	                <h3 class="modal-title">#{msg['rating_title']}</h3>
+	            </div>
+	            <div class="modal-body">
+	            	<h:form id="dialog-form">
+	            		<h4>
+	            			<h:outputText value="#{msg['rating_for']}: #{purchaseController.selectedPurchase.seller.name}"/>
+	            		</h4>
+	             		
+	             		<h:selectOneRadio styleClass="rating" group="foo" value="#{purchaseController.selectedStars}">
+						    <f:selectItem name="rating" itemValue="1" />
+						    <f:selectItem name="rating" itemValue="2" />
+						    <f:selectItem name="rating" itemValue="3" />
+						    <f:selectItem name="rating" itemValue="4" />
+						    <f:selectItem name="rating" itemValue="5" />
+						</h:selectOneRadio>
+	
+	            		<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">.</h3>
+							</div>
+							<div class="panel-body">
+						  		<p>
+						  			<h:inputTextarea value="#{purchaseController.selectedPurchase.seller_ratingcomment}" 
+						  					  		 p:placeholder="#{msg['comment_placeholder']}" 
+						  					  		 rows="3" class="form-control"/>
+						  		</p>
+						  		<span class="class pull-right"/>
+						  		<h:commandLink value="Speichern" class="btn btn-primary"
+						  					   onclick="$('#rating_view').modal('hide');"
+											   action="#{purchaseController.rate(purchaseController.selectedPurchase)}">
+											  <f:ajax execute="@form" render="@form :purchaseForm"/>
+								</h:commandLink>
+						  	</div>
+	            		</div>
+	            	</h:form>
+	            </div>
+	        </div>
+	     </div>
+	</div>		
 
 
-	</ui:define>
+</ui:define>
 </ui:composition>

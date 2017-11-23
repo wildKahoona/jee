@@ -40,7 +40,7 @@ public class PurchaseController implements Serializable {
     		selectedPurchase.setSeller_ratingstars(Integer.parseInt(selectedStars));		   	
 			try {
 				itemDAO.updateItem(selectedPurchase);				
-				FacesMessage m = new FacesMessage("Erfolgreich bewertet!");
+				FacesMessage m = new FacesMessage("Erfolgreich bewertet!", "");
 				FacesContext.getCurrentInstance().addMessage("purchaseForm", m);
 			} catch (Exception e) {
 				e.printStackTrace();

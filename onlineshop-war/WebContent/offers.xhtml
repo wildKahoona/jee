@@ -7,99 +7,14 @@
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
 <style>
-.column1 {
-	width: 100px;
-	text-align: center;
-}
-
-.column2 {
-	width: 100px;
-	text-align: center;
-}
-
-.column3 {
-	width: 130px;
-}
-
-.column4 {
-	width: 100px;
-}
-
-.column5 {
-	width: 100px;
-}
-
-.column6 {
-	width: 100px;
-	text-align: right;
-}
-
-.column7 {
-	width: 120px;
-}
-
-.column8 {
-	width: 80px;
-	text-align: center;
-}
-
-.rating {
-    float:left;
-}
-
-/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
-   follow these rules. Every browser that supports :checked also supports :not(), so
-   it doesn’t make the test unnecessarily selective */
-/* input[type=radio]:not(:checked) { tbody > tr >td :not(:checked)*/
-table tbody tr td input[type=radio]{
-    position:absolute;
-    top:-9999px;
-    clip:rect(0,0,0,0);
-}
-
-table tbody tr td :not(:checked) > label {
-    float:right;
-    width:1em;
-    padding:0 .1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:200%;
-    line-height:1.2;
-    color:#ddd;
-    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-table tbody tr td:not(:checked) > label:before {
-    content: '★ ';
-    font-size: 25px;
-}
-
-table tbody tr td > input:checked ~ label {
-    color: #f70;
-    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-table tbody tr td:not(:checked) > label:hover,
-table tbody tr td:not(:checked) > label:hover ~ label {
-    color: gold;
-    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-table tbody tr td > input:checked + label:hover,
-table tbody tr td > input:checked + label:hover ~ label,
-table tbody tr td > input:checked ~ label:hover,
-table tbody tr td > input:checked ~ label:hover ~ label,
-table tbody tr td > label:hover ~ input:checked ~ label {
-    color: #ea0;
-    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-table tbody tr td > label:active {
-    position:relative;
-    top:2px;
-    left:2px;
-}
+.column1 { width:100px; text-align:center; }
+.column2 { width:100px; text-align:center; }
+.column3 { width:130px; }
+.column4 { width:100px; }
+.column5 { width:100px; }
+.column6 { width:100px; text-align:right; }
+.column7 { width:120px; }
+.column8 { width:80px; text-align:center; }
 </style>
 
 		<div class="row" style="margin-left:10px; margin-right:10px">
@@ -111,7 +26,7 @@ table tbody tr td > label:active {
 					</div>
 					<div class="panel-body">		
 						<h:form id="offerForm">
-							<h:message for="offerForm" showSummary="true" styleClass="text-success"/>
+							<h:message for="offerForm" showSummary="true" styleClass="bg-success"/>
 							<h:dataTable id="offerTable"
 										value="#{offersController.offerList}" var="offer" 
 										 class="table table-responsive table-bordered table-striped"

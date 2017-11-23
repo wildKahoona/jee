@@ -68,9 +68,6 @@ public class OffersController implements Serializable {
 	
     public void update(Item offer){
 		try {
-			if(offer != null)
-	    		System.out.println("Speichern Offer: " + offer.getTitle());
-			
 			Optional<Category> category = categories.stream().filter(x -> x.getId() == selectedCategory).findFirst();
 			if(category.isPresent())
 				offer.setCategory(category.get());	
@@ -82,8 +79,7 @@ public class OffersController implements Serializable {
 			itemDAO.updateItem(offer);
 	        cancelEdit(offer);
 	        
-	        System.out.println("Gespeichert: " + offer.getTitle());
-	        FacesMessage m = new FacesMessage("Succesfully saved!","id " + offer.getId());
+	        FacesMessage m = new FacesMessage("Erfolgreich aktualisiert!","");
 			FacesContext.getCurrentInstance().addMessage("offerForm", m);
 		} catch (Exception e) {
 			System.out.println(" ex @{0}" + e);
@@ -132,7 +128,7 @@ public class OffersController implements Serializable {
     		selectedOffer.setBuyer_ratingstars(Integer.parseInt(selectedStars));			   	
 			try {
 				itemDAO.updateItem(selectedOffer);				
-				FacesMessage m = new FacesMessage("Erfolgreich bewertet!");
+				FacesMessage m = new FacesMessage("Erfolgreich bewertet!", "");
 				FacesContext.getCurrentInstance().addMessage("offerForm", m);
 			} catch (Exception e) {
 				e.printStackTrace();

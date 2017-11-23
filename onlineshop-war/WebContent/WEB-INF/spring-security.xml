@@ -16,12 +16,11 @@
 		<intercept-url pattern="/offers.jsf" access="isAuthenticated()"/>
 		<intercept-url pattern="/purchase.jsf" access="isAuthenticated()"/>
 		<intercept-url pattern="/sell.jsf" access="isAuthenticated()"/>
-		
-		<!-- hasAnyRole('ROLE_USER', 'ROLE_ADMIN') -->
+				
 		<intercept-url pattern="/category.jsf" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/condition.jsf" access="hasRole('ROLE_ADMIN')"/>
-		
-		<!-- <intercept-url pattern="/welcome.jsf" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" /> -->		
+		<!-- hasAnyRole('ROLE_USER', 'ROLE_ADMIN') -->
+				
 		<form-login 
 			login-page="/login.jsf" 
 			login-processing-url="/j_spring_security_check" 

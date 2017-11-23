@@ -5,82 +5,82 @@
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-	<ui:define name="content">
-	
-		<div class="row">
+<ui:define name="content">
 
-			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+	<div class="row">
 
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><h:outputText value="#{msg['sell']}"/></h3>
-					</div>
-					<div class="panel-body">					
-						<h:form id="sellForm" enctype="multipart/form-data">					
-							<div class="col-sm-12">
-								<h:message for="sellForm" showSummary="true" styleClass="bg-success"/>
-								<div class="row">
-									<div class="col-sm-4 form-group">
-										<h:outputLabel value="#{msg['item_category']}:"/>
-										<h:selectOneMenu value="#{sellController.selectedCategory}">
-											<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
-											<f:selectItems value="#{sellController.categories}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
-										</h:selectOneMenu>
-									</div>
-									<div class="col-sm-4 form-group">
-										<h:outputLabel value="#{msg['item_condition']}:"/>
-										<h:selectOneMenu value="#{sellController.selectedCondition}" >
-								            <f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
-								            <f:selectItems value="#{sellController.conditions}" var="condition" itemValue="#{condition.id}" itemLabel="#{condition.description}"/>
-										</h:selectOneMenu>
-									</div>
+		<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title"><h:outputText value="#{msg['sell']}"/></h3>
+				</div>
+				<div class="panel-body">					
+					<h:form id="sellForm" enctype="multipart/form-data">					
+						<div class="col-sm-12">
+							<h:message for="sellForm" showSummary="true" styleClass="bg-success"/>
+							<div class="row">
+								<div class="col-sm-4 form-group">
+									<h:outputLabel value="#{msg['item_category']}:"/>
+									<h:selectOneMenu value="#{sellController.selectedCategory}">
+										<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
+										<f:selectItems value="#{sellController.categories}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
+									</h:selectOneMenu>
+								</div>
+								<div class="col-sm-4 form-group">
+									<h:outputLabel value="#{msg['item_condition']}:"/>
+									<h:selectOneMenu value="#{sellController.selectedCondition}" >
+							            <f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
+							            <f:selectItems value="#{sellController.conditions}" var="condition" itemValue="#{condition.id}" itemLabel="#{condition.description}"/>
+									</h:selectOneMenu>
+								</div>
+							</div>	
+											
+							<div class="row">
+								<div class="col-sm-8 form-group">
+									<h:outputLabel value="#{msg['item_title']}:"/>
+									<h:inputText id="title" class="form-control"
+												 value="#{sellController.item.title}"
+												 p:placeholder="#{msg['item_title_placeholder']}" 
+												 required="true" requiredMessage="#{msg['error_title_required']}"/>
+									<h:message for="title" styleClass="bg-danger"/>
 								</div>	
-												
-								<div class="row">
-									<div class="col-sm-8 form-group">
-										<h:outputLabel value="#{msg['item_title']}:"/>
-										<h:inputText id="title" class="form-control"
-													 value="#{sellController.item.title}"
-													 p:placeholder="#{msg['item_title_placeholder']}" 
-													 required="true" requiredMessage="#{msg['error_title_required']}"/>
-										<h:message for="title" styleClass="bg-danger"/>
-									</div>	
-									<div class="col-sm-4 form-group">
-										<h:outputLabel value="#{msg['item_price']}:"/>
-										<h:inputText id="price" class="form-control"
-													 value="#{sellController.item.price}"
-													 p:placeholder="#{msg['item_price_placeholder']}"
-													 required="true" requiredMessage="#{msg['error_price_required']}"/>
-										<h:message for="price" styleClass="bg-danger"/>			 
-									</div>		
-								</div>
-																
-								<div class="form-group">
-									<h:outputLabel value="#{msg['item_description']}:"/>
-									<h:inputTextarea id="description" rows="3" class="form-control"
-													 value="#{sellController.item.description}" 
-													 p:placeholder="#{msg['item_description_placeholder']}"
-													 required="true" requiredMessage="#{msg['error_description_required']}"/>
-									<h:message for="description" styleClass="bg-danger"/>		
-								</div>
-																
-								<div class="form-group">
-									<h:outputLabel value="#{msg['item_foto']}:"/>
-									<h:inputFile id="file" value="#{sellController.file}">
-				                    	<!-- <f:validator validatorId="fileValidator"/> -->
-					                 </h:inputFile>            
-					                 <h:message for="file"/>
-								</div>
+								<div class="col-sm-4 form-group">
+									<h:outputLabel value="#{msg['item_price']}:"/>
+									<h:inputText id="price" class="form-control"
+												 value="#{sellController.item.price}"
+												 p:placeholder="#{msg['item_price_placeholder']}"
+												 required="true" requiredMessage="#{msg['error_price_required']}"/>
+									<h:message for="price" styleClass="bg-danger"/>			 
+								</div>		
+							</div>
+															
+							<div class="form-group">
+								<h:outputLabel value="#{msg['item_description']}:"/>
+								<h:inputTextarea id="description" rows="3" class="form-control"
+												 value="#{sellController.item.description}" 
+												 p:placeholder="#{msg['item_description_placeholder']}"
+												 required="true" requiredMessage="#{msg['error_description_required']}"/>
+								<h:message for="description" styleClass="bg-danger"/>		
+							</div>
+															
+							<div class="form-group">
+								<h:outputLabel value="#{msg['item_foto']}:"/>
+								<h:inputFile id="file" value="#{sellController.file}">
+			                    	<!-- <f:validator validatorId="fileValidator"/> -->
+				                 </h:inputFile>            
+				                 <h:message for="file"/>
+							</div>
 
-								<h:commandLink class="btn btn-success" action="#{sellController.persist()}">
-						 			<span class="glyphicon glyphicon-save"></span> #{msg['sell']}
-						 		</h:commandLink>
-	
-							</div>							
-						</h:form>				
-					</div>
-				</div>			
-			</div>
+							<h:commandLink class="btn btn-success" action="#{sellController.persist()}">
+					 			<span class="glyphicon glyphicon-save"></span> #{msg['sell']}
+					 		</h:commandLink>
+
+						</div>							
+					</h:form>				
+				</div>
+			</div>			
 		</div>
-	</ui:define>
+	</div>
+</ui:define>
 </ui:composition>
