@@ -38,6 +38,7 @@ public class RegisterController implements Serializable {
 	
 	public void persist() {
 		try {
+			customer.setRole("ROLE_USER"); 
 			userDAO.insertCustomer(customer);
 			
 			FacesMessage m = new FacesMessage("Erfolgreich registriert!");

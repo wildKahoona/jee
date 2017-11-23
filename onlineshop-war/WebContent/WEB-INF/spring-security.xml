@@ -10,13 +10,16 @@
     <http use-expressions="true">
 		<csrf disabled="true" />
 		
+		<access-denied-handler error-page="/403.jsf" />
+		
 		<intercept-url pattern="/address.jsf" access="isAuthenticated()"/>
 		<intercept-url pattern="/offers.jsf" access="isAuthenticated()"/>
 		<intercept-url pattern="/purchase.jsf" access="isAuthenticated()"/>
 		<intercept-url pattern="/sell.jsf" access="isAuthenticated()"/>
 		
-		<intercept-url pattern="/category.jsf" access="isAuthenticated()"/>
-		<intercept-url pattern="/condition.jsf" access="isAuthenticated()"/>
+		<!-- hasAnyRole('ROLE_USER', 'ROLE_ADMIN') -->
+		<intercept-url pattern="/category.jsf" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/condition.jsf" access="hasRole('ROLE_ADMIN')"/>
 		
 		<!-- <intercept-url pattern="/welcome.jsf" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" /> -->		
 		<form-login 
@@ -41,18 +44,12 @@
 	</beans:bean>
    
     <authentication-manager>
-<!--         <authentication-provider>
-            <user-service>
-                <user name="user1" password="12345" authorities="ROLE_USER" />
-                <user name="admin1" password="12345" authorities="ROLE_USER, ROLE_ADMIN" />
-            </user-service>
-        </authentication-provider> -->
- 
+
         <!-- authentication from database -->
  		<authentication-provider>
             <jdbc-user-service data-source-ref="dbSource"
-                users-by-username-query="select email, password,1 from onlineshop.customer where email=?"
-                authorities-by-username-query="Select email, 'ROLE_USER' from onlineshop.customer where email=?" />
+                users-by-username-query="select email, password, 1 from onlineshop.customer where email=?"
+                authorities-by-username-query="Select email, role from onlineshop.customer where email=?" />
         </authentication-provider>
     </authentication-manager>
  
