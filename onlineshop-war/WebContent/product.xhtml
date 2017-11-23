@@ -30,16 +30,16 @@
                 </div>             
                 <ul class="list-group">               
 					<c:forEach var="cat" items="#{productController.categories}">
-						 		<h:commandLink action="#{productController.filterItems(cat)}"
-						 					   class="list-group-item">
-							 		<h:outputText value="#{cat.description}"/>
-							 		<span class="pull-right">
-							 			#{fn:length(cat.items)}
-							 		</span>
-							 		<!-- Funktioniert nicht so wie gewünscht
-							 		<f:ajax execute="productForm" render=":productForm" /> 
-							 		-->
-								</h:commandLink> 
+				 		<h:commandLink action="#{productController.filterItems(cat)}"
+				 					   class="list-group-item">
+					 		<h:outputText value="#{cat.description}"/>
+					 		<span class="pull-right">
+					 			<h:outputText value="#{fn:length(cat.items)}"/>
+					 		</span>
+					 		<!-- Funktioniert nicht so wie gewünscht
+					 		<f:ajax execute="productForm" render=":productForm" /> 
+					 		-->
+						</h:commandLink> 
 					</c:forEach>                     
                 </ul>
             </div>
@@ -73,8 +73,9 @@
 				                    	<f:ajax render=":dialog-detail-form"/>
 				                    </h:commandLink>
 								</h4>						
-								<p>
-									<h:outputText value="#{fn:substring(item.description, 0, 40)}..." />
+								<p class="limit_text">
+									<h:outputText value="#{item.description}" />
+									<!-- <h:outputText value="#{fn:substring(item.description, 0, 35)}..." /> -->
 								</p>
 														
 								<div class="ratings">

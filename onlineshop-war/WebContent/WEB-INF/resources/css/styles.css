@@ -45,9 +45,19 @@ html,body {
 	width: 100px;
 }
 
-input:not([type='image']), textarea {
-  width: 200px;
+.limit_text {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   line-height: 16px;     /* fallback */
+   max-height: 32px;      /* fallback */
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
 }
+
+/* input:not([type='image']), textarea {
+  width: 200px;
+} */
 
 /* Produkte darstellen */
 .shape{    
@@ -120,7 +130,9 @@ input:not([type='image']), textarea {
 
 .img-container img {
   object-fit: cover;
-  width: 200px;
+  max-height: 150px;
+  overflow: hidden;
+  /* max-width:100%; */
 } 
 
 
