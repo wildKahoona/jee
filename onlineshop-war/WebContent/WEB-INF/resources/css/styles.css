@@ -129,7 +129,7 @@ html,body {
 }
 
 .img-container img {
-  object-fit: cover;
+/*   object-fit: cover; */
   max-height: 150px;
   overflow: hidden;
   /* max-width:100%; */
