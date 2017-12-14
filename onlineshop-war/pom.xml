@@ -5,7 +5,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   <modelVersion>4.0.0</modelVersion>
   <groupId>ffhs.onlineshop</groupId>
   <artifactId>onlineshop-war</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Onlineshop</name>
   <url>http://maven.apache.org</url>
@@ -57,30 +57,25 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		</dependency>
 		
 		<!-- Spring security dependencies -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-        <dependency>
+		<dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
             <version>${spring.security.version}</version>
-        </dependency>
-        <dependency>
+        </dependency>       
+		<dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
             <version>${spring.security.version}</version>
-        </dependency>    
+        </dependency>   
         <dependency>
-	       <groupId>org.springframework.security</groupId>
-	       <artifactId>spring-security-taglibs</artifactId>
-	       <version>${spring.security.version}</version>
-	   </dependency>
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-acl</artifactId>
-		    <version>${spring.security.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+		    <groupId>org.springframework.webflow</groupId>
+		    <artifactId>spring-faces</artifactId>
+		    <version>2.4.6.RELEASE</version>
 		</dependency>
         
   </dependencies> 

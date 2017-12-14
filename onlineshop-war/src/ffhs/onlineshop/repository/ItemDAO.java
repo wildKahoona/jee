@@ -68,15 +68,15 @@ public class ItemDAO implements Serializable{
 		return null;
     }
  
-    public List<Item> getItemsByCategory(Category category) {
-    	if(category == null) return new ArrayList<Item>();
-    	
-    	EntityManager em = emf.createEntityManager();
-    	TypedQuery<Item> query = em.createQuery(
-    			"SELECT i FROM Item i WHERE i.category= :category", Item.class);
-		query.setParameter("category", category);
-		return query.getResultList();
-    }
+//    public List<Item> getItemsByCategory(Category category) {
+//    	if(category == null) return new ArrayList<Item>();
+//    	
+//    	EntityManager em = emf.createEntityManager();
+//    	TypedQuery<Item> query = em.createQuery(
+//    			"SELECT i FROM Item i WHERE i.category= :category", Item.class);
+//		query.setParameter("category", category);
+//		return query.getResultList();
+//    }
     
     /**
      * get purchase by customer

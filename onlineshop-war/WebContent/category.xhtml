@@ -22,18 +22,21 @@
 						<h:message for="categoryForm" showSummary="true" styleClass="bg-success"/>
 	 
 						<div class="form-group"> 
-							<h:outputLabel for="description" value="#{msg['new_category']}:"/>																		
+							<h:outputLabel for="description" value="#{msg['new_category']}:*"/>																		
 							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
+								<span class="input-group-addon">
+									<i class="fa fa-file-o" aria-hidden="true"></i>
+								</span>
 								<h:inputText id="adddescription" class="form-control" 
 											 value="#{categoryController.description}" 
 											 p:placeholder="#{msg['description.placeholder']}" 
-											 required="true" requiredMessage="#{msg['error_description_required']}"/>
+											 required="true" 
+											 requiredMessage="#{msg['error_description_required']}"/>
 								<span class="input-group-btn">
 									<h:commandLink action="#{categoryController.add}"
 								 				   class="btn btn-success">
 									 	<span class="glyphicon glyphicon-plus"></span> #{msg['add']}
-									 	<f:ajax execute="categoryForm" render="@form"/>
+									 	<f:ajax execute="adddescription" render="adddescription categoryTable" />
 									 </h:commandLink>
 								</span>																								
 							</div>
@@ -48,7 +51,7 @@
 						        <f:facet name="header">
 				    			   <h:commandLink value="#{msg['category']}" 
 				    			   				  action="#{categoryController.sortByDescription}">
-				    			   		<f:ajax render="categoryForm:categoryTable" />
+				    			   		<f:ajax execute="categoryTable" render="categoryTable" />
 				    			   </h:commandLink>
 				    			</f:facet>			
 						        <h:inputText id="description" value="#{cat.description}" rendered="#{cat.editable}" 
@@ -62,21 +65,21 @@
 				                			   class="btn btn-primary btn-xs"
 				                			   rendered="#{not cat.editable}">
 				                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
-									<f:ajax render="categoryForm:categoryTable"/>
+									<f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable" />
 				                </h:commandLink>
 				                
 				                <h:commandLink action="#{categoryController.update(cat)}" 
 				                			   class="btn btn-success btn-xs"
 				                			   rendered="#{cat.editable}">
 				                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
-				                    <f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable"/> 
+				                    <f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable" />
 				                </h:commandLink>
 				                 
 				                <h:commandLink action="#{categoryController.cancelEdit(cat)}" 
 				                			   class="btn btn-default btn-xs"
 				                			   rendered="#{cat.editable}" >
 				                	<span class="glyphicon glyphicon-remove"></span> #{msg['cancel']}
-				                    <f:ajax render="categoryForm:categoryTable"/>
+				                    <f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable" />
 				                </h:commandLink>
 				            </h:column>
 				            			               
@@ -86,7 +89,7 @@
 				                			   action="#{categoryController.remove(cat)}"
 				                               onclick="return confirm('#{msg['deleteQuestion']}')">
 				                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
-				                    <f:ajax render="categoryForm:categoryTable"/>
+				                    <f:ajax execute="categoryForm:categoryTable" render="categoryForm:categoryTable"/>
 				                </h:commandLink>
 				            </h:column>
 						</h:dataTable>

@@ -19,7 +19,8 @@
 				     <c:if test="${param.error == 'true'}">
 				         <div style="color:red;margin:10px 0px;">
 				                <h:outputText value="#{msg['login_failed']}"/><br/>
-				                <h:outputText value="#{msg['login_failed_reason']}"/>:  ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}    
+				                <h:outputText value="#{msg['login_failed_reason']}"/>
+				                :  ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}    
 				         </div>
 				    </c:if>
 				    
@@ -32,10 +33,12 @@
 					<form class="form-signin" action="j_spring_security_check" method="POST">
 				
 						<div class="form-group"> 
-							<h:outputLabel value="#{msg['email']}:"/>
+							<h:outputLabel value="#{msg['email']}:*"/>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<span class="input-group-addon">
+										<i class="fa fa-user fa" aria-hidden="true"></i>
+									</span>
 									<h:inputText id="j_username" name="j_username" class="form-control" 
 												 p:placeholder="#{msg['email.placeholder']}" 
 												 required="true"/>
@@ -44,17 +47,24 @@
 						</div>
 						
 						<div class="form-group">
-						 	<h:outputLabel value="#{msg['password']}:"/>
+						 	<h:outputLabel value="#{msg['password']}:*"/>
 						 	<div class="cols-sm-10">
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-						 			<h:inputSecret id="j_password" name="j_password" class="form-control" p:placeholder="#{msg['password.placeholder']}" required="true"/>
+									<span class="input-group-addon">
+										<i class="fa fa-lock fa-lg" aria-hidden="true"></i>
+									</span>
+						 			<h:inputSecret id="j_password" 
+						 						   name="j_password" 
+						 						   class="form-control" 
+						 						   p:placeholder="#{msg['password.placeholder']}" 
+						 						   required="true"/>
 						 		</div>
 						 	</div>
 						</div>
 						 											    
 					   <button class="btn btn-primary col-md-4">
-						    <span class="glyphicon glyphicon-log-in"></span> <h:outputText value="#{msg['signin']}"/>
+						    <span class="glyphicon glyphicon-log-in">
+						    </span> <h:outputText value="#{msg['signin']}"/>
 						</button>
 					  
 					</form> 

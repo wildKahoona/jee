@@ -39,8 +39,8 @@ public class CategoryController implements Serializable {
 	    	Category newCategory = new Category();
 	    	newCategory.setDescription(description);
 	    	categoryList.add(newCategory);
-	    	setDescription("");
 	    	categoryDAO.addCategory(newCategory);
+	    	setDescription("");
 	        FacesMessage m = new FacesMessage("Erfolgreich hinzugefügt!");
     		FacesContext.getCurrentInstance().addMessage("categoryForm", m);
 		} catch (Exception e) {

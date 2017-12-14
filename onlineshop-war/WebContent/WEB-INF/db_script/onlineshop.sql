@@ -126,3 +126,4 @@ INSERT into onlineshop.condition (description) values ('Defekt');
 INSERT into onlineshop.CUSTOMER (role, firstname, lastname, street, zip, city, country, email, password) values ('ROLE_ADMIN', 'Admin', 'Admin', 'Adminstrasse 1', 8080, 'Zürich', 'CH', 'admin@gmx.ch', '123456');
 
 COMMIT;
+

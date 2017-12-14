@@ -47,7 +47,6 @@ public class ProductController implements Serializable {
 	
     @PostConstruct
     public void init() {
-    	System.out.println("!!! Products INIT !!!");
     	setCategories(getAllCatagories());
     	setAllItems(findAll());
     	setItems(getAllItems());
@@ -75,7 +74,7 @@ public class ProductController implements Serializable {
 			}		
 			return items;
 		} catch (Exception e) {
-			System.out.println("Error findAll Items!!! " + e.getMessage());
+			System.out.println(" ex @{0}" + e);
 			e.printStackTrace();
 		}	
 		return new ArrayList<Item>();
@@ -85,7 +84,7 @@ public class ProductController implements Serializable {
 		try {
 			return categoryDAO.findAll();
 		} catch (Exception e) {
-			System.out.println("Error getAllCatagories!!! " + e.getMessage());
+			System.out.println(" ex @{0}" + e);
 			e.printStackTrace();
 		}	
 		return new ArrayList<Category>();

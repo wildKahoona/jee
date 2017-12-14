@@ -53,7 +53,6 @@ public class CategoryDAO implements Serializable{
             ut.commit();
         } catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("ERROR Speichere Category: " + e.getMessage());
         } finally {
 //            em.close();
         }

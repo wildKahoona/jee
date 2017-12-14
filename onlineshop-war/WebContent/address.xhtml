@@ -19,7 +19,7 @@
 							<h:message for="addressForm" showSummary="true" redisplay="false" styleClass="bg-success"/>
 							<div class="row">
 								<div class="col-sm-6 form-group">
-									<h:outputLabel value="#{msg['firstname']}:"/>
+									<h:outputLabel value="#{msg['firstname']}:*"/>
 									<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
 										<br/><h:outputText value="#{addressController.customer.firstname}"/>
 									</h:panelGroup>										
@@ -31,7 +31,7 @@
 									<h:message for="firstname" styleClass="bg-danger"/>
 								</div>
 								<div class="col-sm-6 form-group">
-									<h:outputLabel value="#{msg['lastname']}:"/>
+									<h:outputLabel value="#{msg['lastname']}:*"/>
 									<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
 										<br/><h:outputText value="#{addressController.customer.lastname}"/>
 									</h:panelGroup>
@@ -45,7 +45,7 @@
 							</div>	
 											
 							<div class="form-group">
-								<h:outputLabel value="#{msg['street']}:"/>
+								<h:outputLabel value="#{msg['street']}:*"/>
 								<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
 									<br/><h:outputText value="#{addressController.customer.street}"/>
 								</h:panelGroup>
@@ -59,7 +59,7 @@
 							
 							<div class="row">
 								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['zip']}:"/>
+									<h:outputLabel value="#{msg['zip']}:*"/>
 									<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
 										<br/><h:outputText value="#{addressController.customer.zip}"/>
 									</h:panelGroup>
@@ -71,7 +71,7 @@
 									<h:message for="zip" styleClass="bg-danger"/>
 								</div>	
 								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['city']}:"/>
+									<h:outputLabel value="#{msg['city']}:*"/>
 									<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
 										<br/><h:outputText value="#{addressController.customer.city}"/>
 									</h:panelGroup>
@@ -83,7 +83,7 @@
 									<h:message for="city" styleClass="bg-danger"/>
 								</div>	
 								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['country']}:"/>
+									<h:outputLabel value="#{msg['country']}:*"/>
 									<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
 										<br/><h:outputText value="#{addressController.customer.country}"/>
 									</h:panelGroup>
@@ -97,7 +97,7 @@
 							</div>
 
 							<div class="form-group">
-								<h:outputLabel value="#{msg['email']}:"/>
+								<h:outputLabel value="#{msg['email']}:*"/>
 								<h:panelGroup layout="block" rendered="#{not addressController.customer.editable}">
 									<br/><h:outputText value="#{addressController.customer.email}"/>
 								</h:panelGroup>

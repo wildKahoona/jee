@@ -34,7 +34,7 @@
 									<h:commandLink action="#{conditionController.add}"
 									 			   class="btn btn-success">
 									 	<span class="glyphicon glyphicon-plus"></span> #{msg['add']}
-									 	<f:ajax execute="conditionForm" render="@form" />
+									 	<f:ajax execute="adddescription" render="adddescription conditionTable" />
 									 </h:commandLink>												
 								</span>
 							</div>
@@ -49,7 +49,7 @@
 						        <f:facet name="header">
 				    			   <h:commandLink value="#{msg['condition']}"
 				    			   				  action="#{conditionController.sortByDescription}">
-				    			   		<f:ajax render="conditionForm:conditionTable" />
+				    			   		<f:ajax execute="conditionForm:conditionTable" render="conditionForm:conditionTable" />
 				    			   </h:commandLink>
 				    			</f:facet>
 						        <h:inputText id="description" value="#{con.description}" rendered="#{con.editable}" 
@@ -63,21 +63,21 @@
 				                			   class="btn btn-primary btn-xs"
 				                			   rendered="#{not con.editable}">
 				                	<span class="glyphicon glyphicon-pencil"></span> #{msg['edit']}
-									<f:ajax render="conditionForm:conditionTable"/>
+									<f:ajax execute="conditionForm:conditionTable" render="conditionForm:conditionTable" />
 				                </h:commandLink>
 				                
 				                <h:commandLink action="#{conditionController.update(con)}" 
 				                			   class="btn btn-success btn-xs"
 				                			   rendered="#{con.editable}">
 				                	<span class="glyphicon glyphicon-save"></span> #{msg['save']}
-				                    <f:ajax execute="conditionForm:conditionTable" render="conditionForm:conditionTable"/> 
+				                    <f:ajax execute="conditionForm:conditionTable" render="conditionForm:conditionTable" />
 				                </h:commandLink>
 				                 
 				                <h:commandLink action="#{conditionController.cancelEdit(con)}"
 				                			   class="btn btn-default btn-xs"
 				                			   rendered="#{con.editable}" >
 				                	<span class="glyphicon glyphicon-remove"></span> #{msg['cancel']}
-				                    <f:ajax render="conditionForm:conditionTable" />
+				                    <f:ajax execute="conditionForm:conditionTable" render="conditionForm:conditionTable" />
 				                </h:commandLink>
 				                
 				            </h:column>
@@ -88,7 +88,7 @@
 				                			   action="#{conditionController.remove(con)}"
 				                               onclick="return confirm('#{msg['deleteQuestion']}')">
 				                    <span class="glyphicon glyphicon-trash"></span> #{msg['delete']}
-				                    <f:ajax render="conditionForm:conditionTable" />
+				                    <f:ajax execute="conditionForm:conditionTable" render="conditionForm:conditionTable" />
 				                </h:commandLink>
 				            </h:column>
 						</h:dataTable>

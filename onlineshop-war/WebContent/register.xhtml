@@ -51,7 +51,7 @@
 								<h:outputLabel value="#{msg['zip']}:*"/>
 								<h:inputText  id="zip" class="form-control"
 											  value="#{registerController.customer.zip}" 
-											  placeholder="#{msg['zip.placeholder']}"
+											  p:placeholder="#{msg['zip.placeholder']}"
 											  required="true" requiredMessage="#{msg['error_zip_required']}"/>
 								<h:message for="zip" styleClass="bg-danger"/>
 							</div>	
@@ -59,7 +59,7 @@
 								<h:outputLabel value="#{msg['city']}:*"/>
 								<h:inputText  id="city" class="form-control" 
 											  value="#{registerController.customer.city}" 
-											  placeholder="#{msg['city.placeholder']}"
+											  p:placeholder="#{msg['city.placeholder']}"
 											  required="true" requiredMessage="#{msg['error_city_required']}"/>
 								<h:message for="city" styleClass="bg-danger"/>
 							</div>	
@@ -67,7 +67,7 @@
 								<h:outputLabel value="#{msg['country']}:*"/>
 								<h:inputText id="country" class="form-control"
 											 value="#{registerController.customer.country}" 
-											 placeholder="#{msg['country.placeholder']}"
+											 p:placeholder="#{msg['country.placeholder']}"
 											 required="true" requiredMessage="#{msg['error_country_required']}"/>
 								<h:message for="country" styleClass="bg-danger"/>
 							</div>									

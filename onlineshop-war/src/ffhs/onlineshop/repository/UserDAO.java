@@ -27,25 +27,25 @@ public class UserDAO implements Serializable{
 		return em.find(Customer.class,customerId);
 	}
 	
-    /**
-     * get customer by email
-     * 
-     * @param email
-     * @return
-     * @throws SQLException
-     */
-    public String getCustomerByLogin(String email) {
-    	EntityManager em = emf.createEntityManager();
-		TypedQuery<Customer> query = em.createQuery(
-			"SELECT c FROM Customer c WHERE c.email= :email ", Customer.class);
-		query.setParameter("email", email);
-		List<Customer> list = query.getResultList();
-		if(list != null && list.size() > 0) {
-			String password = list.get(0).getPassword();
-            return password;
-		}		
-		return null;
-    }
+//    /**
+//     * get customer by email
+//     * 
+//     * @param email
+//     * @return
+//     * @throws SQLException
+//     */
+//    public String getCustomerByLogin(String email) {
+//    	EntityManager em = emf.createEntityManager();
+//		TypedQuery<Customer> query = em.createQuery(
+//			"SELECT c FROM Customer c WHERE c.email= :email ", Customer.class);
+//		query.setParameter("email", email);
+//		List<Customer> list = query.getResultList();
+//		if(list != null && list.size() > 0) {
+//			String password = list.get(0).getPassword();
+//            return password;
+//		}		
+//		return null;
+//    }
 
     public Customer findUser(String email) {
     	EntityManager em = emf.createEntityManager();

@@ -21,14 +21,14 @@
 							<h:message for="sellForm" showSummary="true" styleClass="bg-success"/>
 							<div class="row">
 								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['item_category']}:"/>
+									<h:outputLabel value="#{msg['item_category']}:*"/>
 									<h:selectOneMenu value="#{sellController.selectedCategory}">
 										<f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
 										<f:selectItems value="#{sellController.categories}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
 									</h:selectOneMenu>
 								</div>
 								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['item_condition']}:"/>
+									<h:outputLabel value="#{msg['item_condition']}:*"/>
 									<h:selectOneMenu value="#{sellController.selectedCondition}" >
 							            <f:selectItem itemValue="-1" itemLabel="#{msg['default_choice']}"/>
 							            <f:selectItems value="#{sellController.conditions}" var="condition" itemValue="#{condition.id}" itemLabel="#{condition.description}"/>
@@ -38,7 +38,7 @@
 											
 							<div class="row">
 								<div class="col-sm-8 form-group">
-									<h:outputLabel value="#{msg['item_title']}:"/>
+									<h:outputLabel value="#{msg['item_title']}:*"/>
 									<h:inputText id="title" class="form-control"
 												 value="#{sellController.item.title}"
 												 p:placeholder="#{msg['item_title_placeholder']}" 
@@ -46,7 +46,7 @@
 									<h:message for="title" styleClass="bg-danger"/>
 								</div>	
 								<div class="col-sm-4 form-group">
-									<h:outputLabel value="#{msg['item_price']}:"/>
+									<h:outputLabel value="#{msg['item_price']}:*"/>
 									<h:inputText id="price" class="form-control"
 												 value="#{sellController.item.price}"
 												 p:placeholder="#{msg['item_price_placeholder']}"
@@ -56,7 +56,7 @@
 							</div>
 															
 							<div class="form-group">
-								<h:outputLabel value="#{msg['item_description']}:"/>
+								<h:outputLabel value="#{msg['item_description']}:*"/>
 								<h:inputTextarea id="description" rows="3" class="form-control"
 												 value="#{sellController.item.description}" 
 												 p:placeholder="#{msg['item_description_placeholder']}"
